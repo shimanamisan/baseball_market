@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
 
-  <head>
-    <meta charset="utf-8">
-    <title>HOME | BASEBALL ITEM</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-  </head>
+  // 共通関数を読み込み
+
+
+?>
+<?php
+  $siteTitle = 'HOME';
+  require('head.php');
+?>
 
   <body class="page-home page-2colum">
 
-    <!-- メニュー -->
-    <div id="wrap">
-      <header id="header" class="header">
-        <div class="site-width header">
-          <h1><a href="index.html"><img src="img/logo/b-top_logo.png" alt=""></a></h1>
-          <div class="sub-title"><span>野球用品専門のフリーマーケットサイトです！</span></div>
-          <nav id="top-nav">
-            <ul>
-              <li><a href="signup.html" class="btn btn-primary u-radius"><i class="fas fa-user header-icon"></i>ユーザー登録</a></li>
-              <li class="header-login"><a href="login.html"><i class="fas fa-sign-in-alt header-icon"></i>ログイン</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    </div>
+    <!-- ヘッダー -->
+    <?php
+      require('header.php');
+    ?>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -33,12 +22,28 @@
       <!-- サイドバー -->
       <section id="sidebar">
         <form>
-          <h1 class="title">カテゴリー</h1>
+          <h1 class="title">メーカー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
             <select class=" u-under-margin" name="category">
-              <option value="1">パソコン</option>
-              <option value="2">スマホ</option>
+              <option value="1">ミズノ</option>
+              <option value="2">ZETT</option>
+              <option value="3">久保田スラッガー</option>
+              <option value="4">UNDER ARMOUR</option>
+              <option value="5">美津和タイガー</option>
+              <option value="6">HATAKEYAMA</option>
+            </select>
+          </div>
+          <h1 class="title">商品カテゴリー</h1>
+          <div class="selectbox">
+            <span class="icn_select"></span>
+            <select class=" u-under-margin" name="category">
+              <option value="1">グローブ</option>
+              <option value="2">スパイク</option>
+              <option value="3">バット</option>
+              <option value="4">ユニフォーム</option>
+              <option value="5">インナーウェア</option>
+              <option value="6">その他道具</option>
             </select>
           </div>
           <h1 class="title">表示順</h1>
@@ -58,7 +63,7 @@
       <section id="main" >
         <div class="search-title">
           <div class="search-left">
-            <span class="total-num">104</span>件の商品が見つかりました
+            <span class="total-num num">104</span>件の商品が見つかりました
           </div>
           <div class="search-right">
             <span class="num">1</span> - <span class="num">40</span>件 / <span class="num">104</span>件中
@@ -408,19 +413,6 @@
       <a href="#">TOP</a>
     </div>
 
-    <!-- footer -->
-    <footer>
-      <ul class="sitemap">
-        <li class="footer-item"><a href="">特定商取引法に基づく表記</a></li>
-        <li class="footer-item"><a href="">配送方法・送料について</a></li>
-        <li class="footer-item"><a href="">お支払い方法について</a></li>
-        <li class="footer-item"><a href="">プライバシーポリシー</a></li>
-        <li class="footer-item"><a href="">お問い合わせ</a></li>
-      </ul>
-      Copyright <a href="http://webukatu.com/">BASEBALL ITEM</a>. All Rights Reserved.
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-</html>
+<?php
+  require('footer.php');
+?>

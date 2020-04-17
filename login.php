@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-  <head>
-    <meta charset="utf-8">
-    <title>ログイン | WEBUKATU MARKET</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  </head>
+<?php
+  $siteTitle = 'HOME';
+  require('head.php');
+?>
 
   <body class="page-login page-1colum">
 
-    <!-- メニュー -->
-    <header>
-      <div class="site-width">
-        <h1><a href="index.html">WEBUKATU MARKET</a></h1>
-        <nav id="top-nav">
-          <ul>
-            <li><a href="signup.html" class="btn btn-primary">ユーザー登録</a></li>
-            <li><a href="">ログイン</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <!-- ヘッダー -->
+    <?php
+      require('header.php');
+    ?>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -58,12 +45,6 @@
 
     </div>
 
-    <!-- footer -->
-    <footer id="footer">
-      Copyright <a href="http://webukatu.com/">ウェブカツ!!WEBサービス部</a>. All Rights Reserved.
-    </footer>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-</html>
+<?php
+  require('footer.php');
+?>
