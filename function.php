@@ -119,7 +119,7 @@ function validEmailDup($email){
       $err_msg['email'] = MSG08;
     }
   }catch (Exception $e){
-    error_log('エラー発生:' . $e->getMessage());
+    error_log('エラー発生 validEmailDup():' . $e->getMessage());
     $err_msg['common'] = MSG07;
   }
 }
@@ -242,14 +242,17 @@ function isLogin(){ //関数の頭をisとしていたらtrueかfalseで返っ�
 //================================
 // データベース
 //================================
-//DB接続関数
+// DB接続関数
 function dbConnect(){
-  //DBへの接続準備
+  // DBへの接続準備
   $dsn = 'mysql:dbname=baseballitem;host=localhost;charset=utf8';
   $user = 'root';
   $password = '';
   $options = array(
     // SQL実行失敗時にはエラーコードのみ設定
+    // SQL実行時に例外を発生しないようにしている。emailをINSERTするときに関係してくる
+    // ユニークにしたカラムで重複したものを登録した場合やDB接続エラーの場合、例外処理などのエラー処理をしていないと
+    // エラー内容がユーザーにモロに見えてしまい、見た目もセキュリティ面でも良くない
     PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
     // デフォルトフェッチモードを連想配列形式に設定(https://www.php.net/manual/ja/pdostatement.fetch.php)
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -266,7 +269,7 @@ function dbConnect(){
 }
 
 function queryPost($dbh, $sql, $data){
-  // クエリー作成：オブジェクトが生成されているのでアロー演算子で関数を呼び出している
+  // クエリー作成：$dbhにPDOオブジェクトが入ってくるので、アロー演算子でオブジェクト内の関数を呼び出している
   $stmt = $dbh->prepare($sql);
   // プレースホルダに値をセットし、SQL文を実行
   // SQLの実行結果はtrue,falseで返ってくる

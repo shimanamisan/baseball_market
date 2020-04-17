@@ -42,6 +42,7 @@ if(!empty($_POST)){
     if(empty($err_msg)){
 
       // パスワードとパスワード再入力が合っているかチェック
+      // 上のvalidHalf()で半角数字のチェックを行っているので、ここで再度チェックする必要はない
       validMatch($pass, $pass_re, 'pass_re');
       
       //バリデーションエラーがない場合
@@ -52,7 +53,8 @@ if(!empty($_POST)){
           // DBへ接続
           $dbh = dbConnect();
           // SQL作成
-          $sql = 'INSERT INTO users (email,password,login_time,create_date) VALUES(:email,:pass,:login_time,:create_date)';
+          $sql = 'INSERT INTO users (email,password,login_time,create_date)
+                  VALUES(:email,:pass,:login_time,:create_date)';
           $data = array(':email' => $email, ':pass' => password_hash($pass, PASSWORD_DEFAULT),
                         ':login_time' => date('Y-m-d H:i:s'),
                         ':create_date' => date('Y-m-d H:i:s'));
@@ -79,7 +81,7 @@ if(!empty($_POST)){
           }
 
         }catch(Exception $e){
-          error_log('例外エラー発生：'. $e->getMessage());
+          error_log('：'. $e->getMessage());
           $err_msg['common'] = MSG07;
         }
 

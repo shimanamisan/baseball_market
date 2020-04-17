@@ -492,14 +492,18 @@ input[type="submit"] {
   margin: 15px 0;
   padding: 15px 30px;
   width: 100%;
-  border: none;
-  background: #333;
-  color: white;
+  color: #333;
+  border: 3px solid #333;
+  transition: all .3s ease;
 }
 
 select:hover,
 input[type="submit"]:hover {
   cursor: pointer;
+  background: #333;
+  color: #fff;
+  border: 3px solid #333;
+  transition: all .3s ease;
 }
 
 .form-container {
