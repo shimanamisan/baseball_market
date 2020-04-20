@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
 
-  <head>
-    <meta charset="utf-8">
-    <title>プロフィール編集 | WEBUKATU MARKET</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+// 共通関数を読み込み
 
-    <style>
-      
-    </style>
 
-  </head>
+
+
+
+?>
+
+<?php
+  $siteTitle = 'プロフィール編集';
+  require('head.php');
+?>
 
   <body class="page-profEdit page-2colum page-logined">
 
-    <!-- メニュー -->
-    <header>
-      <div class="site-width">
-        <h1><a href="index.html">WEBUKATU MARKET</a></h1>
-        <nav id="top-nav">
-          <ul>
-            <li><a href="mypage.html">マイページ</a></li>
-            <li><a href="">ログアウト</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <!-- ヘッダー -->
+    <?php
+      require('header.php');
+    ?>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">

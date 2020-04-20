@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
 
-  <head>
-    <meta charset="utf-8">
-    <title>パスワード変更 | WEBUKATU MARKET</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <style>
-      .form{
-        margin-top: 50px;
-      }
-    </style>
-  </head>
+// 共通関数を読み込み
+
+
+
+
+
+?>
+
+<?php
+  $siteTitle = 'パスワード変更';
+  require('head.php');
+?>
 
   <body class="page-passEdit page-2colum page-logined">
 
-    <!-- メニュー -->
-    <header>
-      <div class="site-width">
-        <h1><a href="index.html">WEBUKATU MARKET</a></h1>
-        <nav id="top-nav">
-          <ul>
-            <li><a href="mypage.html">マイページ</a></li>
-            <li><a href="">ログアウト</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <!-- ヘッダー -->
+    <?php
+      require('header.php');
+    ?>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -62,11 +54,11 @@
       
       <!-- サイドバー -->
       <section id="sidebar">
-        <a href="registProduct.html">商品を出品する</a>
-        <a href="tranSale.html">販売履歴を見る</a>
-        <a href="profEdit.html">プロフィール編集</a>
-        <a href="passEdit.html">パスワード変更</a>
-        <a href="withdraw.html">退会</a>
+        <a href="registProduct.php">商品を出品する</a>
+        <a href="tranSale.php">販売履歴を見る</a>
+        <a href="profEdit.php">プロフィール編集</a>
+        <a href="passEdit.php">パスワード変更</a>
+        <a href="withdraw.php">退会</a>
       </section>
       
     </div>
