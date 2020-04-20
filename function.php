@@ -274,7 +274,7 @@ function queryPost($dbh, $sql, $data){
   // プレースホルダに値をセットし、SQL文を実行
   // SQLの実行結果はtrue,falseで返ってくる
   if(!$stmt->execute($data)){
-    //PDOStatement::execute — プリペアドステートメントを実行する
+    //PDOStatement::execute：プリペアドステートメントを実行する
     debug('クエリ失敗しました ** queryPost関数 **');
     debug('失敗したSQL ** queryPost関数 **：'.print_r($stmt,true));
     debug('DBハンドラエラー：'.print_r($stmt->errorInfo(),true));

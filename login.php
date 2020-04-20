@@ -22,7 +22,7 @@ if(!empty($_POST)){
   // ショートハンド（省略法）とう書き方
   // チェックボックスは真偽値で入ってくる
   $pass_save = (!empty($_POST['pass_save'])) ? true : false ;
-  debug('チェックボックスの真偽値を確認 login.php' . print_r($_POST['pass_save']));
+  debug('チェックボックスの真偽値を確認 login.php' . ' : ' .$pass_save);
 
   // 未入力チェック
   validRequired($email, 'email');
@@ -56,19 +56,15 @@ if(!empty($_POST)){
       $stmt = queryPost($dbh, $sql, $data);
       // クエリ結果の値を取得
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-      // debug('クエリ結果の中身 login.php：'.print_r($result,true));
       
       // パスワード照合
+      //password_verify:ハッシュ化したパスワードと入力したパスワードを比べるための関数
       if(!empty($result) && password_verify($pass, array_shift($result))){
         debug('パスワードがマッチしました login.php');
-        //password_verify:ハッシュ化したパスワードと入力したパスワードを比べるための関数
-        
         //ログイン有効期限（デフォルトを１時間とする）
         $sesLimit = 60*60;
         // 最終ログイン日時を現在日時に
         $_SESSION['login_date'] = time();
-        
         // ログイン保持にチェックがある場合
         if($pass_save){
           debug('ログイン保持にチェックがあります login.php');
@@ -81,10 +77,12 @@ if(!empty($_POST)){
         }
         // ユーザーIDを格納
         $_SESSION['user_id'] = $result['id'];
-        
-        debug('セッション変数の中身だよ！！ login.php：'.print_r($_SESSION,true));
+        debug('セッション変数の中身 login.php：'.print_r($_SESSION,true));
         debug('マイページへ遷移します login.php');
-        header("Location:mypage.php"); //マイページへ
+        //マイページへ
+        header("Location:mypage.php");
+        exit;
+
       }else{
         debug('パスワードがアンマッチです login.php');
         $err_msg['common'] = MSG09;
@@ -96,10 +94,9 @@ if(!empty($_POST)){
     }
   }
 }
-
-
-
+debug(' **** 画面表示処理終了 **** signup.php');
 ?>
+
 <?php
   $siteTitle = 'HOME';
   require('head.php');

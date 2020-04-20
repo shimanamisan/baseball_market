@@ -71,7 +71,8 @@ if(!empty($_POST)){
             // ユーザーIDはDBに新規登録された際にオートインクリメントされて順に登録されていく
             // この時点ではどんなIDかわからないので、SQL文で拾ってもよいが効率が悪い
             // dbConnect()した際にPDOオブジェクトを取ってきているのでそれを使う
-            // そのオブジェクトの中のまとまった処理の関数（メソッド）でlastInsertId()というものがあるのでこれを呼び出して使う
+            // そのオブジェクトにlastInsertIdメソッド、というものがあるのでこれを呼び出して使う
+            // lastInsertIdメソッド：PDOで最後に登録したデータのIDを取得する
             // ここで取得したユーザーIDを$_SESSIONに連想配列で格納している
             $_SESSION['user_id'] = $dbh->lastInsertId();
 
@@ -93,12 +94,13 @@ if(!empty($_POST)){
         
         //SQL実行結果が成功の場合
         if($dbRst){
-          header("Location:mypage.html"); //マイページへ
+          header("Location:mypage.php"); //マイページへ
         }
       }
     }
   }
 }
+debug(' **** 画面表示処理終了 **** signup.php');
 
 ?>
 <?php

@@ -22,7 +22,7 @@ if(!empty($_SESSION['login_date'])){
         // 最終ログイン日時を現在に変更
         $_SESSIION['login_date'] = time();
 
-        // login.phpにアクセスしてきた場合に、マイページへ遷移させる
+        // login.phpにアクセスしてきた場合に、マイページへ遷移させる。ここの条件分岐がないと無限ループになってしまう
         // $_SERVER['PHP_SELF']はURLのパスを返す。さらにbasenameメソッドを使うことで「login.php」といったファイル名を抜粋する
         if(basename($_SERVER['PHP_SELF']) === 'login.php'){
             debug('アクセスしたパスを確認 auth.php：'. print_r($_SERVER['PHP_SELF']));

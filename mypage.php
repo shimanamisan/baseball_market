@@ -1,40 +1,35 @@
-<!DOCTYPE html>
-<html lang="ja">
+<?php
 
-  <head>
-    <meta charset="utf-8">
-    <title>マイページ | WEBUKATU MARKET</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <style>
-      #main{
-        border: none !important;
-      }
-    </style>
-  </head>
+// 共通関数を読み込み
+require('function.php');
+
+debug('===============================');
+debug('=== マイページ mypage.php ===');
+debug('===============================');
+debugLogStart();
+
+//ログイン認証
+require('auth.php');
+
+?>
+
+<?php
+  $siteTitle = 'パスワード変更';
+  require('head.php');
+?>
 
   <body class="page-mypage page-2colum page-logined">
 
-    <!-- メニュー -->
-    <div id="wrap">
-      <header id="header" class="header">
-        <div class="site-width header">
-          <h1><a href="index.html"><img src="img/logo/b-top_logo.png" alt=""></a></h1>
-          <div class="sub-title"><span>野球用品専門のフリーマーケットサイトです！</span></div>
-          <nav id="top-nav">
-            <ul>
-              <li><a href="signup.html" class="btn btn-primary u-radius"><i class="fas fa-user header-icon"></i>ユーザー登録</a></li>
-              <li class="header-login"><a href="login.html"><i class="fas fa-sign-in-alt header-icon"></i>ログイン</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    </div>
+    <!-- ヘッダー -->
+    <?php
+      require('header.php');
+    ?>
+
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
       
-      <h1 class="page-title">MYPAGE</h1>
+      <h1 class="page-title">マイページ</h1>
 
       <!-- Main -->
       <section id="main" >
@@ -160,11 +155,11 @@
       
       <!-- サイドバー -->
       <section id="sidebar">
-        <a href="registProduct.html">商品を出品する</a>
-        <a href="tranSale.html">販売履歴を見る</a>
-        <a href="profEdit.html">プロフィール編集</a>
-        <a href="passEdit.html">パスワード変更</a>
-        <a href="withdraw.html">退会</a>
+        <a href="registProduct.php">商品を出品する</a>
+        <a href="tranSale.php">販売履歴を見る</a>
+        <a href="profEdit.php">プロフィール編集</a>
+        <a href="passEdit.php">パスワード変更</a>
+        <a href="withdraw.php">退会</a>
       </section>
     </div>
 
