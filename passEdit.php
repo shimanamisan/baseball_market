@@ -1,7 +1,110 @@
 <?php
 
-// 共通関数を読み込み
+// 共通関数
+require('function.php');
 
+debug('************');
+debug('パスワード変更ページです');
+debug('************');
+debugLogStart();
+
+//ログイン認証
+require('auth.php');
+
+
+//===================
+//画面処理
+//===================
+//DBからユーザーデータを取得
+$userData = getUser($_SESSION['user_id']);
+debug('取得したユーザー情報はこれです：' . print_r($userData,true));
+
+//POST送信されていた場合
+if(!empty($_POST)){
+  debug('POST送信があります。');
+  debug('POST情報はこれです：' . print_r($_POST,true));
+
+    //変数にユーザー情報を代入
+    $pass_old = $_POST['pass_old'];
+    $pass_new = $_POST['pass_new'];
+    $pass_new_re = $_POST['pass_new_re'];
+
+    //未入力チェック
+    validRequired($pass_old, 'pass_old');
+    validRequired($pass_new, 'pass_new');
+    validRequired($pass_new_re, 'pass_new_re');
+
+    if(empty($err_msg)){
+      debug('バリデーションチェックOKです');
+
+      //古いパスワードのチェック
+      validPass($pass_old, 'pass_old');
+
+      //新しいパスワードのチェック
+      validPass($pass_new, 'pass_new');
+
+      //古いパスワードとDBパスワードを照合（DBに入っているデータと同じであれば、半角数字や最大文字数のチェックは行う必要はない）
+      if(!password_verify($pass_old, $userData['password'])){
+        $err_msg['pass_old'] = MSG12;
+      }
+
+      //新しいパスワードと古いパスワードが同じかチェック
+      if($pass_old === $pass_new){
+        $err_msg['pass_new'] = MSG13;
+      }
+
+        //パスワードとパスワード再入力が合っているかチェック
+        //ログイン画面では最大、最小チェックもしていたがパスワードの方でチェックしているので実は必要ない）
+        validMatch($pass_new, $pass_new_re, 'pass_new_re');
+
+        if(empty($err_msg)){
+          debug('****** バリデーションOK passEdit.php ******');
+
+          //例外処理
+          try{
+            //DBへ接続
+            $dbh = dbConnect();
+            //SQL文作成
+            $sql = 'UPDATE users SET password = :pass WHERE id = :id';
+            $data = array(':id' => $_SESSION['user_id'], ':pass' => password_hash($pass_new, PASSWORD_DEFAULT));
+            //クエリ実行
+            $stmt = queryPost($dbh, $sql, $data);
+
+            //クエリ成功の場合
+            if($stmt){
+              $_SESSION['msg_success'] = SUC01;
+
+              //メールを送信
+              $username = ($userData['username']) ? $userData['username'] : '名前無し';
+              $from = 'mikan.sup.all@gmail.com';
+              $to = $userData['email'];
+              $subject = 'パスワード変更通知 ｜　しまなみショップ';
+            //EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
+            //EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
+          $comment = <<<EOT
+{$username}　さん
+パスワードが変更されました。
+
+*********************
+しまなみショップカスタマーセンター
+URL：http://wwww.shimanamisan.com
+Email：info@shimanamisan.com
+*********************
+EOT;
+
+              sendMail($from, $to, $subject, $comment);
+
+              header("Location:mypage.php"); //マイページへ遷移
+      
+            }
+
+          }catch (Exceptoin $e){
+            error_log('エラー発生：' . $e->getMessage());
+            $err_msg['common'] = MSG07;
+      }
+    }
+  }
+}
 
 
 
@@ -9,16 +112,17 @@
 ?>
 
 <?php
-  $siteTitle = 'パスワード変更';
-  require('head.php');
-?>
+    $siteTitle = 'パスワード変更';
+    require('head.php');
+    ?>
 
-  <body class="page-passEdit page-2colum page-logined">
+   <body class="page-passEdit page-2colum page-logined">
 
     <!-- ヘッダー -->
     <?php
-      require('header.php');
+    require('header.php');
     ?>
+
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -26,25 +130,40 @@
       <!-- Main -->
       <section id="main" >
         <div class="form-container">
-          <form action="" class="form">
-           <div class="area-msg">
-             古いパスワードが正しくありません。<br>
-             新しいパスワードと新しいパスワード（再入力）が一致しません。<br>
-             新しいパスワードは半角英数字6文字以上で入力してください。<br>
-             パスワードが長すぎます。
-           </div>
-            <label>
-              古いパスワード
-              <input type="text" name="pass_old">
-            </label>
-            <label>
-              新しいパスワード
-              <input type="text" name="pass_new">
-            </label>
-            <label>
-              新しいパスワード（再入力）
-              <input type="text" name="pass_new_re">
-            </label>
+          <form action="" method="post" class="form">
+             <div class="area-msg">
+              <?php
+              echo getErrMsg('common');
+              ?>
+            </div><!-- area-msg -->
+              <label class="<?php if(!empty($err_msg['pass_old'])) echo 'err'; ?>">
+                古いパスワード
+                <input type="password" name="pass_old" value="<?php echo getFormData('pass_old'); ?>">
+              </label>    
+            <div class="area-msg">
+            <?php
+              echo getErrMsg('pass_old');
+              ?>
+            </div><!-- area-msg -->
+              <label class="<?php if(!empty($err_msg['pass_new'])) echo 'err'; ?>">
+                新しいパスワード
+                 <input type="password" name="pass_new" value="<?php echo getFormData('pass_new'); ?>">
+              </label>
+            <div class="area-msg">
+              <?php
+              echo getErrMsg('pass_new');
+              ?>
+            </div><!-- area-msg -->
+              <label class="<?php if(!empty($err_msg['pass_new_re'])) echo 'err'; ?>">
+                新しいパスワード（再入力）
+                <input type="password" name="pass_new_re" value="<?php echo getFormData('pass_new_re'); ?>">
+              </label>
+              <div class="area-msg">
+              <?php
+              echo getErrMsg('pass_new_re');
+              ?>
+            </div><!-- area-msg -->
+
             <div class="btn-container">
               <input type="submit" class="btn btn-mid" value="変更する">
             </div>
@@ -52,24 +171,14 @@
         </div>
       </section>
       
-      <!-- サイドバー -->
-      <section id="sidebar">
-        <a href="registProduct.php">商品を出品する</a>
-        <a href="tranSale.php">販売履歴を見る</a>
-        <a href="profEdit.php">プロフィール編集</a>
-        <a href="passEdit.php">パスワード変更</a>
-        <a href="withdraw.php">退会</a>
-      </section>
+        <!-- サイドバー -->
+      <?php
+      require('sidebar_mypage.php');    
+      ?>
       
     </div>
 
-    <!-- footer -->
-    <footer id="footer">
-      Copyright <a href="http://webukatu.com/">ウェブカツ!!WEBサービス部</a>. All Rights Reserved.
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="js/main.js"></script>
-
-  </body>
-</html>
+  <!-- footer -->
+  <?php
+  require('footer.php');    
+  ?>

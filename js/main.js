@@ -18,3 +18,12 @@ $(function(){
       // pc_menu_wrap.removeClass('js-scroll'); 
   }
 });
+
+function withdraw(){
+  var checked = confirm('本当に退会しますか？');
+  if(checked == true){
+    return true;
+  }else{
+    return false;
+  }
+}

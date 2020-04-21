@@ -131,7 +131,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
               ?>
             </div>
             <label class="<?php if(!empty($err_msg['email'])) echo 'err'; ?>">
-              Email
+            <span class="form-label">Email</span>
               <input type="text" name="email" value="<?php if(!empty($_POST['email'])) echo $_POST['email']; ?>">
             </label>
             <div class="area-msg">
@@ -140,7 +140,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
               ?>
             </div>
             <label class="<?php if(!empty($err_msg['pass'])) echo 'err'; ?>">
-              パスワード <span style="font-size:12px">※英数字6文字以上</span>
+            <span class="form-label">パスワード</span> <span style="font-size:12px">※英数字6文字以上</span>
               <input type="password" name="pass" value="<?php if(!empty($_POST['pass'])) echo $_POST['pass']; ?>">
             </label>
             <div class="area-msg">
@@ -149,7 +149,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
               ?>
             </div>  
             <label class="<?php if(!empty($err_msg['pass_re'])) echo 'err'; ?>">
-              パスワード（再入力）
+            <span class="form-label">パスワード（再入力）</span>
               <input type="password" name="pass_re" value="<?php if(!empty($_POST['pass_re'])) echo $_POST['pass_re']; ?>">
             </label>
             <div class="area-msg">
