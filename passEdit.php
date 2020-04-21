@@ -76,20 +76,20 @@ if(!empty($_POST)){
 
               //メールを送信
               $username = ($userData['username']) ? $userData['username'] : '名前無し';
-              $from = 'mikan.sup.all@gmail.com';
+              $from = 'info@shimanamisan.com';
               $to = $userData['email'];
-              $subject = 'パスワード変更通知 ｜　しまなみショップ';
-            //EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
-            //EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
+              $subject = 'パスワード変更通知 ｜ BASEBALL ITEMカスタマーセンター';
+            // EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
+            // EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
           $comment = <<<EOT
 {$username}　さん
 パスワードが変更されました。
 
-*********************
-しまなみショップカスタマーセンター
+*************************************
+BASEBALL ITEMカスタマーセンター
 URL：http://wwww.shimanamisan.com
 Email：info@shimanamisan.com
-*********************
+*************************************
 EOT;
 
               sendMail($from, $to, $subject, $comment);
@@ -105,9 +105,6 @@ EOT;
     }
   }
 }
-
-
-
 
 ?>
 
