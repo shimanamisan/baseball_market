@@ -98,7 +98,7 @@ debug(' **** 画面表示処理終了 **** login.php');
 ?>
 
 <?php
-  $siteTitle = 'HOME';
+  $siteTitle = 'ログイン';
   require('head.php');
 ?>
 
@@ -108,6 +108,10 @@ debug(' **** 画面表示処理終了 **** login.php');
     <?php
       require('header.php');
     ?>
+    
+      <p id="js-show-msg" style="display:none; line-height:90px;" class="msg-slide">
+        <?php echo getSessionFlash('msg_success'); ?>
+      </p>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">

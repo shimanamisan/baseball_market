@@ -3,9 +3,9 @@
 // 共通関数
 require('function.php');
 
-debug('************');
-debug('プロフィール編集画面の処理 profEdit.php');
-debug('************');
+debug('===============================');
+debug('=== プロフィール編集画面 profEdit.php ===');
+debug('===============================');
 debugLogStart();
 
 // ログイン認証

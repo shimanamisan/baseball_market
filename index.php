@@ -1,7 +1,15 @@
 <?php
 
-  // 共通関数を読み込み
+// 共通関数を読み込み
+require('function.php');
 
+debug('===============================');
+debug('=== 商品一覧ページ index.php ===');
+debug('===============================');
+debugLogStart();
+
+// 認証
+require('auth.php');
 
 ?>
 <?php
