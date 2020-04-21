@@ -189,7 +189,7 @@ function validLength($str, $key, $len = 8){
   }
 }
 
-//パスワードチェック
+// パスワードチェックまとめ
 function validPass($str, $key){
   //半角英数チェック
   validHalf($str, $key);

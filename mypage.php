@@ -25,6 +25,10 @@ require('auth.php');
       require('header.php');
     ?>
 
+    <!-- スライドメッセージ -->
+    <p id="js-show-msg" style="display:none; line-height:90px;" class="msg-slide">
+        <?php echo getSessionFlash('msg_success');?> 
+    </p>
 
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -154,22 +158,12 @@ require('auth.php');
       </section>
       
       <!-- サイドバー -->
-      <section id="sidebar">
-        <a href="registProduct.php">商品を出品する</a>
-        <a href="tranSale.php">販売履歴を見る</a>
-        <a href="profEdit.php">プロフィール編集</a>
-        <a href="passEdit.php">パスワード変更</a>
-        <a href="withdraw.php">退会</a>
-      </section>
+      <?php
+      require('sidebar_mypage.php');    
+      ?>
     </div>
 
     <!-- footer -->
-    <footer id="footer">
-      Copyright <a href="http://webukatu.com/">ウェブカツ!!WEBサービス部</a>. All Rights Reserved.
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="js/main.js"></script>
-
-  </body>
-</html>
+    <?php
+    require('footer.php');    
+    ?>

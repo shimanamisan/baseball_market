@@ -94,7 +94,7 @@ if(!empty($_POST)){
     }
   }
 }
-debug(' **** 画面表示処理終了 **** signup.php');
+debug(' **** 画面表示処理終了 **** login.php');
 ?>
 
 <?php
@@ -125,7 +125,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
              ?>
            </div>
            <label class="<?php if(!empty($err_msg['email'])) echo 'err'; ?>">
-            メールアドレス
+            <span class="form-label">メールアドレス</span>
              <input type="text" name="email" value="<?php if(!empty($_POST['email'])) echo $_POST['email']; ?>">
            </label>
            <div class="area-msg">
@@ -134,7 +134,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
              ?>
            </div>
            <label class="<?php if(!empty($err_msg['pass'])) echo 'err'; ?>">
-             パスワード
+           <span class="form-label">パスワード</span>
              <input type="password" name="pass" value="<?php if(!empty($_POST['pass'])) echo $_POST['pass']; ?>">
            </label>
            <div class="area-msg">
