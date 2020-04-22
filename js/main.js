@@ -22,17 +22,14 @@ $(function(){
     $ftr.attr({'style': 'position:fixed; top:' + (window.innerHeight - $ftr.outerHeight()) +'px;' });
   }
 
-  var header = $('#header');
+  // トップへ戻るボタン
+  var top = $('.scroll-top');
   $(window).scroll(function () {
         console.log($(this).scrollTop());
-    if($(window).scrollTop() >= 60) {
-        header.addClass('js-scroll');
-        // sp_menu_wrap.addClass('js-scroll');
-        // pc_menu_wrap.addClass('js-scroll');
+    if($(window).scrollTop() >= 300) {
+        top.addClass('js-scroll');
     } else {
-        header.removeClass('js-scroll'); 
-        // sp_menu_wrap.removeClass('js-scroll'); 
-        // pc_menu_wrap.removeClass('js-scroll'); 
+        top.removeClass('js-scroll'); 
     }
   });
 });

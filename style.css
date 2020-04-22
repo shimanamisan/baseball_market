@@ -409,10 +409,12 @@ footer a {
 .u-under-margin{
   margin-bottom: 20px;
 }
-#page-top{
-  width: 56px;
-  height: 56px;
-  line-height: 56px;
+.scroll-top{
+  display: block;
+  color: #fff;
+  line-height: 66px;
+  width: 60px;
+  height: 60px;
   text-align: center;
   position: fixed;
   bottom: 20px;
@@ -422,13 +424,21 @@ footer a {
   background-color: #000;
   border-radius: 50%;
 }
-
+.scroll-top:hover{
+  cursor: pointer;
+  background-color: #444;
+}
 /*========================================
   スクロールスタイル
 ========================================*/
 .js-scroll{
   height: 70px;
   box-shadow: 0 3px 0 rgba(0,0,0,0.05);
+  right:20px;
+  transition: all .4s ease;
+}
+.scroll-top > a{
+
 }
 
 

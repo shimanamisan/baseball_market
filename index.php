@@ -8,9 +8,6 @@ debug('=== 商品一覧ページ index.php ===');
 debug('===============================');
 debugLogStart();
 
-// 認証
-require('auth.php');
-
 ?>
 <?php
   $siteTitle = 'HOME';
@@ -417,9 +414,9 @@ require('auth.php');
       </section>
 
     </div>
-    <div id="page-top">
-      <a href="#">TOP</a>
-    </div>
+    
+      <a href="#" class="scroll-top">TOP</a>
+   
 
 <?php
   require('footer.php');

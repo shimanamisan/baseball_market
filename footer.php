@@ -1,5 +1,5 @@
    <!-- footer -->
-   <footer id="footer">
+   <footer id="footer" >
       <ul class="sitemap">
         <li class="footer-item"><a href="">特定商取引法に基づく表記</a></li>
         <li class="footer-item"><a href="">配送方法・送料について</a></li>
