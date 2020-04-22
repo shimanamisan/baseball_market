@@ -275,9 +275,9 @@ function queryPost($dbh, $sql, $data){
   // SQLの実行結果はtrue,falseで返ってくる
   if(!$stmt->execute($data)){
     //PDOStatement::execute：プリペアドステートメントを実行する
-    debug('クエリ失敗しました ** queryPost関数 **');
-    debug('失敗したSQL ** queryPost関数 **：'.print_r($stmt,true));
-    debug('DBハンドラエラー：'.print_r($stmt->errorInfo(),true));
+    debug('クエリ失敗しました queryPost関数 function.php');
+    debug('失敗したSQL queryPost関数 function.php：'.print_r($stmt,true));
+    debug('DBハンドラエラー function.php：'.print_r($stmt->errorInfo(),true));
     $err_msg['common'] = MSG07;
     return 0;
   }
@@ -285,17 +285,17 @@ function queryPost($dbh, $sql, $data){
 }
 
 function getUser($u_id){
-  debug('ユーザー情報を取得する関数を実行しました');
-  //例外処理
+  debug('getUser関数 function.php');
+  // 例外処理
   try{
-    //DBへ接続します
+    // DBへ接続します
     $dbh = dbConnect();
-    //SQL文作成
-    $sql = 'SELECT * FROM users WHERE id = :u_id AND delete_flg = 0'; //delete_flgがついていないユーザーを取ってくる
+    // SQL文作成
+    $sql = 'SELECT * FROM users WHERE id = :u_id AND delete_flg = 0'; // delete_flgがついていないユーザーを取ってくる
     $data = array(':u_id' => $u_id);
-    //クエリ実行
+    // クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
-    // クエリ結果のデータを１レコード返却
+    // クエリ結果のデータを1レコード返却
     if($stmt){
       return $stmt->fetch(PDO::FETCH_ASSOC);
     }else{
@@ -310,7 +310,7 @@ function getProduct($u_id, $p_id){
   debug('商品情報を取得します *** getProduct ***');
   debug('ユーザーID *** getProduct *** ：'.$u_id);
   debug('商品ID *** getProduct *** ：'.$p_id);
-  //例外処理
+  // 例外処理
   try {
     // DBへ接続
     $dbh = dbConnect();
@@ -321,7 +321,7 @@ function getProduct($u_id, $p_id){
     $stmt = queryPost($dbh, $sql, $data);
 
     if($stmt){
-      // クエリ結果のデータを１レコード返却
+      // クエリ結果のデータを1レコード返却
       return $stmt->fetch(PDO::FETCH_ASSOC);
     }else{
       return false;
@@ -671,19 +671,19 @@ function  getFormData ($str, $flg = false){
     }
 }
 
-//sessionを１回だけ取得できる
+// sessionを１回だけ取得できる
 function getSessionFlash($key){
   if(!empty($_SESSION[$key])){
     $data = $_SESSION[$key];
-    debug('ニュルっとセッションのやつ *** getSessionFlash -> function.php *** ：'.($data));
+    debug('セッションに入るメッセージ *** getSessionFlash -> function.php *** ：'.($data));
     $_SESSION[$key] = ''; //ここでセッションの$keyの1つが空になる
     return $data;
   }
 }
 
-//認証キー生成
+// 認証キー生成
 function makeRandKey($length = 8) {
-    static $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
     $str = '';
     for ($i = 0; $i < $length; ++$i) {
         $str .= $chars[mt_rand(0, 61)];

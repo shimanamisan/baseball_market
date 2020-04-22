@@ -3,52 +3,52 @@
 // 共通関数
 require('function.php');
 
-debug('************');
-debug('パスワード変更ページです');
-debug('************');
+debug('===============================');
+debug('=== パスワード変更ページ passEdit.php ===');
+debug('===============================');
 debugLogStart();
 
-//ログイン認証
+// ログイン認証
 require('auth.php');
 
 
 //===================
 //画面処理
 //===================
-//DBからユーザーデータを取得
+// DBからユーザーデータを取得
 $userData = getUser($_SESSION['user_id']);
-debug('取得したユーザー情報はこれです：' . print_r($userData,true));
+debug('取得したユーザー情報はこれです passEdit.php：' . print_r($userData,true));
 
-//POST送信されていた場合
+// POST送信されていた場合
 if(!empty($_POST)){
-  debug('POST送信があります。');
-  debug('POST情報はこれです：' . print_r($_POST,true));
+  debug('POST送信があります。 passEdit.php');
+  debug('POST情報はこれです passEdit.php：' . print_r($_POST,true));
 
-    //変数にユーザー情報を代入
+    // 変数にユーザー情報を代入
     $pass_old = $_POST['pass_old'];
     $pass_new = $_POST['pass_new'];
     $pass_new_re = $_POST['pass_new_re'];
 
-    //未入力チェック
+    // 未入力チェック
     validRequired($pass_old, 'pass_old');
     validRequired($pass_new, 'pass_new');
     validRequired($pass_new_re, 'pass_new_re');
 
     if(empty($err_msg)){
-      debug('バリデーションチェックOKです');
+      debug('未入力チェックOKです passEdit.php');
 
-      //古いパスワードのチェック
+      // 古いパスワードのチェック
       validPass($pass_old, 'pass_old');
 
-      //新しいパスワードのチェック
+      // 新しいパスワードのチェック
       validPass($pass_new, 'pass_new');
 
-      //古いパスワードとDBパスワードを照合（DBに入っているデータと同じであれば、半角数字や最大文字数のチェックは行う必要はない）
+      // 古いパスワードとDBパスワードを照合（DBに入っているデータと同じであれば、半角数字や最大文字数のチェックは行う必要はない）
       if(!password_verify($pass_old, $userData['password'])){
         $err_msg['pass_old'] = MSG12;
       }
 
-      //新しいパスワードと古いパスワードが同じかチェック
+      // 新しいパスワードと古いパスワードが同じかチェック
       if($pass_old === $pass_new){
         $err_msg['pass_new'] = MSG13;
       }
@@ -58,7 +58,7 @@ if(!empty($_POST)){
         validMatch($pass_new, $pass_new_re, 'pass_new_re');
 
         if(empty($err_msg)){
-          debug('****** バリデーションOK passEdit.php ******');
+          debug('バリデーションOK passEdit.php');
 
           //例外処理
           try{
@@ -76,26 +76,26 @@ if(!empty($_POST)){
 
               //メールを送信
               $username = ($userData['username']) ? $userData['username'] : '名前無し';
-              $from = 'info@shimanamisan.com';
+              $from = 'itsup-info@shimanamisan.com';
               $to = $userData['email'];
-              $subject = 'パスワード変更通知 ｜ BASEBALL ITEMカスタマーセンター';
+              $subject = '【パスワード変更通知】 ｜ BASEBALL ITEMカスタマーセンター';
             // EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
             // EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
           $comment = <<<EOT
 {$username}　さん
 パスワードが変更されました。
 
-*************************************
+*****************************************************
 BASEBALL ITEMカスタマーセンター
-URL：http://wwww.shimanamisan.com
-Email：info@shimanamisan.com
-*************************************
+URL：http://localhost/programming/baseball_market/
+Email：itsup-info@shimanamisan.com
+*****************************************************
 EOT;
 
               sendMail($from, $to, $subject, $comment);
 
               header("Location:mypage.php"); //マイページへ遷移
-      
+              exit();
             }
 
           }catch (Exceptoin $e){
