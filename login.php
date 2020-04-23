@@ -150,7 +150,7 @@ debug(' **** 画面表示処理終了 **** login.php');
              <input type="checkbox" name="pass_save">次回ログインを省略する
            </label>
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="ログイン">
+              <input type="submit" class="submit-btn btn btn-mid" value="ログイン">
             </div>
             パスワードを忘れた方は<a href="passRemindSend.php">コチラ</a>
          </form>

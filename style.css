@@ -28,13 +28,11 @@ a:hover {
 .num {
   font-family: 'Kosugi', sans-serif;
 }
-
 .price {
   display: block;
   font-weight: bold;
   font-family: 'Kosugi', sans-serif;
 }
-
 /*トップバナー*/
 #top-baner {
   width: 100%;
@@ -60,11 +58,9 @@ a:hover {
   box-shadow: 0 3px 0 rgba(0,0,0,0.05);
   transition: all .4s ease;
 }
-
 .header-icon{
   margin-right: 8px;
 }
-
 .header-login{
   margin-right: 15px;
 }
@@ -85,25 +81,21 @@ a:hover {
 .header-login a::after:hover{
   width: 100%;
 }
-
 .nav-menu{
 display: flex;
 justify-content: space-between;
 align-items: center;
 }
-
 header h1 {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 header h1 a {
   color: #b6a489;
   text-decoration: none;
 }
-
 .sub-title{
   position: absolute;
   top: 63px;
@@ -122,7 +114,6 @@ header h1 a {
   width: 500px;
   height: 90px;
 }
-
 nav a {
   padding: 10px 15px;
   color: black;
@@ -131,7 +122,6 @@ nav a {
   font-size: 14px;
   transition: all .8s;  
 }
-
 #top-nav ul {
   position: absolute;
   top: 0;
@@ -143,7 +133,6 @@ nav a {
   list-style: none;
   line-height: 80px;
 }
-
 #top-nav ul li {
   float: right;
 }
@@ -177,17 +166,18 @@ section h1.title {
   margin: 20px auto;
 }
 /* ページタイトル */
-
 .page-title {
   font-size: 36px;
   padding-top: 30px;
   margin-bottom: 50px;
   text-align: center;
 }
+.panel-body{
+  display: inline-block;
+}
 /*========================================
   サイドバー
 ========================================*/
-
 #sidebar {
   float: left;
   box-sizing: border-box;
@@ -197,17 +187,14 @@ section h1.title {
   width: 200px;
   background: #f0efe9;
 }
-
 #sidebar .title {
   text-align: left;
   font-size: 14px;
 }
-
-#sidebar .selectbox {
+.selectbox {
   position: relative;
 }
-
-#sidebar select {
+/* #sidebar select {
   padding: 10px;
   width: 100%;
   border-color: #ccc;
@@ -215,11 +202,10 @@ section h1.title {
   font-size: 14px;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none; /* プラットフォームにおける標準的なUIの外観を削除  */
+  appearance: none; 
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-}
-
-#sidebar .icn_select:after {
+} */
+.icn_select:after {
   position: absolute;
   top: 15px;
   right: 10px;
@@ -243,7 +229,6 @@ section h1.title {
 /*========================================
   フッター
 ========================================*/
-
 footer {
   padding: 15px;
   /* width: 100%; */
@@ -252,7 +237,6 @@ footer {
   text-align: center;
   font-size: 12px;
 }
-
 footer a {
   color: #f6f5f5;
 }
@@ -361,6 +345,8 @@ footer a {
 .panel-list > .panel .panel-title {
   margin: 0;
 }
+
+/*========================================
 /* テーブルリスト
 ========================================*/
 
@@ -393,12 +379,27 @@ footer a {
   color: #000;
   transition: all .8s;
 }
-
 .btn.btn-mid {
   max-width: 150px;
 }
-.form{
+/* .form{
   text-align: center;
+} */
+.submit-btn{
+  font-size: 14px;
+  margin: 15px 0;
+  padding: 15px 30px;
+  width: 100%;
+  color: #333;
+  border: 3px solid #333;
+  transition: all .3s ease;
+}
+.submit-btn:hover{
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  border: 3px solid #333;
+  transition: all .3s ease;
 }
 /*========================================
   共通スタイル
@@ -437,10 +438,6 @@ footer a {
   right:20px;
   transition: all .4s ease;
 }
-.scroll-top > a{
-
-}
-
 
 /*========================================
   フォーム
@@ -448,8 +445,21 @@ footer a {
 label{
   display: block;
 }
-label.err input, label.err select{
+label.err input,
+label.err select{
   background: #f7dcd9;
+}
+.textCount-Error{
+  margin-left: 10px;
+  color: #fe8a8b;
+}
+.label-require{
+  margin-left: 5px;
+  background: #fe8a8b;
+  font-size: 14px;
+  padding: 3px 5px;
+  color: white;
+  vertical-align: bottom;
 }
 input[type="text"],
 input[type="number"],
@@ -476,7 +486,19 @@ input[type="number"] {
   width: 100px;
   text-align: left;
 }
-input[type="submit"] {
+.category-form{
+  padding: 10px;
+  width: 100%;
+  border-color: #ccc;
+  border-radius: 0;
+  font-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; /* プラットフォームにおける標準的なUIの外観を削除  */
+  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  cursor: pointer;
+}
+/* input[type="submit"] {
   font-size: 14px;
   margin: 15px 0;
   padding: 15px 30px;
@@ -485,7 +507,6 @@ input[type="submit"] {
   border: 3px solid #333;
   transition: all .3s ease;
 }
-
 select:hover,
 input[type="submit"]:hover {
   cursor: pointer;
@@ -493,7 +514,7 @@ input[type="submit"]:hover {
   color: #fff;
   border: 3px solid #333;
   transition: all .3s ease;
-}
+} */
 .form-container {
   margin: 0 auto;
   width: 80%;
@@ -533,14 +554,37 @@ input[type="submit"]:hover {
 .form .btn {
   float: right;
 }
-.form .area-drop{
-  width: 100%;
-  height: 250px;
-  background: #f0efe9;
+.area-drop{
   margin-bottom: 15px;
-  text-align: center;
-  line-height: 250px;
+  width: 100%;
+  height: 140px;
+  background: #f6f5f4;
   color: #ccc;
+  text-align: center;
+  line-height: 150px;
+  position: relative;
+  box-sizing: border-box;
+}
+.form .input-file{
+  opacity:0;
+  width:100%;
+  height:140px;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: 2; /* 必ずz-indexをつけないと登録画像を変更する際にドラッグ＆ドロップできなくなる*/
+}
+.form .prev-img{
+  width:100%;
+  position:absolute;
+  top:0;
+  left:0;
+}
+.form .imgDrop-container{
+  width: 33.333%;
+  float: left;
+  padding: 5px;
+  box-sizing: border-box;
 }
 .form .counter-text{
   text-align: right;

@@ -30,7 +30,7 @@ debugLogStart();
           <h1 class="title">メーカー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class=" u-under-margin" name="category">
+            <select class="category-form u-under-margin" name="category">
               <option value="1">ミズノ</option>
               <option value="2">ZETT</option>
               <option value="3">久保田スラッガー</option>
@@ -42,7 +42,7 @@ debugLogStart();
           <h1 class="title">商品カテゴリー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class=" u-under-margin" name="category">
+            <select class="category-form u-under-margin" name="category">
               <option value="1">グローブ</option>
               <option value="2">スパイク</option>
               <option value="3">バット</option>
@@ -54,12 +54,12 @@ debugLogStart();
           <h1 class="title">表示順</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select name="sort">
+            <select class="category-form" name="sort">
               <option value="1">金額が安い順</option>
               <option value="2">金額が高い順</option>
             </select>
           </div>
-          <input class="u-radius" type="submit" value="検索">
+          <input class="submit-btn u-radius" type="submit" value="検索">
         </form>
 
       </section>
@@ -77,7 +77,7 @@ debugLogStart();
         <div class="panel-list">
           <a href="productDetail.html" class="panel">
             <div class="panel-head">
-              <img src="img/sample01.jpg" width="600" higeht="300" alt="商品タイトル">
+              <img src="img/sample01.jpg" style="width:600; higeht:300;" alt="商品タイトル">
             </div>
             <div class="panel-body">
               <p class="panel-title">iPhone6s <span class="price">¥89,000</span></p>
@@ -414,7 +414,7 @@ debugLogStart();
       </section>
 
     </div>
-    
+
       <a href="#" class="scroll-top">TOP</a>
    
 

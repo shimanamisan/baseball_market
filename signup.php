@@ -158,7 +158,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
               ?>
             </div>
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="登録する">
+              <input type="submit" class="submit-btn btn btn-mid" value="登録する">
             </div>
           </form>
         </div>
