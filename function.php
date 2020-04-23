@@ -362,7 +362,7 @@ function getProductList($currentMinNum = 1, $category, $sort, $span = 20){
         if(!$stmt){
           return false;
         }
-      //ページング用のSQL文作成
+      // ページング用のSQL文作成
       $sql = 'SELECT * FROM product';
       if(!empty($category)) $sql .= ' WHERE category_id = '.$category;
         if(!empty($sort)){
@@ -405,17 +405,18 @@ function getProductOne($p_id){
       $dbh = dbConnect();
       // SQL文作成
       $sql = 'SELECT p.id, p.name,
-                     p.comment,
-                     p.price,
-                     p.pic1,
-                     p.pic2,
-                     p.pic3,
-                     p.user_id,
-                     p.create_date,
-                     p.update_date,
-                     c.name AS category
-                     FROM product AS p LEFT JOIN category AS c ON p.category_id = c.id WHERE p.id = :p_id AND p.delete_flg = 0 AND c.delete_flg = 0';
-              // AS categoryとすることで別名をつけれる。c.とはcategoryテーブルのこと。
+                    p.comment,
+                    p.price,
+                    p.pic1,
+                    p.pic2,
+                    p.pic3,
+                    p.user_id,
+                    p.create_date,
+                    p.update_date,
+                    c.name AS category
+                    FROM product AS p LEFT JOIN category AS c ON p.category_id = c.id
+                    WHERE p.id = :p_id AND p.delete_flg = 0 AND c.delete_flg = 0';
+                    // AS categoryとすることで別名をつけれる。c.とはcategoryテーブルのこと。
       $data = array(':p_id' => $p_id);
       // クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
@@ -536,7 +537,7 @@ function getMyMsgsAndBord($u_id){
 }
 
 function getCategory(){
-  debug('カテゴリー情報を取得します。*** getCategory ***');
+  debug('カテゴリー情報を取得します。：getCategory関数');
   //例外処理
   try {
     // DBへ接続
@@ -555,7 +556,31 @@ function getCategory(){
     }
     
   } catch (Exception $e) {
-    error_log('エラー発生 *** getCategory ***：' . $e->getMessage());
+    error_log('エラー発生。getCategory：' . $e->getMessage());
+  }
+}
+
+function getMaker(){
+  debug('メーカー情報を取得します。：getMaker関数');
+  // 例外処理
+  try{
+    // DBへ接続
+    $dbh = dbConnect();
+    // SQL文作成
+    $sql = 'SELECT * FROM maker';
+    $data = array();
+    // クエリ実行
+    $stmt = queryPost($dbh, $sql, $data);
+
+    if($stmt){
+      // クエリ結果の全データを返却
+      return $stmt->fetchAll();
+    }else{
+      return false;
+    }
+
+  }catch(Exception $e){
+    error_log('エラー発生。getMaker関数：' . $e->getMessage());
   }
 }
 
@@ -696,7 +721,8 @@ function uploadImg($file, $key){
   debug('画像アップロード処理開始');
   debug('FILE情報：'.print_r($file,true));
   
-  if (isset($file['error']) && is_int($file['error'])) {
+  // エラーの中になにか入っていて且つ数値であれば画像が入っていると判定
+  if(isset($file['error']) && is_int($file['error'])) {
     try {
       // バリデーション
       // $file['error'] の値を確認。配列内には「UPLOAD_ERR_OK」などの定数が入っている。
@@ -715,11 +741,12 @@ function uploadImg($file, $key){
       
       // $file['mime']の値はブラウザ側で偽装可能なので、MIMEタイプを自前でチェックする
       // exif_imagetype関数は「IMAGETYPE_GIF」「IMAGETYPE_JPEG」などの定数を返す
+      // @を先頭につけることで、エラーが発生しても無視する
       $type = @exif_imagetype($file['tmp_name']);
-      if (!in_array($type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) { // 第三引数にはtrueを設定すると厳密にチェックしてくれるので必ずつける
+      // 画像の形式を判定している
+      if(!in_array($type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG], true)) { // 第三引数にはtrueを設定すると厳密にチェックしてくれるので必ずつける
           throw new RuntimeException('画像形式が未対応です');
       }
-
       // ファイルデータからSHA-1ハッシュを取ってファイル名を決定し、ファイルを保存する
       // ハッシュ化しておかないとアップロードされたファイル名そのままで保存してしまうと同じファイル名がアップロードされる可能性があり、
       // DBにパスを保存した場合、どっちの画像のパスなのか判断つかなくなってしまう
