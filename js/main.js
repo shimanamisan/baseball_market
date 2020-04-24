@@ -29,6 +29,7 @@ $(function(){
   }
   var dragleaveObject = {
     border: 'none',
+    width: '100%',
     transform: 'scale(1.0)',
     transition: 'all .25s'
   }
@@ -50,18 +51,24 @@ $(function(){
     $(this).css(dragleaveObject);
   });
   $fileInput.on('change', function(e){
-      $dropArea.css('border', 'none');
-      var file = this.files[0],  // 2.files配列にファイルが入っています
-          $img = $(this).siblings('.prev-img'),  //3 .jQueryのsiblingsメソッドで兄弟のimgを取得
-          fileReader = new FileReader();  // 4.ファイルを読み込むFileReaderオブジェクト
-          console.log($img);
-    // 5.読み込みが完了した際のイベントハンドラ、imgのsrcにデータをセット
+      // $dropArea.css('border', 'none');
+      $dropArea.css(dragleaveObject);
+      // 2.files配列にファイルが入っています、this($fileInput)はinputタグにつけられたクラスでファイル情報を取ってきている
+      var file = this.files[0],
+          // 3 .上記のthisに対して、$(this)としてjQueryオブジェクトにしている、そうすることでjQueryのsiblingsメソッドで兄弟（同列）のimgを取得
+          $img = $(this).siblings('.prev-img'),
+          // 4.ファイルを読み込むFileReaderオブジェクト
+          fileReader = new FileReader();
+          // console.log($img);
+
+    // 5.onloadは読み込みが完了した際のイベントハンドラ、fileReaderにimgのsrcにデータをセットしている
     fileReader.onload = function(event){
       // 読み込んだデータをimgに設定
       $img.attr('src', event.target.result).show();
     };
-    // 6.画像読み込み
+    // 6.readAsDataURL()を使って、画像読み込み
     fileReader.readAsDataURL(file);
+    console.log(fileReader);
   });
   // トップへ戻るボタン
   var top = $('.scroll-top');

@@ -49,16 +49,17 @@ if(!empty($_POST)){
   $maker = $_POST['maker_id'];
   $price = (!empty($_POST['price'])) ? $_POST['price'] : 0; //０や空文字の場合は０を入れる。デフォルトのフォームには０が入っている。
   $comment = $_POST['comment'];
-  // 画像をアップロードし、パスを格納(2次元配列)
+  // POSTされていれば画像をアップロードし、パスを格納(2次元配列)
   $pic1 = ( !empty($_FILES['pic1']['name']) ) ? uploadImg($_FILES['pic1'],'pic1') : '';
-  // 画像をPOSTしてない（登録していない）が既にDBに登録されている場合、DBのパスを入れる（POSTには反映されないので）
+  // 画像をPOSTしてない（登録していない）が既にDBに登録されている場合、DBのパスを入れる
+  // この処理を入れておかないと、編集時には画像ファイルが空の状態で送信されてしまう
   $pic1 = ( empty($pic1) && !empty($dbFormData['pic1']) ) ? $dbFormData['pic1'] : $pic1;
   $pic2 = ( !empty($_FILES['pic2']['name']) ) ? uploadImg($_FILES['pic2'],'pic2') : '';
   $pic2 = ( empty($pic2) && !empty($dbFormData['pic2']) ) ? $dbFormData['pic2'] : $pic2;
   $pic3 = ( !empty($_FILES['pic3']['name']) ) ? uploadImg($_FILES['pic3'],'pic3') : '';
   $pic3 = ( empty($pic3) && !empty($dbFormData['pic3']) ) ? $dbFormData['pic3'] : $pic3;
   
-  // 更新の場合はDBの情報と入力情報が異なる場合にバリデーションを行う
+  // POST送信（新規登録時）のバリデーションチェック
   if(empty($dbFormData)){
     //未入力チェック
     validRequired($name, 'name');
@@ -75,6 +76,7 @@ if(!empty($_POST)){
     //半角数字チェック
     validNumber($price, 'price');
   }else{
+    // 更新の場合はDBの情報と入力情報が異なる場合にバリデーションを行う
     if($dbFormData['name'] !== $name){
       //未入力チェック
       validRequired($name, 'name');
