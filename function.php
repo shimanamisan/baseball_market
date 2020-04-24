@@ -26,22 +26,22 @@ function debug($str){
 //================================
 // セッション準備・セッション有効期限を延ばす
 //================================
-//セッションファイルの置き場を変更する（/var/tmp/以下に置くと30日は削除されない）
+// セッションファイルの置き場を変更する（/var/tmp/以下に置くと30日は削除されない）
 session_save_path("C:\\xampp\\tmp");
-//ガーベージコレクションが削除するセッションの有効期限を設定（30日以上経っているものに対してだけ１００分の１の確率で削除）
+// ガーベージコレクションが削除するセッションの有効期限を設定（30日以上経っているものに対してだけ１００分の１の確率で削除）
 ini_set('session.gc_maxlifetime', 60*60*24*30);
-//ブラウザを閉じても削除されないようにクッキー自体の有効期限を延ばす
+// ブラウザを閉じても削除されないようにクッキー自体の有効期限を延ばす
 ini_set('session.cookie_lifetime', 60*60*24*30);
-//セッションを使う
+// セッションを使う
 session_start();
-//現在のセッションIDを新しく生成したものと置き換える（なりすましのセキュリティ対策）
+// 現在のセッションIDを新しく生成したものと置き換える（なりすましのセキュリティ対策）
 session_regenerate_id();
 
 //================================
 // 画面表示処理開始ログ吐き出し関数
 //================================
 function debugLogStart(){
-  debug('****** ここから function.php の読み込み処理開始です ******');
+  debug('====== ここから function.php の読み込み処理開始 ======');
   //session_destroy();
   debug('セッションIDです function.php：'. session_id());
   debug('セッション変数の中身です function.php：'. print_r($_SESSION,true));
@@ -281,6 +281,7 @@ function queryPost($dbh, $sql, $data){
     $err_msg['common'] = MSG07;
     return 0;
   }
+  debug('成功したSQL queryPost関数 function.php：'. $sql);
   return $stmt;
 }
 
@@ -307,9 +308,9 @@ function getUser($u_id){
 }
 
 function getProduct($u_id, $p_id){
-  debug('商品情報を取得します *** getProduct ***');
-  debug('ユーザーID *** getProduct *** ：'.$u_id);
-  debug('商品ID *** getProduct *** ：'.$p_id);
+  debug('商品情報を取得します getProduct関数');
+  debug('ユーザーID getProduct関数 ：'.$u_id);
+  debug('商品ID getProduct関数 ：'.$p_id);
   // 例外処理
   try {
     // DBへ接続
@@ -332,8 +333,8 @@ function getProduct($u_id, $p_id){
   }
 }
 
-function getProductList($currentMinNum = 1, $category, $sort, $span = 20){
-  debug('商品情報を取得します。*** getProductList ***');
+function getProductList($currentMinNum = 1, $category, $sort, $span = 40){
+  debug('商品情報を取得します。getProductList関数');
     //例外処理
     try {
       // DBへ接続
@@ -354,11 +355,12 @@ function getProductList($currentMinNum = 1, $category, $sort, $span = 20){
         }
       } 
       $data = array();
-      debug('SQL *** getProductList ***：'.$sql);
       // クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
-      $rst['total'] = $stmt->rowCount(); //総レコード数
-      $rst['total_page'] = ceil($rst['total']/$span); //総ページ数
+      // 総レコード数
+      $rst['total'] = $stmt->rowCount();
+      // 総ページ数
+      $rst['total_page'] = ceil($rst['total']/$span);
         if(!$stmt){
           return false;
         }
@@ -377,14 +379,14 @@ function getProductList($currentMinNum = 1, $category, $sort, $span = 20){
         }
       $sql .= ' LIMIT '.$span.' OFFSET '.$currentMinNum;
       $data = array();
-      debug('SQLの中身です *** getProductList ***：'.$sql);
-      //クエリ実行
+      // クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
 
       if($stmt){
-        //クエリ結果の全レコードを格納
-        $rst['data'] = $stmt->fetchAll(); //二次元配列形式 = 配列の中にさらに配列形式で入っている
-        //debug('クエリ結果のレコードの中身です getProductList関数：'.print_r($rst,true));
+        // クエリ結果の全レコードを格納
+        // 二次元配列形式 = 配列の中にさらに配列形式で入っている
+        $rst['data'] = $stmt->fetchAll(); 
+        // debug('クエリ結果のレコードの中身です getProductList関数：'.print_r($rst,true));
         return $rst;
         
       }else{
@@ -392,13 +394,13 @@ function getProductList($currentMinNum = 1, $category, $sort, $span = 20){
       }
       
     } catch (Exception $e) {
-      error_log('エラー発生 *** getProductList ***：' . $e->getMessage());
+      error_log('エラー発生 getProductList関数：' . $e->getMessage());
     }
 }
 
 function getProductOne($p_id){
-  debug('商品情報を取得します。*** getProductOne ***');
-  debug('商品ID *** getProductOne ***：'.$p_id);
+  debug('商品情報を取得します getProductOne関数');
+  debug('商品ID getProductOne関数：'.$p_id);
   //例外処理
   try {
       // DBへ接続
@@ -578,7 +580,6 @@ function getMaker(){
     }else{
       return false;
     }
-
   }catch(Exception $e){
     error_log('エラー発生。getMaker関数：' . $e->getMessage());
   }
@@ -700,7 +701,7 @@ function  getFormData ($str, $flg = false){
 function getSessionFlash($key){
   if(!empty($_SESSION[$key])){
     $data = $_SESSION[$key];
-    debug('セッションに入るメッセージ *** getSessionFlash -> function.php *** ：'.($data));
+    debug('セッションに入るメッセージ getSessionFlash関数 function.php ：'.($data));
     $_SESSION[$key] = ''; //ここでセッションの$keyの1つが空になる
     return $data;
   }
@@ -777,28 +778,35 @@ function uploadImg($file, $key){
 // $link : 検索用GETパラメータリンク
 // $pageColNum : ページネーション表示数
 function pagination( $currentPageNum, $totalPageNum, $link = '', $pageColNum = 5){
-  // 現在のページが、総ページ数と同じ かつ 総ページ数が表示項目数以上なら、左にリンク４個出す
+  // 現在のページが、総ページ数と同じ かつ 総ページ数が表示項目数以上なら、左にリンク4個出す
   if( $currentPageNum == $totalPageNum && $totalPageNum >= $pageColNum){
+    debug('現在のページが、総ページ数と同じ かつ 総ページ数が表示項目数以上の処理');
     $minPageNum = $currentPageNum - 4;
     $maxPageNum = $currentPageNum;
-  // 現在のページが、総ページ数の１ページ前なら、左にリンク３個、右に１個出す
+  // 現在のページが、総ページ数の1ページ前なら、左にリンク3個、右に1個出す
   }elseif( $currentPageNum == ($totalPageNum-1) && $totalPageNum >= $pageColNum){
+    debug('現在のページが、総ページ数の1ページ前の処理');
     $minPageNum = $currentPageNum - 3;
     $maxPageNum = $currentPageNum + 1;
-  // 現ページが2の場合は左にリンク１個、右にリンク３個だす。
+  // 現ページが2の場合は左にリンク1個、右にリンク3個だす。
   }elseif( $currentPageNum == 2 && $totalPageNum >= $pageColNum){
+    debug('現ページが2の処理');
     $minPageNum = $currentPageNum - 1;
     $maxPageNum = $currentPageNum + 3;
-  // 現ページが1の場合は左に何も出さない。右に５個出す。
-  }elseif( $currentPageNum == 1){
+  // 現ページが1の場合は左に何も出さない。右に5個出す。
+  }elseif( $currentPageNum == 1 && $totalPageNum >= $pageColNum){
+    debug('現ページが1の処理');
     $minPageNum = $currentPageNum;
     $maxPageNum = 5;
-  // 総ページ数が表示項目数より少ない場合は、総ページ数をループのMax、ループのMinを１に設定
+  // 総ページ数が表示項目数より少ない場合は、総ページ数をループのMax、ループのMinを1に設定
   }elseif($totalPageNum < $pageColNum){
+    debug('総ページ数が表示項目数より少ない場合の処理');
     $minPageNum = 1;
     $maxPageNum = $totalPageNum;
   // それ以外は左に２個出す。
   }else{
+    debug('elseのページネーション処理');
+    debug($totalPageNum);
     $minPageNum = $currentPageNum - 2;
     $maxPageNum = $currentPageNum + 2;
   }
@@ -819,8 +827,7 @@ function pagination( $currentPageNum, $totalPageNum, $link = '', $pageColNum = 5
     echo '</ul>';
   echo '</div>';
 }
-
-//画像表示用関数
+// 画像表示用関数
 function showImg($path){
   if(empty($path)){
     return 'img/sample-img.png';

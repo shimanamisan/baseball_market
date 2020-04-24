@@ -1,12 +1,51 @@
 <?php
 
-// 共通関数を読み込み
+// 共通関数
 require('function.php');
 
 debug('===============================');
 debug('=== 商品一覧ページ index.php ===');
 debug('===============================');
 debugLogStart();
+
+//================================
+// 画面処理
+//================================
+
+// 画面表示用データ取得
+//================================
+//GETパラメータを取得
+//--------------------------------
+// カレントページ
+$currentPageNum = (!empty($_GET['p'])) ? $_GET['p'] : 1; //デフォルトは１ページめ
+// カテゴリー
+$category = (!empty($_GET['c_id'])) ? $_GET['c_id'] : '';
+// メーカー
+$maker = (!empty($_GET['m_id'])) ? $_GET['m_id'] : '';
+// ソート順
+$sort = (!empty($_GET['sort'])) ? $_GET['sort'] : '';
+//パラメータに不正な値が入っているかチェック
+if(!is_int((int)$currentPageNum)){
+  // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
+  error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
+  // トップページへ
+  header("Location:index.php"); 
+  exit();
+}
+// 表示件数
+$listSpan = 40;
+// 現在の表示レコード先頭を算出
+// 1ページ目なら(1-1)*20 = 0 、 2ページ目なら(2-1)*20 = 20
+$currentMinNum = (($currentPageNum-1)*$listSpan); 
+// DBから商品データを取得
+$dbProductData = getProductList($currentMinNum ,$category, $sort);
+// DBからカテゴリデータを取得
+$dbCategoryData = getCategory();
+// DBからメーカーデータを取得
+$dbMakerData = getMaker();
+debug('現在のページ：'.$currentPageNum);
+//debug('フォーム用DBデータ：'.print_r($dbFormData,true));
+//debug('カテゴリデータ：'.print_r($dbCategoryData,true));
 
 ?>
 <?php
@@ -30,25 +69,15 @@ debugLogStart();
           <h1 class="title">メーカー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class="category-form u-under-margin" name="category">
-              <option value="1">ミズノ</option>
-              <option value="2">ZETT</option>
-              <option value="3">久保田スラッガー</option>
-              <option value="4">UNDER ARMOUR</option>
-              <option value="5">美津和タイガー</option>
-              <option value="6">HATAKEYAMA</option>
+            <select class="category-form u-under-margin" name="c_id">
+              <option value="0" >選択してください</option>
             </select>
           </div>
           <h1 class="title">商品カテゴリー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class="category-form u-under-margin" name="category">
-              <option value="1">グローブ</option>
-              <option value="2">スパイク</option>
-              <option value="3">バット</option>
-              <option value="4">ユニフォーム</option>
-              <option value="5">インナーウェア</option>
-              <option value="6">その他道具</option>
+            <select class="category-form u-under-margin" name="m_id">
+              <option value="0">選択してください</option>
             </select>
           </div>
           <h1 class="title">表示順</h1>
@@ -68,349 +97,34 @@ debugLogStart();
       <section id="main" >
         <div class="search-title">
           <div class="search-left">
-            <span class="total-num num">104</span>件の商品が見つかりました
+            <span class="total-num"><?php echo sanitize($dbProductData['total']); ?></span>件の商品が見つかりました
           </div>
           <div class="search-right">
-            <span class="num">1</span> - <span class="num">40</span>件 / <span class="num">104</span>件中
+            <!-- データベースのレコードとしては、10件あったとしたら0件目から9件目を表示していることになるのでプラス1を必ずする -->
+            <span class="num"><?php echo (!empty($dbProductData['data'])) ? $currentMinNum+1 : 0; ?></span> - <span class="num"><?php echo $currentMinNum+count($dbProductData['data']); ?></span>件 / <span class="num"><?php echo sanitize($dbProductData['total']); ?></span>件中
           </div>
         </div>
         <div class="panel-list">
-          <a href="productDetail.html" class="panel">
-            <div class="panel-head">
-              <img src="img/sample01.jpg" style="width:600; higeht:300;" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">iPhone6s <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample02.jpg" width="600" higeht="300" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ASUS VivoBook E200HA <span class="price">¥75,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample06.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">MacBook Pro Retina <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample04.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ミスノ　クロスバイク <span class="price">¥29,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample03.gif" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">電動自転車 <span class="price">¥58,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample08.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">アイアンセット <span class="price">¥12,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample07.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">フィットネスマシン <span class="price">¥34,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample10.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample05.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">iPhone6s <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample09.jpeg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ASUS VivoBook E200HA <span class="price">¥75,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">MacBook Pro Retina <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ミスノ　クロスバイク <span class="price">¥29,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">電動自転車 <span class="price">¥58,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">アイアンセット <span class="price">¥12,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">フィットネスマシン <span class="price">¥34,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-        </div>
-        <div class="panel-list">
-          <a href="productDetail.html" class="panel">
-            <div class="panel-head">
-              <img src="img/sample01.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">iPhone6s <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample02.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ASUS VivoBook E200HA <span class="price">¥75,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample06.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">MacBook Pro Retina <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample04.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ミスノ　クロスバイク <span class="price">¥29,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample03.gif" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">電動自転車 <span class="price">¥58,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample08.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">アイアンセット <span class="price">¥12,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample07.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">フィットネスマシン <span class="price">¥34,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample10.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample05.jpg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">iPhone6s <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample09.jpeg" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ASUS VivoBook E200HA <span class="price">¥75,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">MacBook Pro Retina <span class="price">¥89,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ミスノ　クロスバイク <span class="price">¥29,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">電動自転車 <span class="price">¥58,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">アイアンセット <span class="price">¥12,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">フィットネスマシン <span class="price">¥34,000</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
-          <a href="" class="panel">
-            <div class="panel-head">
-              <img src="img/sample-img.png" alt="商品タイトル">
-            </div>
-            <div class="panel-body">
-              <p class="panel-title">ウォーキングシューズ <span class="price">¥4,500</span></p>
-            </div>
-          </a>
+          <?php
+            foreach($dbProductData['data'] as $key => $val):
+          ?>
+            <a href="productDetail.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id']; ?>" class="panel">
+              <div class="panel-head">
+                <img class="obj-fit-img" src="<?php echo sanitize($val['pic1']); ?>" alt="<?php echo sanitize($val['name']); ?>">
+              </div>
+              <div class="panel-body">
+                <p class="panel-title"><?php echo sanitize($val['name']); ?> <span class="price">¥<?php echo sanitize(number_format($val['price'])); ?></span></p>
+              </div>
+            </a>
+
+          <?php
+            endforeach;
+          ?>
         </div>
 
-        <div class="pagination">
-          <ul class="pagination-list">
-            <li class="list-item"><a href="">&lt;</a></li>
-            <li class="list-item"><a href="">1</a></li>
-            <li class="list-item"><a href="">2</a></li>
-            <li class="list-item active"><a href="">3</a></li>
-            <li class="list-item"><a href="">4</a></li>
-            <li class="list-item"><a href="">5</a></li>
-            <li class="list-item"><a href="">&gt;</a></li>
-          </ul>
-        </div>
-        
+        <!-- ページネーション -->
+        <?php pagination($currentPageNum, $dbProductData['total_page']);?>
+
       </section>
 
     </div>

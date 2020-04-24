@@ -104,7 +104,7 @@ debug(' **** 画面表示処理終了 **** signup.php');
 
 ?>
 <?php
-  $siteTitle = 'HOME';
+  $siteTitle = '新規登録';
   require('head.php');
 ?>
 
