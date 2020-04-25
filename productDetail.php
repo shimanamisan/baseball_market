@@ -1,10 +1,10 @@
 <?php
-//共通変数・関数ファイルを読込み
+// 共通変数
 require('function.php');
 
-debug('************************');
-debug('****** 商品詳細ページ productDetail.php ******');
-debug('************************');
+debug('=========================');
+debug('=== 商品詳細ページ productDetail.php ===');
+debug('=========================');
 debugLogStart();
 
 //================================
@@ -92,12 +92,19 @@ require('head.php');
         </div>
         <div class="product-img-container">
           <div class="img-main">
-            <img src="<?php echo showImg(sanitize($viewData['pic1'])); ?>" alt="メイン画像：<?php echo sanitize($viewData['name']); ?>" id="js-switch-img-main">
+              <img src="<?php echo showImg(sanitize($viewData['pic1'])); ?>" alt="メイン画像：<?php echo sanitize($viewData['name']); ?>"    id="js-switch-img-main">
           </div>
+
           <div class="img-sub">
-            <img src="<?php echo showImg(sanitize($viewData['pic1'])); ?>" alt="画像1：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
-            <img src="<?php echo showImg(sanitize($viewData['pic2'])); ?>" alt="画像2：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
-            <img src="<?php echo showImg(sanitize($viewData['pic3'])); ?>" alt="画像3：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
+            <div class="trim">
+              <img src="<?php echo showImg(sanitize($viewData['pic1'])); ?>" alt="画像1：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
+            </div>
+            <div class="trim">
+              <img src="<?php echo showImg(sanitize($viewData['pic2'])); ?>" alt="画像2：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
+            </div>
+            <div class="trim">
+              <img src="<?php echo showImg(sanitize($viewData['pic3'])); ?>" alt="画像3：<?php echo sanitize($viewData['name']); ?>" class="js-switch-img-sub">
+            </div>
           </div>
         </div>
         <div class="product-detail">

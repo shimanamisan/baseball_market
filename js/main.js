@@ -92,6 +92,14 @@ $(function(){
       $counterOver.html('');
     }
   });
+  // 画像切り替え
+  var $switchImgSubs = $('.js-switch-img-sub'),
+  $switchImgMain = $('#js-switch-img-main');
+  $switchImgSubs.on('click', function(e){
+    // 今回、switchImgSubsというものは3つあるので、どれをクリックしたのか判断できるように$(this)を指定している
+    $switchImgMain.attr('src', $(this).attr('src'));
+    //attr属性の値を取得してその値を返す
+});
 });
 
 // 退会時の確認ダイアログ
