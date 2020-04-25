@@ -279,7 +279,7 @@ function queryPost($dbh, $sql, $data){
     debug('失敗したSQL queryPost関数 function.php：'.print_r($stmt,true));
     debug('DBハンドラエラー function.php：'.print_r($stmt->errorInfo(),true));
     $err_msg['common'] = MSG07;
-    return 0;
+    return false;
   }
   debug('成功したSQL queryPost関数 function.php：'. $sql);
   return $stmt;
@@ -333,8 +333,10 @@ function getProduct($u_id, $p_id){
   }
 }
 
-function getProductList($currentMinNum = 1, $category, $sort, $span = 40){
+function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40){
   debug('商品情報を取得します。getProductList関数');
+  // $currentMinNum = (int)$currentMinNum;
+  // $span = (int)$span;
     //例外処理
     try {
       // DBへ接続
@@ -378,8 +380,10 @@ function getProductList($currentMinNum = 1, $category, $sort, $span = 40){
             } 
         }
       $sql .= ' LIMIT '.$span.' OFFSET '.$currentMinNum;
-      $data = array();
-      // クエリ実行
+      // $sql = 'SELECT * FROM product LIMIT :span OFFSET :currentMinNum';
+      // $data = array(':span' => $span, 'currentMinNum' => $currentMinNum);
+      // $data = array();
+      //クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
 
       if($stmt){
@@ -415,7 +419,7 @@ function getProductOne($p_id){
                     p.user_id,
                     p.create_date,
                     p.update_date,
-                    c.name AS category
+                    c.name AS category /* categoryという名前で取得できるように別名にしている。c.nameのままだと、nameという名前で取得されるので、PHP内で側で何のカラムなのか分かりづらい */
                     FROM product AS p LEFT JOIN category AS c ON p.category_id = c.id
                     WHERE p.id = :p_id AND p.delete_flg = 0 AND c.delete_flg = 0';
                     // AS categoryとすることで別名をつけれる。c.とはcategoryテーブルのこと。
@@ -664,7 +668,7 @@ function sanitize($str){
 }
 
 // フォーム入力保持
-function  getFormData ($str, $flg = false){
+function  getFormData($str, $flg = false){
   if($flg){
     $method = $_GET;
   }else{
@@ -835,20 +839,30 @@ function showImg($path){
     return $path;
   }
 }
-//GETパラメータ付与
-//$del_key : 付与から取り除きたいGETパラメータのキー
-//要は引数に指定したものはGETパラメータに含めずにURLを生成する
+// GETパラメータ付与
+// $del_key : 付与から取り除きたいGETパラメータのキー
+// productDetail.php?p=3&p_id=88となっているp_id=88の部分を取り除き、ページのパラメータ（p=3）だけ取り出す関数になっている
 function appendGetParam($arr_del_key = array()){
+  // debug('appendGetParam関数 $arr_del_key：' . print_r($arr_del_key, true));
+  // GETパラメータが取得されているか
   if(!empty($_GET)){  
+    // GETパラメータの最初につく?を付与している
     $str = '?';
     foreach($_GET as $key => $val){
-      if(!in_array($key,$arr_del_key,true)){ //取り除きたいパラメータじゃない場合にurlにくっつけるパラメータを生成
+      // 取り除きたいパラメータじゃない場合にurlにくっつけるパラメータを生成
+      // debug('appendGetParam関数 foreachで展開しています');
+      // debug('appendGetParam関数 $_GET：' . print_r($_GET, true));
+      // debug('appendGetParam関数 $key：' . $key);
+      // debug('appendGetParam関数 $val：' . $val);
+      if(!in_array($key,$arr_del_key,true)){ 
+        // keyがappendGetParamの引数に合致していなければGETパラメータとしてくっつける
         $str .= $key.'='.$val.'&';
+        // debug('appendGetParam関数 $srt：'. $str);
       }
     }
     $str = mb_substr($str, 0, -1, "UTF-8");
-    //最後につく&を取り除いている
-    //echo $str; 気になる
+    // 最後につく&を取り除いている
+    // debug('appendGetParam関数 &を取り除いて返却：'. $str);
     return $str;
   }
 }

@@ -38,7 +38,7 @@ $listSpan = 40;
 // 1ページ目なら(1-1)*20 = 0 、 2ページ目なら(2-1)*20 = 20
 $currentMinNum = (($currentPageNum-1)*$listSpan); 
 // DBから商品データを取得
-$dbProductData = getProductList($currentMinNum ,$category, $sort);
+$dbProductData = getProductList($currentMinNum ,$category, $maker, $sort);
 // DBからカテゴリデータを取得
 $dbCategoryData = getCategory();
 // DBからメーカーデータを取得
@@ -69,23 +69,42 @@ debug('現在のページ：'.$currentPageNum);
           <h1 class="title">メーカー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class="category-form u-under-margin" name="c_id">
-              <option value="0" >選択してください</option>
+            <select class="category-form u-under-margin" name="m_id">
+              <option value="0" <?php if(getFormData('m_id',true) == 0){ echo 'selected'; } ?>>選択してください</option>
+                <?php
+                  foreach($dbMakerData as $key => $val){
+                ?>
+              <option value="<?php echo $val['id'] ?>" <?php if(getFormData('m_id',true) == $val['id'] ){ echo 'selected'; } ?> >
+                <?php echo $val['name']; ?>
+              </option>
+                <?php
+                  }
+                ?>
             </select>
           </div>
           <h1 class="title">商品カテゴリー</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class="category-form u-under-margin" name="m_id">
-              <option value="0">選択してください</option>
+            <select class="category-form u-under-margin" name="c_id">
+            <option value="0" <?php if(getFormData('m_id',true) == 0){ echo 'selected'; } ?>>選択してください</option>
+                <?php
+                  foreach($dbCategoryData as $key => $val){
+                ?>
+              <option value="<?php echo $val['id'] ?>" <?php if(getFormData('c_id',true) == $val['id'] ){ echo 'selected'; } ?> >
+                <?php echo $val['name']; ?>
+              </option>
+                <?php
+                  }
+                ?>
             </select>
           </div>
           <h1 class="title">表示順</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
             <select class="category-form" name="sort">
-              <option value="1">金額が安い順</option>
-              <option value="2">金額が高い順</option>
+              <option value="0" <?php if(getFormData('sort',true) == 0 ){ echo 'selected'; } ?> >選択してください</option>
+              <option value="1" <?php if(getFormData('sort',true) == 1 ){ echo 'selected'; } ?> >金額が安い順</option>
+              <option value="2" <?php if(getFormData('sort',true) == 2 ){ echo 'selected'; } ?> >金額が高い順</option>
             </select>
           </div>
           <input class="submit-btn u-radius" type="submit" value="検索">
@@ -110,10 +129,15 @@ debug('現在のページ：'.$currentPageNum);
           ?>
             <a href="productDetail.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id']; ?>" class="panel">
               <div class="panel-head">
-                <img class="obj-fit-img" src="<?php echo sanitize($val['pic1']); ?>" alt="<?php echo sanitize($val['name']); ?>">
+                <div class="trim">
+                  <img class="obj-fit-img" src="<?php echo sanitize($val['pic1']); ?>" alt="<?php echo sanitize($val['name']); ?>">
+                </div>
               </div>
               <div class="panel-body">
-                <p class="panel-title"><?php echo sanitize($val['name']); ?> <span class="price">¥<?php echo sanitize(number_format($val['price'])); ?></span></p>
+                <p class="panel-title">
+                  <span class="panel-text"><?php echo sanitize($val['name']); ?></span>
+                    <span class="price">¥<?php echo sanitize(number_format($val['price'])); ?></span>
+                </p>
               </div>
             </a>
 

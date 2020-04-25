@@ -3,7 +3,7 @@ body {
   padding: 0;
   color: #444;
   line-height: 150%;
-  font-family: 'Kosugi', sans-serif;
+  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
@@ -26,12 +26,12 @@ a:hover {
   フォント
 ========================================*/
 .num {
-  font-family: 'Kosugi', sans-serif;
+  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
 .price {
   display: block;
   font-weight: bold;
-  font-family: 'Kosugi', sans-serif;
+  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
 /*トップバナー*/
 #top-baner {
@@ -47,7 +47,7 @@ a:hover {
   box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
 }
 
-.header {
+.header{
   height: 100%;
   padding-right: 20px;
   padding-left: 20px;
@@ -104,6 +104,25 @@ header h1 a {
 .sub-title span{
   font-size: 10px;
 }
+.list-contact{
+  line-height: 1.5;
+  white-space: nowrap; /* ソース中の連続する半角スペース、タブ、改行を一つの半角スペースにまとめて表示。自動的な折り返しはしない */
+  font-size: 10px;
+  margin: 0 0 0 20px;
+  padding: 15px 10px 5px 10px;
+  height: 80px;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+.list-contact-phone-icon{
+  font-size: 14px;
+}
+.list-contact-phoneNumber{
+  font-size: 18px;
+}
+.list-contact-note{
+  padding-left: 15px;
+}
 
 /*========================================
   ナビゲーション
@@ -128,7 +147,7 @@ nav a {
   right: 0;
   bottom: 0;
   margin: 0;
-  width: 450px;
+  width: 455px;
   height: 80px;
   list-style: none;
   line-height: 80px;
@@ -174,6 +193,12 @@ section h1.title {
 }
 .panel-body{
   display: inline-block;
+  width: 100%;
+}
+.panel-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /*========================================
   サイドバー
@@ -761,6 +786,28 @@ input[type="submit"]:hover {
 .footer-item{
   display: inline-block;
   margin-left: 20px;
+}
+
+/*========================================
+  画像の切り取り
+========================================*/
+.trim{
+  overflow: hidden;
+  width: 180px;/* トリミングしたい枠の幅 */
+  height: 200px;/* トリミングしたい枠の高さ */
+  position: relative;
+  margin: 0 auto;
+}
+
+.trim img{
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
 }
 
 /*========================================
