@@ -147,7 +147,7 @@ debug('現在のページ：'.$currentPageNum);
         </div>
 
         <!-- ページネーション -->
-        <?php pagination($currentPageNum, $dbProductData['total_page']);?>
+        <?php pagination($currentPageNum, $dbProductData['total_page'], $maker, $category, $sort);?>
 
       </section>
 

@@ -342,10 +342,18 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
       // DBへ接続
       $dbh = dbConnect();
       // 件数用のSQL文作成
-      $sql = 'SELECT id FROM product';
+      
       // 件数用のSQL文作成
-      //$sql = 'SELECT * FROM product';
-      if(!empty($category)) $sql .= ' WHERE category_id = '.$category;
+      // if(!empty($category) && !empty($maker)) $sql .= ' WHERE category_id = '.$category . ' OR maker_id = '. $maker;
+      if(!empty($category) && !empty($maker)){
+        $sql = 'SELECT id FROM product WHERE category_id = ' .$category. ' AND maker_id = '. $maker;
+      }elseif(!empty($category)){
+        $sql = 'SELECT id FROM product WHERE category_id = ' .$category;
+      }elseif(!empty($maker)){
+        $sql = 'SELECT id FROM product WHERE maker_id = ' .$maker;
+      }else{
+        $sql = 'SELECT id FROM product';
+      }
         if(!empty($sort)){
           switch($sort){
             case 1:
@@ -368,7 +376,21 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         }
       // ページング用のSQL文作成
       $sql = 'SELECT * FROM product';
-      if(!empty($category)) $sql .= ' WHERE category_id = '.$category;
+      // if(!empty($category)) $sql .= ' WHERE category_id = '.$category;
+      // if(!empty($category) && !empty($maker)) $sql .= ' WHERE category_id = '.$category . ' OR maker_id = '. $maker;
+      if(!empty($category) && !empty($maker)){
+        debug('カテゴリーとメーカーの両方で検索された時のSQL getProductList');
+        $sql = 'SELECT * FROM product WHERE category_id = ' .$category. ' AND maker_id = '. $maker;
+      }elseif(!empty($category)){
+        debug('カテゴリーのみで検索された時のSQL getProductList');
+        $sql = 'SELECT * FROM product WHERE category_id = ' .$category;
+      }elseif(!empty($maker)){
+        debug('メーカーのみで検索された時のSQL getProductList');
+        $sql = 'SELECT * FROM product WHERE maker_id = ' .$maker;
+      }else{
+        debug('何も選択されてない時のSQL getProductList');
+        $sql = 'SELECT * FROM product';
+      }
         if(!empty($sort)){
             switch($sort){
                 case 1:
@@ -781,7 +803,7 @@ function uploadImg($file, $key){
 // $totalPageNum : 総ページ数
 // $link : 検索用GETパラメータリンク
 // $pageColNum : ページネーション表示数
-function pagination( $currentPageNum, $totalPageNum, $link = '', $pageColNum = 5){
+function pagination( $currentPageNum, $totalPageNum, $maker = '', $category = '', $sort = '', $pageColNum = 5){
   // 現在のページが、総ページ数と同じ かつ 総ページ数が表示項目数以上なら、左にリンク4個出す
   if( $currentPageNum == $totalPageNum && $totalPageNum >= $pageColNum){
     debug('現在のページが、総ページ数と同じ かつ 総ページ数が表示項目数以上の処理');
@@ -814,6 +836,33 @@ function pagination( $currentPageNum, $totalPageNum, $link = '', $pageColNum = 5
     $minPageNum = $currentPageNum - 2;
     $maxPageNum = $currentPageNum + 2;
   }
+
+  // 検索時のGETパラメータをページネーション用URLでも表示するようにする
+  if(!empty($_GET['m_id']) && !empty($_GET['c_id']) && !empty($_GET['sort'])){
+    $link = '&m_id='.$maker.'&c_id='.$category.'&sort='.$sort;
+
+  }elseif(!empty($_GET['m_id'])){
+    $link = '&m_id='.$maker;
+
+  }elseif(!empty($_GET['c_id'])){
+    $link = '&c_id='.$category;
+
+  }elseif(!empty($_GET['sort'])){
+    $link = '&sort='.$sort;
+
+  }elseif(!empty($_GET['m_id']) && !empty($_GET['c_id']) ){
+    $link = '&m_id='.$maker.'&c_id='.$category;
+
+  }elseif(!empty($_GET['m_id']) && !empty($_GET['sort']) ){
+    $link = '&m_id='.$maker.'&sort='.$sort;
+
+  }elseif(!empty($_GET['c_id']) && !empty($_GET['sort']) ){
+    $link = '&c_id='.$category.'&sort='.$sort;
+
+  }else{
+    $link = '';
+  }
+
   //PHPのタグの中ではHTMLは書けないので、そういった場合は echo で出力すると良い
   echo '<div class="pagination">';
     echo '<ul class="pagination-list">';
@@ -837,6 +886,19 @@ function showImg($path){
     return 'img/sample-img.png';
   }else{
     return $path;
+  }
+}
+function paginationParam($maker, $category, $sort){
+  if(!empty($maker) && !empty($category) && !empty($sort)){
+    echo 'm_id='.$maker.'&c_id='.$category.'&sort='.$sort;
+  }elseif(!empty($maker)){
+
+  }elseif(!empty($category)){
+
+  }elseif(!empty($sort)){
+ 
+  }else{
+    return false;
   }
 }
 // GETパラメータ付与
