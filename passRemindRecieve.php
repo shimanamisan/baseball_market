@@ -4,7 +4,7 @@
 require('function.php');
 
 debug('=============================');
-debug('ここはパスワード再発行認証キー入力ページです passRemaindRecieve.php');
+debug('=== ここはパスワード再発行認証キー入力ページです passRemaindRecieve.php ===');
 debug('=============================');
 debugLogStart();
 

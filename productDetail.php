@@ -46,10 +46,8 @@ if(!empty($_POST['submit'])){
     $data = array(
         ':s_uid' => $viewData['user_id'],
         ':b_uid' => $_SESSION['user_id'],
-        // ':p_id' => $viewData['id'],
         ':p_id' => $p_id,
         ':date' => date('Y-m-d H:i:s'));
-    //$data = array(':s_uid' => $viewData['user_id'], ':b_uid' => $_SESSION['user_id'], ':p_id' => $p_id, ':date' => date('Y-m-d H:i:s'));
     // クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
     // クエリ成功の場合

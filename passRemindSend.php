@@ -4,7 +4,7 @@
 require('function.php');
 
 debug('=============================');
-debug('パスワード再設定ページ passRemaindSend.php');
+debug('=== パスワード再設定ページ passRemaindSend.php ===');
 debug('=============================');
 debugLogStart();
 

@@ -37,12 +37,11 @@ session_start();
 // 現在のセッションIDを新しく生成したものと置き換える（なりすましのセキュリティ対策）
 session_regenerate_id();
 
-//================================
+//==================================
 // 画面表示処理開始ログ吐き出し関数
-//================================
+//==================================
 function debugLogStart(){
   debug('====== ここから function.php の読み込み処理開始 ======');
-  //session_destroy();
   debug('セッションIDです function.php：'. session_id());
   debug('セッション変数の中身です function.php：'. print_r($_SESSION,true));
   debug('現在日時タイムスタンプ function.php：'. time());
@@ -388,8 +387,9 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         debug('メーカーのみで検索された時のSQL getProductList');
         $sql = 'SELECT * FROM product WHERE maker_id = ' .$maker;
       }else{
+        // 新しく登録された商品から表示する
+        $sql = 'SELECT * FROM product ORDER BY create_date DESC';
         debug('何も選択されてない時のSQL getProductList');
-        $sql = 'SELECT * FROM product';
       }
         if(!empty($sort)){
             switch($sort){
@@ -425,7 +425,7 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
 }
 
 function getProductOne($p_id){
-  debug('商品情報を取得します getProductOne関数');
+  debug('商品情報を取得します getProductOne関数', print_r($p_id, true));
   debug('商品ID getProductOne関数：'.$p_id);
   //例外処理
   try {
@@ -485,30 +485,45 @@ function getMyProducts($u_id){
 }
 
 function getMsgsAndBord($id){
-  debug('掲示板情報を取得 getMsgAndBord関数：' .$id);
+  debug('掲示板情報を取得 getMsgsAndBord関数：' .$id);
   //例外処理
   try{
     //DBへ接続
     $dbh = dbConnect();
     //SQL文作成
-    $sql = 'SELECT b.id, m.id AS m_id, bord_id, product_id, send_date, to_user, from_user, msg, b.delete_flg, b.create_date, b.sale_user, b.buy_user 
-    FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id WHERE b.id = :id ORDER BY send_date ASC';
-    //$sql = 'SELECT m.id AS m_id, product_id, bord_id, send_date, to_user, from_user, sale_user, buy_user, msg, b.create_date FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id WHERE b.id = :id AND m.delete_flg = 0 ORDER BY send_date ASC';
-    //【bordテーブルにあるカラム：id sale_usser buy_user delete_flg create_date update_date】
-    //【messageテーブルにあるカラム：id bord_id send_date to_user from_user msg delete_flg create_date update_date】
-    //【productテーブルにあるカラム：id name category_id comment price pic1 pic2 pic3 user_id delete_flg create_date update_date】
-    //messageテーブルのカラムにbordテーブルproductテーブルをくっつけるので、messageテーブルのものを先に書いて見る
-    //SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, delete_flg FROM message AS m
-    //とりあえずここまでOK (2019-07-17 11:17:53)
-    //SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user, FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
-    //↑delete_flgとcreate_dateはbordテーブルにもあるので曖昧ですとエラーが出たので、メッセージテーブルだということを明示した (2019-07-17 11:38:02)
-    //SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, b.delete_flg , b.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
-    //↑外部結合しているbordテーブルが基準となるので、create_dateとdelete_flgも b. としてみた (2019-07-17 12:03:53)
-    //SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id RIGHT JOIN product AS p ON p.category_id = m.bord_id
-    //①ログからgetMsgAndBord関数にてユーザー情報等の取得には成功。この時点で掲示板の内容などは空
-    //②ソースコードの状態だと商品情報のIDが結び付けられなかったので（テーブルを3つJOINしないといけない？）、productDetail.phpの INSERTしているSQL文にproduct_idを入れるように追加
-    //':p_id' => $viewData['id'] これによりbordテーブルからproduct_id（商品情報を紐付けられるようになった）
-    //③質問を見ていると、INNER JOIN(内部結合)のほうがNULLが出ないので良いみたいだが、ここのSQL文はしっかり学習しないと取り出したい情報が取り出せないので注意！！
+    $sql = 'SELECT b.id, m.id AS m_id, 
+            bord_id, product_id, send_date, to_user, from_user,
+            msg, b.delete_flg, b.create_date, b.sale_user, b.buy_user 
+            FROM message AS m 
+            RIGHT JOIN bord AS b 
+            ON b.id = m.bord_id 
+            WHERE b.id = :id 
+            ORDER BY send_date ASC';
+    /*
+    $sql = 'SELECT m.id AS m_id,
+    product_id, bord_id, send_date, to_user, from_user, sale_user, buy_user,
+    msg, b.create_date 
+    FROM message AS m 
+    RIGHT JOIN bord AS b 
+    ON b.id = m.bord_id 
+    WHERE b.id = :id AND m.delete_flg = 0 
+    ORDER BY send_date ASC';
+    【bordテーブルにあるカラム：id sale_usser buy_user delete_flg create_date update_date】
+    【messageテーブルにあるカラム：id bord_id send_date to_user from_user msg delete_flg create_date update_date】
+    【productテーブルにあるカラム：id name category_id comment price pic1 pic2 pic3 user_id delete_flg create_date update_date】
+    messageテーブルのカラムにbordテーブル productテーブルをくっつけるので、messageテーブルのものを先に書いて見る
+    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, delete_flg FROM message AS m
+    とりあえずここまでOK (2019-07-17 11:17:53)
+    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user, FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
+    ↑delete_flgとcreate_dateはbordテーブルにもあるので曖昧ですとエラーが出たので、メッセージテーブルだということを明示した (2019-07-17 11:38:02)
+    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, b.delete_flg , b.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
+    ↑外部結合しているbordテーブルが基準となるので、create_dateとdelete_flgも b. としてみた (2019-07-17 12:03:53)
+    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id RIGHT JOIN product AS p ON p.category_id = m.bord_id
+    ①ログからgetMsgAndBord関数にてユーザー情報等の取得には成功。この時点で掲示板の内容などは空
+    ②ソースコードの状態だと商品情報のIDが結び付けられなかったので（テーブルを3つJOINしないといけない？）、productDetail.phpの INSERTしているSQL文にproduct_idを入れるように追加
+    ':p_id' => $viewData['id'] これによりbordテーブルからproduct_id（商品情報を紐付けられるようになった）
+    ③質問を見ていると、INNER JOIN(内部結合)のほうがNULLが出ないので良いみたいだが、ここのSQL文はしっかり学習しないと取り出したい情報が取り出せないので注意！！
+    */
     $data = array(':id' => $id);
     //クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
@@ -536,7 +551,7 @@ function getMyMsgsAndBord($u_id){
     //クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
     $rst = $stmt->fetchAll();
-    debug('掲示板レコードが空でないか確認 getMyMsgsAndBord関数：'.print_r($rst,true));
+    // debug('掲示板レコードが空でないか確認 getMyMsgsAndBord関数：'.print_r($rst,true));
       if(!empty($rst)){
       //掲示板のデータが有った場合にはforeachで配列を展開する
       foreach($rst as $key => $val){
@@ -832,34 +847,44 @@ function pagination( $currentPageNum, $totalPageNum, $maker = '', $category = ''
   // それ以外は左に２個出す。
   }else{
     debug('elseのページネーション処理');
-    debug($totalPageNum);
     $minPageNum = $currentPageNum - 2;
     $maxPageNum = $currentPageNum + 2;
   }
 
   // 検索時のGETパラメータをページネーション用URLでも表示するようにする
-  if(!empty($_GET['m_id']) && !empty($_GET['c_id']) && !empty($_GET['sort'])){
+  if(!empty($maker) && !empty($category) && !empty($sort)){
     $link = '&m_id='.$maker.'&c_id='.$category.'&sort='.$sort;
+    debug('すべて入っている時の処理'. print_r($_GET, true)); 
+    
+  }elseif(!empty($maker) && !empty($category) ){
+    $link = '&m_id='.$maker.'&c_id='.$category.'&sort=0';
+    debug('m_idとc_idが入っているとき');
 
-  }elseif(!empty($_GET['m_id'])){
-    $link = '&m_id='.$maker;
+  }elseif(!empty($maker) && !empty($sort) ){
+    $link = '&m_id='.$maker.'&c_id=0&sort='.$sort;
+    debug('m_idとsortが入っているとき');
+    
+  }elseif(!empty($category) && !empty($sort) ){
+    $link = '&m_id=0&c_id='. $category .'&sort='.$sort;
+    debug('c_idとsortが入っているとき');
 
-  }elseif(!empty($_GET['c_id'])){
-    $link = '&c_id='.$category;
+  }elseif(!empty($maker)){
+    $link = '&m_id='.$maker.'&c_id=0&sort=0';
+    debug('m_idのみが入っているとき');
 
-  }elseif(!empty($_GET['sort'])){
-    $link = '&sort='.$sort;
+  }elseif(!empty($category)){
+    $link = '&m_id=0&c_id='.$category.'&sort=0';
+    debug('c_idのみが入っているとき');
 
-  }elseif(!empty($_GET['m_id']) && !empty($_GET['c_id']) ){
-    $link = '&m_id='.$maker.'&c_id='.$category;
-
-  }elseif(!empty($_GET['m_id']) && !empty($_GET['sort']) ){
-    $link = '&m_id='.$maker.'&sort='.$sort;
+  }elseif(!empty($sort)){
+    $link = '&m_id=0&c_id=0&sort='.$sort;
+    debug('sortのみが入っているとき');
 
   }elseif(!empty($_GET['c_id']) && !empty($_GET['sort']) ){
-    $link = '&c_id='.$category.'&sort='.$sort;
+    $link = '&m_id=0&c_id='.$category.'&sort=0';
 
-  }else{
+  }else{ 
+    debug('何も入っていない時の処理'. print_r($_GET, true)); 
     $link = '';
   }
 
@@ -888,19 +913,7 @@ function showImg($path){
     return $path;
   }
 }
-function paginationParam($maker, $category, $sort){
-  if(!empty($maker) && !empty($category) && !empty($sort)){
-    echo 'm_id='.$maker.'&c_id='.$category.'&sort='.$sort;
-  }elseif(!empty($maker)){
 
-  }elseif(!empty($category)){
-
-  }elseif(!empty($sort)){
- 
-  }else{
-    return false;
-  }
-}
 // GETパラメータ付与
 // $del_key : 付与から取り除きたいGETパラメータのキー
 // productDetail.php?p=3&p_id=88となっているp_id=88の部分を取り除き、ページのパラメータ（p=3）だけ取り出す関数になっている

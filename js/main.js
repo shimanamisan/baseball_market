@@ -99,7 +99,10 @@ $(function(){
     // 今回、switchImgSubsというものは3つあるので、どれをクリックしたのか判断できるように$(this)を指定している
     $switchImgMain.attr('src', $(this).attr('src'));
     //attr属性の値を取得してその値を返す
-});
+  });
+  
+  // scrollHeightは要素のスクロールビューの高さを取得するもの
+  $('#js-scroll-bottom').animate({scrollTop: $('#js-scroll-bottom')[0].scrollHeight}, 'fast');
 });
 
 // 退会時の確認ダイアログ

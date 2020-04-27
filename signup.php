@@ -3,6 +3,11 @@
 // 共通関数
 require('function.php');
 
+debug('===============================');
+debug('=== マイページ mypage.php ===');
+debug('===============================');
+debugLogStart();
+
 //post送信されていた場合
 if(!empty($_POST)){
   

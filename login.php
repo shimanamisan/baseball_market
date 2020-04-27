@@ -3,7 +3,7 @@
 require('function.php');
 
 debug('=============================');
-debug('ここはログインページです login.php');
+debug('=== ここはログインページです login.php ===');
 debug('=============================');
 debugLogStart();
 
