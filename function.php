@@ -627,9 +627,9 @@ function getMaker(){
 }
 
 function isLike($u_id, $p_id){
-  debug('お気に入り情報がある確認します **isLike関数**');
-  debug('ユーザーID **isLike関数**：'.$u_id);
-  debug('商品ID **isLike関数**：'.$p_id);
+  debug('お気に入り情報がある確認します isLike関数');
+  debug('ユーザーID isLike関数：'.$u_id);
+  debug('商品ID isLike関数：'.$p_id);
   //例外処理
   try{
     //DBへ接続
@@ -641,10 +641,10 @@ function isLike($u_id, $p_id){
     $stmt = queryPost($dbh, $sql, $data);
 
       if($stmt->rowCount()){
-        debug('お気に入りです **isLike関数**');
+        debug('お気に入りです isLike関数');
         return true;
       }else{
-        debug('お気に入りではありません **isLike関数**');
+        debug('お気に入りではありません isLike関数');
         return false;
       }
   }catch (Exception $e){
@@ -653,8 +653,8 @@ function isLike($u_id, $p_id){
 }
 
 function getMyLike($u_id){
-  debug('自分のお気に入り情報を取得します *** getMyLike ***');
-  debug('ユーザーID *** getMyLike ***：'.$u_id);
+  debug('自分のお気に入り情報を取得します getMyLike関数');
+  debug('ユーザーID getMyLike関数：'.$u_id);
   //例外処理
   try{
     //DBへ接続

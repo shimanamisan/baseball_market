@@ -174,39 +174,40 @@ require('head.php');
                 foreach($viewData as $key => $val){
                   if(!empty($val['from_user']) && $val['from_user'] == $partnerUserId){
             ?>
-          <div class="msg-cnt msg-left">
-              <div class="avatar">
-                <img src="<?php echo sanitize(showImg($partnerUserInfo['pic'])); ?>" alt="" class="avatar">
-              </div>
-              <p class="msg-inrTxt">
-                <span class="triangle"></span>
-                  <?php echo sanitize($val['msg']); ?>
-              </p>
-              <div style="font-size:.6em;"><?php echo sanitize($val['send_date']); ?></div>
-          </div>
+            <div class="msg-cnt msg-left">
+                <div class="avatar">
+                  <img src="<?php echo sanitize(showImg($partnerUserInfo['pic'])); ?>" alt="" class="avatar">
+                </div>
+                <p class="msg-inrTxt">
+                  <span class="triangle"></span>
+                    <?php echo sanitize($val['msg']); ?>
+                </p>
+                <div style="font-size:.6em;"><?php echo sanitize($val['send_date']); ?></div>
+            </div>
                 <?php
                   }else{
                 ?>
-          <div class="msg-cnt msg-right <?php if(empty($val['msg'])) echo 'empty-msg' ;?>">
-              <div class="avatar">
-                 <img src="<?php echo sanitize(showImg($myUserInfo['pic'])); ?>" alt="" class="avatar">
-              </div>
-              <p class="msg-inrTxt">
-                <span class="triangle"></span>
-                 <?php echo sanitize($val['msg']); ?>
-              </p>
-              <div style="font-size:.6em;text-align:right;"><?php echo sanitize($val['send_date']); ?></div>
-          </div>
-      <?php
+            <div class="msg-cnt msg-right <?php if(empty($val['msg'])) echo 'empty-msg' ;?>">
+                <div class="avatar">
+                  <img src="<?php echo sanitize(showImg($myUserInfo['pic'])); ?>" alt="" class="avatar">
+                </div>
+                <p class="msg-inrTxt">
+                  <span class="triangle"></span>
+                  <?php echo sanitize($val['msg']); ?>
+                </p>
+                <div style="font-size:.6em;text-align:right;"><?php echo sanitize($val['send_date']); ?></div>
+            </div>
+          <?php
                     }
                   }      
-                    }else{
-                ?>
-              <p style="text-align:center;line-height:20;">メッセージ投稿はまだありません</p>
-          <?php
-              }
+                }
           ?>
-            </div>
+              
+          <?php
+             if(empty($viewData[0]['msg'])) echo '<p style="text-align:center;line-height:20;">メッセージ投稿はまだありません</p>';
+          ?>
+
+        </div>
         <div class="area-msg <?php if(!empty($err_msg['msg'])) echo 'err';?>">
         <?php if(!empty($err_msg['msg'])) echo $err_msg['msg']; ?>
         </div>

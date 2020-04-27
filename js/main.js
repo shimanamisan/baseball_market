@@ -100,11 +100,38 @@ $(function(){
     $switchImgMain.attr('src', $(this).attr('src'));
     //attr属性の値を取得してその値を返す
   });
+
+  // お気に入り追加・削除
+  var $like,
+      likeProductId;
+  // もしDOMが無かった場合にundefinedではなく、nullが入って後続の処理が止まらにようにする
+  $like = $('.js-click-like') || null;
+  likeProductId = $like.data('productid') || null;
+  // 数値の0はfalseと判定されてしまう
+  if(likeProductId !== undefined && likeProductId !== null){
+    $like.on('click', function(){
+      var $this = $(this);
+      $.ajax({
+        type: "POST",
+        url: "ajaxLike.php",
+        data: { productId : likeProductId}
+      }).done(function( data ){
+          console.log('Ajax Success!');
+          //クラス属性をtoggleでつけ外しする
+          $this.toggleClass('active');
+      }).fail(function( msg ) {
+          console.log('Ajax Error!');
+      });
+  });
+      
+    
+  }
   
   // scrollHeightは要素のスクロールビューの高さを取得するもの
   $('#js-scroll-bottom').animate({scrollTop: $('#js-scroll-bottom')[0].scrollHeight}, 'fast');
 });
 
+// ここはネイティブJSの処理
 // 退会時の確認ダイアログ
 function withdraw(){
   var checked = confirm('本当に退会しますか？');
