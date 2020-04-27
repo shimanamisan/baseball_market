@@ -25,33 +25,33 @@ if(isset($_POST['productId']) && isset($_SESSION['user_id']) && isLogin()){
   debug('商品ID：'.print_r($p_id,true));
   debug('ユーザーID：'.print_r($_SESSION['user_id'],true));
   
-  //例外処理
+  // 例外処理
   try{
-    //DBへ接続
+    // DBへ接続
     $dbh = dbConnect();
-    //レコードがあるか検索
-    //likeという単語はLIKE検索というSQLの命令文で使われているため、そのままでは使えないのでバッククォート `` (＠キーをshift押しながら)で囲む
+    // レコードがあるか検索
+    // likeという単語はLIKE検索というSQLの命令文で使われているため、そのままでは使えないのでバッククォート `` (＠キーをshift押しながら)で囲む
     $sql = 'SELECT * FROM `like` WHERE product_id = :p_id AND user_id = :u_id';
     $data = array(':u_id' => $_SESSION['user_id'], ':p_id' => $p_id);
-    //クエリ実行
+    // クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
     $resultCount = $stmt->rowCount();
     debug('rowCount関数の結果です：'.print_r($resultCount,true));
-    //レコードが1件でもある場合
+    // レコードが1件でもある場合
     if(!empty($resultCount)){
-      //レコードを削除する
+      // レコードを削除する
       $sql = 'DELETE FROM `like` WHERE product_id = :p_id AND user_id = :u_id';
       $data = array(':u_id' => $_SESSION['user_id'], ':p_id' => $p_id);
-      //クエリ実行
+      // クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
-      debug('レコードがあったときの処理です！ ajax.php：'.print_r($stmt,true));
+      debug('レコードが存在していたのでお気に入り削除の処理 ajax.php：'.print_r($stmt,true));
     }else{
-      //レコードを挿入する
+      // レコードを挿入する
       $sql = 'INSERT INTO `like` (product_id, user_id, create_date) VALUES (:p_id, :u_id, :date)';
       $data = array(':u_id' => $_SESSION['user_id'], ':p_id' => $p_id, ':date' => date('Y-m-d H:i:s'));
-      //クエリ実行
+      // クエリ実行
       $stmt = queryPost($dbh, $sql, $data);
-      debug('レコードがなかったときの処理です！ ajax.php：'.print_r($stmt,true));
+      debug('レコードが存在していたのでお気に入り追加の処理 ajax.php：'.print_r($stmt,true));
     }
 
   }catch (Exception $e){

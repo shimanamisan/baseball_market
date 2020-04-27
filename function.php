@@ -217,15 +217,18 @@ function getErrMsg($key){
 //================================
 // ログイン認証
 //================================
-function isLogin(){ //関数の頭をisとしていたらtrueかfalseで返ってくるんだな～という習わしである
-  //ログインしている場合
+// 関数の頭をisとしていたらtrueかfalseで返ってくる、とわかりやすくするための命名規則
+// auth.phpではログイン有効期限が切れていたりしたらログインページに飛ばしていたが、お気に入り機能では
+// それは必要ないのでDBに登録せずにtrue か falseを返すだけの処理にしている
+function isLogin(){ 
+  // ログインしている場合
   if(!empty($_SESSION['login_date'])){
     debug('ログイン済みユーザーです isLogin関数');
-    //現在時刻が最終ログイン日時+有効期限を超えていた場合
+    // 現在時刻が最終ログイン日時+有効期限を超えていた場合
     if( ($_SESSION['login_date'] + $_SESSION['login_limit']) < time() ){
       debug('ログイン有効期限オーバーです isLogin関数');
 
-      //セッションを削除する（ログアウトする）
+      // セッションを削除する（ログアウトする）
       session_destroy();
       return false;
     }else{
@@ -457,13 +460,13 @@ function getProductOne($p_id){
       }
 
   } catch (Exception $e) {
-    error_log('エラー発生 *** getProductOne ***:' . $e->getMessage());
+    error_log('エラー発生 getProductOne関数:' . $e->getMessage());
   }
 }
 
 function getMyProducts($u_id){
-  debug('自分の商品情報を取得します *** getMyproducts ***');
-  debug('ユーザーID *** getMyproducts ***：'.$u_id);
+  debug('自分の商品情報を取得します getMyproducts関数');
+  debug('ユーザーID getMyproducts関数：'.$u_id);
   //例外処理
   try{
     $dbh = dbConnect();
@@ -553,16 +556,17 @@ function getMyMsgsAndBord($u_id){
     $rst = $stmt->fetchAll();
     // debug('掲示板レコードが空でないか確認 getMyMsgsAndBord関数：'.print_r($rst,true));
       if(!empty($rst)){
-      //掲示板のデータが有った場合にはforeachで配列を展開する
+      // 掲示板のデータが有った場合にはforeachで配列を展開する
       foreach($rst as $key => $val){
         debug('$key：'.print_r($key,true));
         debug('$val：'.print_r($val,true));
-        //SQL文作成（掲示板IDがわかったので掲示板IDをもとにメッセージを取得）
+        // SQL文作成
+        // $rstの結果からボードテーブルから掲示板IDを引っ張ってきているので、その掲示板IDをもとにメッセージを取得
         $sql = 'SELECT * FROM message WHERE bord_id = :id AND delete_flg = 0 ORDER BY send_date DESC';
         $data = array(':id' => $val['id']);
-        //クエリ実行
+        // クエリ実行
         $stmt = queryPost($dbh, $sql, $data);
-        //msgというキーを作ってその中に取得したメッセージ情報を格納する
+        // msgというキーを作ってその中に取得したメッセージ情報を格納する
         $rst[$key]['msg'] = $stmt->fetchAll();
       }
   }

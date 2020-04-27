@@ -200,6 +200,9 @@ section h1.title {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.list{
+  margin-bottom: 30px;
+}
 /*========================================
   サイドバー
 ========================================*/
@@ -823,7 +826,7 @@ input[type="submit"]:hover {
   position: relative;
   top: -4px;
 }
-#main .title{
+.title{
   font-size: 28px;
   padding: 10px 0;
 }
@@ -1022,4 +1025,11 @@ float: left;
 }
 .empty-msg{
   display: none;
+}
+
+/*================================
+/* マイページレイアウト
+=================================*/
+.title-header{
+  margin-right: 15px;
 }
