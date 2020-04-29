@@ -8,9 +8,9 @@ $(function(){
   // HTML側で微妙に空白があるので、取り除いて文字が存在していると判定する
   // $_SESSION['success']にメッセージが詰め込まれていれば、メッセージが入っている
   if(msg.replace(/^[\s　]+|[\s　]+$/g, "").length){
-    $jsShowMsg.slideToggle('slow');
+    $jsShowMsg.toggleClass('msg-slide-active');
     setTimeout(function(){
-      $jsShowMsg.slideToggle('slow');
+      $jsShowMsg.toggleClass('msg-slide-active');
     }, 5000);
   }
   // フッターの固定
@@ -19,9 +19,10 @@ $(function(){
   if( window.innerHeight > $ftr.offset().top + $ftr.outerHeight() ){
     $ftr.attr({'style': 'position:fixed; top:' + (window.innerHeight - $ftr.outerHeight()) +'px;' });
   }
-  //画像ライブプレビュー
+  // 画像ライブプレビュー
   var $dropArea = $('.area-drop');
   var $fileInput = $('.input-file');
+  // cssプロパティ用のオブジェクト
   var dragOverObject = {
     border: '3px #ccc dashed',
     transform: 'scale(1.05)',
@@ -29,7 +30,6 @@ $(function(){
   }
   var dragleaveObject = {
     border: 'none',
-    width: '100%',
     transform: 'scale(1.0)',
     transition: 'all .25s'
   }
@@ -39,9 +39,6 @@ $(function(){
     // クリックイベントなどをキャンセルさせる
     // HTMLのリンクやチェックボックスによるイベントなどをキャンセルするメソッド
     e.preventDefault();
-    // $(this).css(
-    //   'border', '3px #ccc dashed'
-    //   );
     $(this).css(dragOverObject);
   });
   $dropArea.on('dragleave', function(e){
@@ -110,21 +107,19 @@ $(function(){
   // 数値の0はfalseと判定されてしまう
   if(likeProductId !== undefined && likeProductId !== null){
     $like.on('click', function(){
-      var $this = $(this);
-      $.ajax({
-        type: "POST",
-        url: "ajaxLike.php",
-        data: { productId : likeProductId}
-      }).done(function( data ){
-          console.log('Ajax Success!');
-          //クラス属性をtoggleでつけ外しする
-          $this.toggleClass('active');
-      }).fail(function( msg ) {
-          console.log('Ajax Error!');
-      });
-  });
-      
-    
+        var $this = $(this);
+        $.ajax({
+          type: "POST",
+          url: "ajaxLike.php",
+          data: { productId : likeProductId}
+        }).done(function( data ){
+            console.log('Ajax Success!');
+            //クラス属性をtoggleでつけ外しする
+            $this.toggleClass('active');
+        }).fail(function( msg ) {
+            console.log('Ajax Error!');
+        });
+    });
   }
   
   // scrollHeightは要素のスクロールビューの高さを取得するもの
@@ -135,6 +130,15 @@ $(function(){
 // 退会時の確認ダイアログ
 function withdraw(){
   var checked = confirm('本当に退会しますか？');
+  if(checked == true){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function productBuy(){
+  var checked = confirm('この商品を購入しますか？');
   if(checked == true){
     return true;
   }else{
