@@ -32,7 +32,7 @@ if(empty($viewData)){
 }
 // 商品情報を取得
 $productInfo = getProductOne($viewData[0]['product_id']);
-debug('取得したDBデータ getProductOne関数 msg.php：'.print_r($productInfo,true));
+debug('取得した商品データ getProductOne関数 msg.php：'.print_r($productInfo,true));
 // 商品情報が入っているかチェック
 if(empty($productInfo)){
     error_log('エラー発生：商品情報が取得できませんでした msg.php');
@@ -42,11 +42,15 @@ if(empty($productInfo)){
 // viewDataから相手のユーザーIDを取り出す
 $dealUserIds[] = $viewData[0]['sale_user'];
 $dealUserIds[] = $viewData[0]['buy_user'];
+debug('相手ユーザーIDを取り出すための配列 $dealUserIds キーが[0]がsale_user キーが[1]がbuy_user： '. print_r($dealUserIds, true));
 // どっちが自分若しくは相手のユーザーIDか判定をする
 // マッチしている配列のキーを取ってきてそれがfalseで無いことをチェック
-debug('array_search：' . array_search($_SESSION['user_id'], $dealUserIds));
+// 自分のユーザーIDを元に自分が、sale_user か buy_userなのかを検索している
 if(($key = array_search($_SESSION['user_id'], $dealUserIds)) !== false) {
+    debug('検索で返ってきた返り値（キー）： '. print_r($key, true));
+    debug('unset前の変数です：'. print_r($dealUserIds, true));
     unset($dealUserIds[$key]);
+    debug('unsetしています：'. print_r($dealUserIds, true));
 }
 $partnerUserId = array_shift($dealUserIds);
 debug('取得した相手のユーザーID：' .$partnerUserId);
@@ -133,12 +137,12 @@ require('head.php');
  
     </style>
 
-    <!-- メニュー -->
+    <!-- ヘッダー -->
     <?php
       require('header.php'); 
     ?>
     
-    <p id="js-show-msg" style="display:none; line-height:90px;" class="msg-slide">
+    <p id="js-show-msg" class="msg-slide msg-success">
       <?php echo getSessionFlash('msg_success'); ?>
     </p>
 
@@ -214,7 +218,7 @@ require('head.php');
         <div class="area-send-msg">
         <form action="" method="post">    
           <textarea name="msg" cols="30" rows="3"></textarea>
-          <input type="submit" value="送信" class="btn btn-send">
+          <input type="submit" value="送信" class="btn post-btn btn-send">
         </form>  
         </div>
       </section>
