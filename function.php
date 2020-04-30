@@ -200,7 +200,7 @@ function validPass($str, $key){
 
 //セレクトボックスのチェック
 function validSelect($str, $key){
-  if(!preg_match("/^[1-9]+$/", $str)){
+  if(!preg_match("/^[1-9]?[0-9]+$/", $str)){
     global $err_msg;
     $err_msg[$key] = MSG15;
   }
