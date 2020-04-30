@@ -16,21 +16,34 @@ debugLogStart();
 //GETパラメータを取得
 //--------------------------------
 // カレントページ
-$currentPageNum = (!empty($_GET['p'])) ? $_GET['p'] : 1; //デフォルトは１ページめ
+$currentPageNum = (!empty($_GET['p'])) ? $_GET['p'] : 1; // デフォルトは1ページめ
 // カテゴリー
 $category = (!empty($_GET['c_id'])) ? $_GET['c_id'] : '';
 // メーカー
 $maker = (!empty($_GET['m_id'])) ? $_GET['m_id'] : '';
 // ソート順
 $sort = (!empty($_GET['sort'])) ? $_GET['sort'] : '';
-//パラメータに不正な値が入っているかチェック
-if(!is_int((int)$currentPageNum)){
-  // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
+
+// ここでGETパラメータの型を確認しています
+debug('ここでGETパラメータの型を確認しています： ' .gettype($currentPageNum));
+
+// パラメータに不正な値が入っているかチェック
+if(!preg_match("/^[0-9]+$/", $currentPageNum)){
+  // パラメータが数字かチェックしている
   error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
-  // トップページへ
+  // 平仮名や英字といった数字以外だったらトップページへリダイレクト
   header("Location:index.php"); 
   exit();
 }
+// //パラメータに不正な値が入っているかチェック
+// if(!is_int((int)$currentPageNum)){
+//   // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
+//   error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
+//   // トップページへ
+//   header("Location:index.php"); 
+//   exit();
+// }
+
 // 表示件数
 $listSpan = 40;
 // 現在の表示レコード先頭を算出
@@ -100,13 +113,13 @@ debug('現在のページ：'.$currentPageNum);
           <h1 class="title">表示順</h1>
           <div class="selectbox">
             <span class="icn_select"></span>
-            <select class="category-form" name="sort">
+            <select class="category-form u-under-margin" name="sort">
               <option value="0" <?php if(getFormData('sort',true) == 0 ){ echo 'selected'; } ?> >選択してください</option>
               <option value="1" <?php if(getFormData('sort',true) == 1 ){ echo 'selected'; } ?> >金額が安い順</option>
               <option value="2" <?php if(getFormData('sort',true) == 2 ){ echo 'selected'; } ?> >金額が高い順</option>
             </select>
           </div>
-          <input class="submit-btn u-radius" type="submit" value="検索">
+          <input class="btn post-btn u-radius" type="submit" value="検索">
         </form>
 
       </section>
