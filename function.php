@@ -7,7 +7,6 @@ ini_set('log_errors','on');
 //ログの出力ファイルを指定
 ini_set('error_log','php.log');
 // タイムゾーンをセット
-// ini_set("date.timezone", "Asia/Tokyo");
 
 //================================
 // デバッグ
@@ -71,6 +70,7 @@ define('MSG13','古いパスワードと同じです');
 define('MSG14','文字で入力してください');
 define('MSG15','正しくありません');
 define('MSG16','有効期限が切れています');
+define('MSG17','自分の出品した商品は購入できません');
 define('SUC01','パスワードを変更しました');
 define('SUC02','プロフィールを変更しました');
 define('SUC03','メールを送信しました');
@@ -279,7 +279,7 @@ function queryPost($dbh, $sql, $data){
     //PDOStatement::execute：プリペアドステートメントを実行する
     debug('クエリ失敗しました queryPost関数 function.php');
     debug('失敗したSQL queryPost関数 function.php：'.print_r($stmt,true));
-    debug('DBハンドラエラー function.php：'.print_r($stmt->errorInfo(),true));
+    debug('DBハンドラエラーコード queryPost関数 function.php：'.print_r($stmt->errorInfo(),true));
     $err_msg['common'] = MSG07;
     return false;
   }
@@ -337,16 +337,12 @@ function getProduct($u_id, $p_id){
 
 function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40){
   debug('商品情報を取得します。getProductList関数');
-  // $currentMinNum = (int)$currentMinNum;
-  // $span = (int)$span;
     //例外処理
     try {
       // DBへ接続
       $dbh = dbConnect();
-      // 件数用のSQL文作成
       
       // 件数用のSQL文作成
-      // if(!empty($category) && !empty($maker)) $sql .= ' WHERE category_id = '.$category . ' OR maker_id = '. $maker;
       if(!empty($category) && !empty($maker)){
         $sql = 'SELECT id FROM product WHERE category_id = ' .$category. ' AND maker_id = '. $maker;
       }elseif(!empty($category)){
@@ -377,9 +373,7 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
           return false;
         }
       // ページング用のSQL文作成
-      $sql = 'SELECT * FROM product';
-      // if(!empty($category)) $sql .= ' WHERE category_id = '.$category;
-      // if(!empty($category) && !empty($maker)) $sql .= ' WHERE category_id = '.$category . ' OR maker_id = '. $maker;
+      // $sql = 'SELECT * FROM product';
       if(!empty($category) && !empty($maker)){
         debug('カテゴリーとメーカーの両方で検索された時のSQL getProductList');
         $sql = 'SELECT * FROM product WHERE category_id = ' .$category. ' AND maker_id = '. $maker;
@@ -391,7 +385,8 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         $sql = 'SELECT * FROM product WHERE maker_id = ' .$maker;
       }else{
         // 新しく登録された商品から表示する
-        $sql = 'SELECT * FROM product ORDER BY create_date DESC';
+        // $sql = 'SELECT * FROM product ORDER BY create_date DESC';
+        $sql = 'SELECT * FROM product';
         debug('何も選択されてない時のSQL getProductList');
       }
         if(!empty($sort)){
@@ -404,12 +399,18 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
                   break;
             } 
         }
-      $sql .= ' LIMIT '.$span.' OFFSET '.$currentMinNum;
-      // $sql = 'SELECT * FROM product LIMIT :span OFFSET :currentMinNum';
-      // $data = array(':span' => $span, 'currentMinNum' => $currentMinNum);
-      // $data = array();
+      // プレースホルダーを使わずに変数に検索用の値を代入しているやりかた
+      // $sql .= ' LIMIT '.$span.' OFFSET '.$currentMinNum;
+
+      // 変数を結合してSQLを作成するときもプレースホルダーにバインドするやり方
+      $sql .= ' LIMIT :span OFFSET :currentMinNum';
+      $stmt = $dbh->prepare($sql);
+      debug('セットされているSQL：'. $sql);
+      $stmt->bindValue(':span', $span, PDO::PARAM_INT);
+      $stmt->bindValue(':currentMinNum', $currentMinNum, PDO::PARAM_INT);
       //クエリ実行
-      $stmt = queryPost($dbh, $sql, $data);
+      $stmt->execute();
+      debug('DBハンドラエラーコード getProductList関数 function.php：'.print_r($stmt->errorInfo(),true));
 
       if($stmt){
         // クエリ結果の全レコードを格納
@@ -502,31 +503,6 @@ function getMsgsAndBord($id){
             ON b.id = m.bord_id 
             WHERE b.id = :id 
             ORDER BY send_date ASC';
-    /*
-    $sql = 'SELECT m.id AS m_id,
-    product_id, bord_id, send_date, to_user, from_user, sale_user, buy_user,
-    msg, b.create_date 
-    FROM message AS m 
-    RIGHT JOIN bord AS b 
-    ON b.id = m.bord_id 
-    WHERE b.id = :id AND m.delete_flg = 0 
-    ORDER BY send_date ASC';
-    【bordテーブルにあるカラム：id sale_usser buy_user delete_flg create_date update_date】
-    【messageテーブルにあるカラム：id bord_id send_date to_user from_user msg delete_flg create_date update_date】
-    【productテーブルにあるカラム：id name category_id comment price pic1 pic2 pic3 user_id delete_flg create_date update_date】
-    messageテーブルのカラムにbordテーブル productテーブルをくっつけるので、messageテーブルのものを先に書いて見る
-    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, delete_flg FROM message AS m
-    とりあえずここまでOK (2019-07-17 11:17:53)
-    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user, FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
-    ↑delete_flgとcreate_dateはbordテーブルにもあるので曖昧ですとエラーが出たので、メッセージテーブルだということを明示した (2019-07-17 11:38:02)
-    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, b.delete_flg , b.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id
-    ↑外部結合しているbordテーブルが基準となるので、create_dateとdelete_flgも b. としてみた (2019-07-17 12:03:53)
-    SELECT m.id AS m_id, bord_id, send_date, to_user, from_user, msg, m.delete_flg , m.create_date, b.sale_user, b.buy_user FROM message AS m RIGHT JOIN bord AS b ON b.id = m.bord_id RIGHT JOIN product AS p ON p.category_id = m.bord_id
-    ①ログからgetMsgAndBord関数にてユーザー情報等の取得には成功。この時点で掲示板の内容などは空
-    ②ソースコードの状態だと商品情報のIDが結び付けられなかったので（テーブルを3つJOINしないといけない？）、productDetail.phpの INSERTしているSQL文にproduct_idを入れるように追加
-    ':p_id' => $viewData['id'] これによりbordテーブルからproduct_id（商品情報を紐付けられるようになった）
-    ③質問を見ていると、INNER JOIN(内部結合)のほうがNULLが出ないので良いみたいだが、ここのSQL文はしっかり学習しないと取り出したい情報が取り出せないので注意！！
-    */
     $data = array(':id' => $id);
     //クエリ実行
     $stmt = queryPost($dbh, $sql, $data);
@@ -568,6 +544,7 @@ function getMyMsgsAndBord($u_id){
         $stmt = queryPost($dbh, $sql, $data);
         // msgというキーを作ってその中に取得したメッセージ情報を格納する
         $rst[$key]['msg'] = $stmt->fetchAll();
+        debug('メッセージ格納後の配列 $rst：' .print_r($rst, true));
       }
   }
       
@@ -858,7 +835,7 @@ function pagination( $currentPageNum, $totalPageNum, $maker = '', $category = ''
   // 検索時のGETパラメータをページネーション用URLでも表示するようにする
   if(!empty($maker) && !empty($category) && !empty($sort)){
     $link = '&m_id='.$maker.'&c_id='.$category.'&sort='.$sort;
-    debug('すべて入っている時の処理'. print_r($_GET, true)); 
+    debug('カテゴリナンバーがすべて入っている時の処理'. print_r($_GET, true)); 
     
   }elseif(!empty($maker) && !empty($category) ){
     $link = '&m_id='.$maker.'&c_id='.$category.'&sort=0';
@@ -888,7 +865,7 @@ function pagination( $currentPageNum, $totalPageNum, $maker = '', $category = ''
     $link = '&m_id=0&c_id='.$category.'&sort=0';
 
   }else{ 
-    debug('何も入っていない時の処理'. print_r($_GET, true)); 
+    debug('カテゴリナンバーが何も入っていない時の処理'. print_r($_GET, true)); 
     $link = '';
   }
 
