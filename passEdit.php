@@ -82,6 +82,8 @@ if(!empty($_POST)){
             // EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
             // EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
           $comment = <<<EOT
+【パスワード変更メールです。心当たりにない場合はこのメッセージを削除してください。】
+
 {$username}　さん
 パスワードが変更されました。
 
@@ -162,7 +164,7 @@ EOT;
             </div><!-- area-msg -->
 
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="変更する">
+              <input type="submit" class="btn post-btn btn-mid" value="変更する">
             </div>
           </form>
         </div>
