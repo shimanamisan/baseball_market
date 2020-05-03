@@ -3,9 +3,9 @@
 // 共通関数
 require('function.php');
 
-debug('************');
-debug('退会ページの処理 withdrow.php');
-debug('************');
+debug('===============================');
+debug('=== 退会ページの処理 withdrow.php ===');
+debug('===============================');
 debugLogStart();
 
 // ログイン認証
@@ -54,9 +54,8 @@ if(!empty($_POST)){
       $err_msg['common'] = MSG07;
   }
 }
-debug('************');
-debug('退会ページの処理終了 withdrow.php');
-debug('************');
+debug(' ==== 退会ページの処理終了 withdrow.php ====');
+
 ?>
 
 <?php
@@ -88,7 +87,7 @@ require('head.php');
               if(!empty($err_msg['common'])) echo $err_msg['common']
             ?>
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="退会する" name="submit" onClick="return withdraw()">
+              <input type="submit" class="btn post-btn btn-mid" value="退会する" name="submit" onClick="return withdraw()">
             </div>
           </form>
         </div>
