@@ -204,12 +204,16 @@ require('head.php');
               </div><!-- area-msg -->
 
               プロフィール画像<!-- 画像登録用のHTMLタグ -->
-              <label class="area-drop <?php if(empty($err_msg['pic'])) echo 'err'; ?>" style="height: 370px; line-height: 370px;">
-                <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
-                <input type="file" name="pic" style="height: 370px;" class="input-file">
-                <img src="<?php echo getFormData('pic');?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic'))) echo 'display: none;' ?>">
-                ドラッグ＆ドロップ
-              </label>
+             
+                <label class="area-drop prof-area-drop <?php if(empty($err_msg['pic'])) echo 'err'; ?>">
+                <div class="profImg-wrapp">
+                  <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
+                  <input type="file" name="pic" class="input-file prof-input-file">
+                  <img src="<?php echo getFormData('pic');?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic'))) echo 'display: none;' ?>">
+                  ドラッグ＆ドロップ
+                  </div>
+                </label>
+             
               <div class="area-msg">
                 <?php
                 if(!empty($err_msg['pic'])) echo $err_msg['pic'];
@@ -217,7 +221,7 @@ require('head.php');
               </div><!-- area-msg -->
                 
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="変更する">
+              <input type="submit" class="btn post-btn btn-mid" value="変更する">
             </div>
           </form>
         </div>

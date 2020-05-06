@@ -28,9 +28,9 @@ if(!empty($_POST)){
 
     debug('未入力チェックオーケーです passRemaindSend.php');
 
-    //emailの形式チェック
+    // emailの形式チェック
     validEmail($email, 'email');
-    //emailの最大文字数チェック
+    // emailの最大文字数チェック
     validMaxLen($email, 'email');
 
     if(empty($err_msg)){
@@ -61,8 +61,9 @@ if(!empty($_POST)){
           $from = 'itsup-info@shimanamisan.com';
           $to = $email;
           $subject = '【パスワード再発行】｜BASEBALL ITEMカスタマーセンター';
-           //EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
-           //EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
+           // EOT:EndOfTextの略。他にもよく使われるものでEOF(EndOfFile)等がある。
+           // ABCでも何でもいい。先頭の<<<の後の文字列と合わせること。最後のEOTの前後に空白など何も入れては駄目！
+           // EOT内の半角空白も全てそのまま半角空白として扱われるのでインデントはしないこと
 $comment = <<<EOT
 本メールアドレス宛にパスワード再発行のご依頼がありました。
 下記のURLにて認証キーをご入力頂くとパスワードが再発行されます。
@@ -144,7 +145,7 @@ require('head.php');
               ?>
             </div><!-- area-msg -->
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="送信する">
+              <input type="submit" class="btn post-btn btn-mid" value="送信する">
             </div>
           </form>
         </div>

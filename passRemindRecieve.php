@@ -130,8 +130,8 @@ require('head.php');
     <?php
       require('header.php'); 
     ?>
-    <p id="js-show-msg" style="display:none; line-height:90px;" class="msg-slide">
-        <?php echo getSessionFlash('msg_success');?> 
+    <p id="js-show-msg" class="msg-slide msg-success">
+          <?php echo getSessionFlash('msg_success'); ?>
     </p>
     <!-- メインコンテンツ -->
     <div id="contents" class="site-width">
@@ -154,7 +154,7 @@ require('head.php');
              <?php if(!empty($err_msg['token'])) echo $err_msg['token']; ?>
             </div>
             <div class="btn-container">
-              <input type="submit" class="btn btn-mid" value="再発行する">
+              <input type="submit" class="btn post-btn btn-mid" value="再発行する">
             </div>
           </form>
         </div>

@@ -160,6 +160,7 @@ if(!empty($_POST)){
         $_SESSION['msg_success'] = SUC04;
         debug('マイページへ遷移します。');
         header("Location:mypage.php"); // マイページへ
+        exit();
       }
 
     } catch (Exception $e) {
@@ -220,7 +221,7 @@ require('head.php');
             </label>
             <div class="area-msg">
               <?php 
-              if(!empty($err_msg['name'])) echo $err_msg['name'];
+              if(!empty($err_msg['maker_id'])) echo $err_msg['maker_id'];
               ?>
             </div>
             <label class="<?php if(!empty($err_msg['category_id'])) echo 'err'; ?>">
@@ -311,7 +312,7 @@ require('head.php');
             </div>
 
             <div class="btn-container">
-              <input type="submit" class="submit-btn btn btn-mid" value="<?php echo (!$edit_flg) ? '出品する' : '更新する'; ?>">
+              <input type="submit" class="post-btn btn btn-mid" value="<?php echo (!$edit_flg) ? '出品する' : '更新する'; ?>">
             </div>
           </form>
         </div>
