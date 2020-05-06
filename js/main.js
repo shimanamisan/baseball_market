@@ -13,12 +13,14 @@ $(function(){
       $jsShowMsg.toggleClass('msg-slide-active');
     }, 5000);
   }
+
   // フッターの固定
   var $ftr = $('#footer');
   console.log($ftr.offset());
   if( window.innerHeight > $ftr.offset().top + $ftr.outerHeight() ){
     $ftr.attr({'style': 'position:fixed; top:' + (window.innerHeight - $ftr.outerHeight()) +'px;' });
   }
+
   // 画像ライブプレビュー
   var $dropArea = $('.area-drop');
   var $fileInput = $('.input-file');
@@ -65,8 +67,9 @@ $(function(){
     };
     // 6.readAsDataURL()を使って、画像読み込み
     fileReader.readAsDataURL(file);
-    console.log(fileReader);
+    // console.log(fileReader);
   });
+
   // トップへ戻るボタン
   var top = $('.scroll-top');
   $(window).scroll(function () {
@@ -77,6 +80,7 @@ $(function(){
         top.removeClass('js-scroll'); 
     }
   });
+
   // テキストカウンター
   var $countUP = $('#js-count');
   var $countView = $('#js-count-view');
@@ -89,6 +93,7 @@ $(function(){
       $counterOver.html('');
     }
   });
+
   // 画像切り替え
   var $switchImgSubs = $('.js-switch-img-sub'),
   $switchImgMain = $('#js-switch-img-main');

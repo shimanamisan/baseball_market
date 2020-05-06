@@ -222,17 +222,6 @@ section h1.title {
 .selectbox {
   position: relative;
 }
-/* #sidebar select {
-  padding: 10px;
-  width: 100%;
-  border-color: #ccc;
-  border-radius: 0;
-  font-size: 14px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; 
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-} */
 .icn_select:after {
   position: absolute;
   top: 15px;
@@ -245,9 +234,6 @@ section h1.title {
   border-bottom: 10px solid transparent;
   border-left: 7px solid transparent;
   content: "";
-}
-.page-logined #sidebar{
-  /* margin: 0 0 0 20px; */
 }
 .page-logined #sidebar > a{
   display: block;
@@ -350,7 +336,6 @@ footer a {
 }
 .panel-list {
   overflow: hidden;
-  margin-right: -15px;
 }
 .panel-list > .panel {
   float: left;
@@ -381,6 +366,7 @@ footer a {
 .list-table > table {
   width: 100%;
   border-spacing: 0 5px;
+  text-align: left;
 }
 
 .list-table th,
@@ -395,32 +381,30 @@ footer a {
 /*========================================
   ボタン
 ========================================*/
-.btn {
+.btn{
+  font-size: 14px;
   padding: 15px 20px;
   text-decoration: none;
 }
-.btn:hover {
+.btn:hover{
   text-decoration: none;
 }
-.btn.btn-primary {
+.btn.btn-primary{
   background: #f0efe9;
   color: #000;
   transition: all .8s;
 }
-.btn.btn-mid {
+.btn.btn-mid{
   max-width: 150px;
 }
-/* .form{
-  text-align: center;
-} */
 .submit-btn{
-  font-size: 14px;
   margin: 15px 0;
-  padding: 15px 30px;
   width: 100%;
   color: #333;
   border: 3px solid #333;
   transition: all .3s ease;
+  background-color: transparent;
+  box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
 }
 .submit-btn:hover{
   cursor: pointer;
@@ -428,6 +412,24 @@ footer a {
   color: #fff;
   border: 3px solid #333;
   transition: all .3s ease;
+  box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
+}
+.post-btn{
+  margin: 15px 0;
+  width: 100%;
+  color: #333;
+  border: 1px solid #333;
+  transition: all .3s ease;
+  background-color: transparent;
+  box-shadow: 3px 2px 2px rgba(32, 33, 36, .28);
+}
+.post-btn:hover{
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  border: 1px solid #333;
+  transition: all .3s ease;
+  box-shadow: 3px 2px 2px rgba(32, 33, 36, .28);
 }
 /*========================================
   共通スタイル
@@ -436,22 +438,20 @@ footer a {
   border-radius: 8px;
 }
 .u-under-margin{
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .scroll-top{
   display: block;
   color: #fff;
-  line-height: 66px;
-  width: 60px;
-  height: 60px;
+  line-height: 50px;
+  width: 50px;
   text-align: center;
   position: fixed;
   bottom: 20px;
   z-index: 1000;
   right: -60px;
   transition: all .4s ease;
-  background-color: #000;
-  border-radius: 50%;
+  background-color: rgba(0,0,0,0.6);
 }
 .scroll-top:hover{
   cursor: pointer;
@@ -461,7 +461,7 @@ footer a {
   スクロールスタイル
 ========================================*/
 .js-scroll{
-  height: 70px;
+  height: 50px;
   box-shadow: 0 3px 0 rgba(0,0,0,0.05);
   right:20px;
   transition: all .4s ease;
@@ -526,31 +526,14 @@ input[type="number"] {
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
   cursor: pointer;
 }
-/* input[type="submit"] {
-  font-size: 14px;
-  margin: 15px 0;
-  padding: 15px 30px;
-  width: 100%;
-  color: #333;
-  border: 3px solid #333;
-  transition: all .3s ease;
-}
-select:hover,
-input[type="submit"]:hover {
-  cursor: pointer;
-  background: #333;
-  color: #fff;
-  border: 3px solid #333;
-  transition: all .3s ease;
-} */
 .form-container {
-  margin: 0 auto;
+  margin-left: auto;
   width: 80%;
 }
 .page-1colum .form-container{
   margin: 80px auto;
 }
-.form {
+.form{
   margin: 0 auto;
   padding: 30px;
   width: 400px;
@@ -568,7 +551,7 @@ input[type="submit"]:hover {
 .page-logined .form{
   border: none;
 }
-.form .title {
+.form .title{
   margin-bottom: 40px;
   text-align: center;
 }
@@ -576,10 +559,11 @@ input[type="submit"]:hover {
   padding: 0 0 15px 0;
   color: red;
 }
-.form .btn-container {
+.form .btn-container{
   overflow: hidden;
+  text-align: center;
 }
-.form .btn {
+.form .btn{
   float: right;
 }
 .area-drop{
@@ -623,6 +607,11 @@ input[type="submit"]:hover {
   display: inline-block;
   margin-bottom: 10px;
 }
+.gest-form{
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: none;
+}
 
 /*================================
 /* フォームグループ
@@ -644,15 +633,31 @@ input[type="submit"]:hover {
 /*========================================
   その他
 ========================================*/
-.msg-slide{
+.msg-slide {
   position: fixed;
-  top: 0;
-  width:100%;
-  height:80px;
-  background: rgba(122,206,230,0.6);
+  display: block;
+  z-index: 2;
+  top: 16%;
+  right: -30%;
+  width: 350px;
+  line-height:90px;
   text-align: center;
-  font-size:16px;
-  line-height: 40px;
+  font-size: 16px;
+  border-radius: 7px;
+  transition: all .5s;
+}
+.msg-success{
+  background: rgba(122,206,230);
+}
+.msg-err{
+  background: #fe8a8b;
+  color: #fff;
+  font-weight: bold;
+}
+.msg-slide-active{
+  transform: translateX(-150%);
+  transition: all .5s;
+  z-index: 2;
 }
 
 /*================================
@@ -778,42 +783,6 @@ input[type="submit"]:hover {
 }
 
 /*========================================
-  フッター
-========================================*/
-.sitemap{
-  list-style: none;
-  margin-bottom: 20px;
-  overflow: hidden;
-  text-align: center;
-}
-.footer-item{
-  display: inline-block;
-  margin-left: 20px;
-}
-
-/*========================================
-  画像の切り取り
-========================================*/
-.trim{
-  overflow: hidden;
-  width: 180px;/* トリミングしたい枠の幅 */
-  height: 200px;/* トリミングしたい枠の高さ */
-  position: relative;
-  margin: 0 auto;
-}
-
-.trim img{
-  position: absolute;
-  top: 50%;
-  left: 48%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: auto;
-}
-
-/*========================================
   商品詳細画面用
 ========================================*/
 .badge{
@@ -829,6 +798,9 @@ input[type="submit"]:hover {
 .title{
   font-size: 28px;
   padding: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .product-img-container{
   overflow: hidden;
@@ -837,17 +809,21 @@ input[type="submit"]:hover {
   width: 100%;
 }
 .product-img-container .img-main{
-  width: 750px;
-  float: left;
-  padding-right: 15px;
+  width: 400px;
+  padding-right: 40px;
   box-sizing: border-box;
+  margin: 20px auto;
 }
 .product-img-container .img-sub{
-  width: 230px;
-  float: left;
+  width: 100%;
   background: #f6f5f4;
   padding: 15px;
   box-sizing: border-box;
+  overflow: hidden;
+}
+.product-img-trim{
+  padding: 5px;
+  margin-left: 10%;
 }
 .product-img-container .img-sub:hover{
   cursor: pointer;
@@ -868,7 +844,6 @@ input[type="submit"]:hover {
   overflow: hidden;
   margin-top: 15px;
   margin-bottom: 50px;
-  height: 50px;
   line-height: 50px;
 }
 .product-buy .item-left{
@@ -881,18 +856,29 @@ input[type="submit"]:hover {
   font-size: 32px;
   margin-right: 30px;
 }
-.product-buy .btn{
+/* .product-buy .btn{
   border: none;
   font-size: 18px;
   padding: 10px 30px;
+  color: #333;
+  border: 1px solid #333;
+  transition: all .3s ease;
+  background-color: #f0efe9;
 }
 .product-buy .btn:hover{
   cursor: pointer;
-}
+  background: #333;
+  color: #fff;
+  border: 1px solid #333;
+  transition: all .3s ease;
+} */
 /* お気に入りアイコン */
 .icn-like{
-  float: right;
   color: #ddd;
+  position: absolute;
+  top: 25%;
+  left: 66%;
+  font-size: 28px;
 }
 .icn-like:hover{
   cursor: pointer;
@@ -900,6 +886,21 @@ input[type="submit"]:hover {
 .icn-like.active{
   float: right;
   color: #fe8a8b;
+}
+
+/*================================
+/* プロフィール
+=================================*/
+.profImg-wrapp{
+  width: 100%;
+}
+.form .prof-input-file{
+  height: 200px;
+}
+.prof-area-drop{
+  height: 200px;
+  line-height: 200px;
+  width: 200px;
 }
 
 /*========================================
@@ -1032,4 +1033,79 @@ float: left;
 =================================*/
 .title-header{
   margin-right: 15px;
+}
+.mypage-sidebar{
+  float: left;
+  box-sizing: border-box;
+  margin-left: 20px;
+  padding: 20px;
+  min-height: 600px;
+  width: 200px;
+  background: #f0efe9;
+}
+.sidebar-link{
+  display: block;
+  margin-bottom: 20px;
+  position: relative;
+}
+.sidebar-link::after{
+  position: absolute;
+  content: '';
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: #333;
+  transition: all .3s ease;
+}
+.sidebar-link:hover::after{
+  width: 100%;
+}
+.mypage-sidebar .title {
+  text-align: left;
+  font-size: 14px;
+}
+
+/*========================================
+  フッター
+========================================*/
+.sitemap{
+  list-style: none;
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-align: center;
+}
+.footer-item{
+  display: inline-block;
+  margin-left: 20px;
+}
+
+/*========================================
+  画像の切り取り
+========================================*/
+.trim{
+  overflow: hidden;
+  width: 180px;/* トリミングしたい枠の幅 */
+  height: 200px;/* トリミングしたい枠の高さ */
+  position: relative;
+  float: left;
+}
+.trim img{
+  position: absolute;
+  top: 50%;
+  left: 48%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: auto;
+}
+
+/*========================================
+  その他パーツ
+========================================*/
+.u-line{
+  margin-top: 25px;
+  margin-bottom: 20px;
+  border-top: 1px solid#707070;
 }
