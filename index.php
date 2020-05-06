@@ -28,13 +28,14 @@ $sort = (!empty($_GET['sort'])) ? $_GET['sort'] : '';
 debug('ここでGETパラメータの型を確認しています： ' .gettype($currentPageNum));
 
 // パラメータに不正な値が入っているかチェック
-if(!preg_match("/^[0-9]+$/", $currentPageNum)){
-  // パラメータが数字かチェックしている
-  error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
-  // 平仮名や英字といった数字以外だったらトップページへリダイレクト
-  header("Location:index.php"); 
-  exit();
-}
+// if(!preg_match("/^[0-9]+$/", $currentPageNum)){
+//   // パラメータが数字かチェックしている
+//   error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
+//   // 平仮名や英字といった数字以外だったらトップページへリダイレクト
+//   header("Location:index.php"); 
+//   exit();
+// }
+
 // //パラメータに不正な値が入っているかチェック
 // if(!is_int((int)$currentPageNum)){
 //   // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
@@ -51,6 +52,15 @@ $listSpan = 40;
 $currentMinNum = (($currentPageNum-1)*$listSpan); 
 // DBから商品データを取得
 $dbProductData = getProductList($currentMinNum ,$category, $maker, $sort);
+// DBから商品データを取得できていないということは、商品数が0またはパラメータがおかしいと考えられるので
+// ページングした結果の画面ではなくトップページに遷移させる
+if(empty($dbProductData['data'])){
+  error_log('エラー発生:指定ページに不正な値が入りました:' .print_r($dbProductData, true));
+  header("Location:index.php");
+  exit();
+}
+
+
 // DBからカテゴリデータを取得
 $dbCategoryData = getCategory();
 // DBからメーカーデータを取得
