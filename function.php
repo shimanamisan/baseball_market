@@ -247,8 +247,8 @@ function isLogin(){
 // DB接続関数
 function dbConnect(){
   // DBへの接続準備
-  $dsn = 'mysql:dbname=baseballitem;host=localhost;charset=utf8';
-  $user = 'root';
+  $dsn = 'mysql:dbname=XXXXXX;host=XXXXXXX;charset=utf8';
+  $user = 'XXX';
   $password = '';
   $options = array(
     // SQL実行失敗時にはエラーコードのみ設定
