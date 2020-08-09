@@ -245,19 +245,23 @@ function isLogin()
     // ログインしている場合
     if (!empty($_SESSION['login_date'])) {
         debug('ログイン済みユーザーです isLogin関数');
+        debug('    ');
         // 現在時刻が最終ログイン日時+有効期限を超えていた場合
         if (($_SESSION['login_date'] + $_SESSION['login_limit']) < time()) {
             debug('ログイン有効期限オーバーです isLogin関数');
+            debug('    ');
 
             // セッションを削除する（ログアウトする）
             session_destroy();
             return false;
         } else {
             debug('有効期限以内です isLogin関数');
+            debug('    ');
             return true;
         }
     } else {
         debug('未ログインユーザーです isLogin関数');
+        debug('    ');
         return false;
     }
 }
@@ -426,7 +430,6 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         }
         // プレースホルダーを使わずに変数に検索用の値を代入しているやりかた
         // $sql .= ' LIMIT '.$span.' OFFSET '.$currentMinNum;
-
         // 変数を結合してSQLを作成するときもプレースホルダーにバインドするやり方
         $sql .= ' LIMIT :span OFFSET :currentMinNum';
         $stmt = $dbh->prepare($sql);
@@ -636,8 +639,10 @@ function getMaker()
 function isLike($u_id, $p_id)
 {
     debug('お気に入り情報がある確認します isLike関数');
+    debug('    ');
     debug('ユーザーID isLike関数：'.$u_id);
     debug('商品ID isLike関数：'.$p_id);
+    debug('    ');
     //例外処理
     try {
         //DBへ接続
@@ -650,9 +655,11 @@ function isLike($u_id, $p_id)
 
         if ($stmt->rowCount()) {
             debug('お気に入りです isLike関数');
+            debug('    ');
             return true;
         } else {
             debug('お気に入りではありません isLike関数');
+            debug('    ');
             return false;
         }
     } catch (Exception $e) {
