@@ -245,7 +245,7 @@ section h1.title {
 ========================================*/
 footer {
   padding: 15px;
-  /* width: 100%; */
+  width: auto;
   background: #333;
   color: #f6f5f5;
   text-align: center;
@@ -637,13 +637,12 @@ input[type="number"] {
   position: fixed;
   display: block;
   z-index: 2;
-  top: 16%;
-  right: -30%;
-  width: 350px;
+  top: -100px;
+  width: 100%;
   line-height:90px;
   text-align: center;
   font-size: 16px;
-  border-radius: 7px;
+  color: #fff;
   transition: all .5s;
 }
 .msg-success{
@@ -655,7 +654,7 @@ input[type="number"] {
   font-weight: bold;
 }
 .msg-slide-active{
-  transform: translateX(-150%);
+  transform: translateY(100px);
   transition: all .5s;
   z-index: 2;
 }

@@ -366,6 +366,13 @@ function getProduct($u_id, $p_id)
 function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40)
 {
     debug('商品情報を取得します。getProductList関数');
+    debug('    ');
+    debug('$category変数。getProductList関数：' .$category);
+    debug('    ');
+    debug('$maker変数。getProductList関数：' .$maker);
+    debug('    ');
+    debug('$sort変数。getProductList関数：' .$sort);
+    debug('    ');
     //例外処理
     try {
         // DBへ接続
@@ -384,11 +391,15 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         if (!empty($sort)) {
             switch ($sort) {
             case 1:
-              $sql .= ' ORDER BY price ASC';
-              break;
+                debug('caseが1のときの処理。getProductList関数');
+                debug('    ');
+                $sql .= ' ORDER BY price ASC';
+                break;
             case 2:
-              $sql .= ' ORDER BY price DESC';
-              break;
+                debug('caseが2のときの処理。getProductList関数');
+                debug('    ');
+                $sql .= ' ORDER BY price DESC';
+                break;
         }
         }
         $data = array();
@@ -404,19 +415,23 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         // ページング用のSQL文作成
         // $sql = 'SELECT * FROM product';
         if (!empty($category) && !empty($maker)) {
-            debug('カテゴリーとメーカーの両方で検索された時のSQL getProductList');
+            debug('カテゴリーとメーカーの両方で検索された時のSQL getProductList関数');
+            debug('    ');
             $sql = 'SELECT * FROM product WHERE category_id = ' .$category. ' AND maker_id = '. $maker;
         } elseif (!empty($category)) {
-            debug('カテゴリーのみで検索された時のSQL getProductList');
+            debug('カテゴリーのみで検索された時のSQL getProductList関数');
+            debug('    ');
             $sql = 'SELECT * FROM product WHERE category_id = ' .$category;
         } elseif (!empty($maker)) {
-            debug('メーカーのみで検索された時のSQL getProductList');
+            debug('メーカーのみで検索された時のSQL getProductList関数');
+            debug('    ');
             $sql = 'SELECT * FROM product WHERE maker_id = ' .$maker;
         } else {
             // 新しく登録された商品から表示する
             // $sql = 'SELECT * FROM product ORDER BY create_date DESC';
             $sql = 'SELECT * FROM product';
-            debug('何も選択されてない時のSQL getProductList');
+            debug('何も選択されてない時のSQL getProductList関数');
+            debug('    ');
         }
         if (!empty($sort)) {
             switch ($sort) {
@@ -434,12 +449,14 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         $sql .= ' LIMIT :span OFFSET :currentMinNum';
         $stmt = $dbh->prepare($sql);
         debug('セットされているSQL：'. $sql);
+        debug('    ');
         $stmt->bindValue(':span', $span, PDO::PARAM_INT);
         $stmt->bindValue(':currentMinNum', $currentMinNum, PDO::PARAM_INT);
-        //クエリ実行
+        // クエリ実行
         $stmt->execute();
-        debug('DBハンドラエラーコード getProductList関数 function.php：'.print_r($stmt->errorInfo(), true));
-
+        // データベースハンドラにおける直近の操作に関連する拡張エラー情報を取得する
+        // $stmt->errorInfo();
+ 
         if ($stmt) {
             // クエリ結果の全レコードを格納
             // 二次元配列形式 = 配列の中にさらに配列形式で入っている
@@ -591,6 +608,7 @@ function getMyMsgsAndBord($u_id)
 function getCategory()
 {
     debug('カテゴリー情報を取得します。：getCategory関数');
+    debug('    ');
     //例外処理
     try {
         // DBへ接続
@@ -615,6 +633,7 @@ function getCategory()
 function getMaker()
 {
     debug('メーカー情報を取得します。：getMaker関数');
+    debug('    ');
     // 例外処理
     try {
         // DBへ接続
