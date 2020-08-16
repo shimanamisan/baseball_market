@@ -16,13 +16,12 @@ $(function () {
 
   // フッターの固定
   var $ftr = $("#footer");
-  console.log($ftr.offset());
   if (window.innerHeight > $ftr.offset().top + $ftr.outerHeight()) {
     $ftr.attr({
       style:
         "position:fixed; top:" +
         (window.innerHeight - $ftr.outerHeight()) +
-        "px;",
+        "px; width: 100%;"
     });
   }
 
@@ -130,7 +129,7 @@ $(function () {
           if (data.response === "no_login") {
             // console.log(data.response);
             // ログインしていないので、クラスをつける処理を停止して、ログイン画面へ遷移する
-            window.location.href = '/login.php'
+            window.location.href = "/login.php";
             return;
           }
           //クラス属性をtoggleでつけ外しする
