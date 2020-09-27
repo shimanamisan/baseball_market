@@ -27,9 +27,6 @@ $bordData = getMyMsgsAndBord($u_id);
 // DBからお気に入りデータを取得
 $likeData = getMyLike($u_id);
 
-
-
-
 // // 相手のユーザーIDが入っているかチェックする
 // if(isset($partnerUserId)){
 //     error_log('エラー発生：相手のユーザー情報が取得できませんでした mypage.php');
@@ -76,8 +73,8 @@ require('head.php');
                 <span class="title-header">登録商品一覧</span>
               </h2>
                 <?php
-                    if(!empty($productData)):
-                      foreach($productData as $key => $val):
+                    if (!empty($productData)):
+                      foreach ($productData as $key => $val):
                 ?>
               <a href="registProduct.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id']; ?>" class="panel">
                 <div class="trim">
@@ -101,8 +98,8 @@ require('head.php');
               </h2>
 
               <?php
-              if(!empty($bordData)){
-              ?>
+              if (!empty($bordData)) {
+                  ?>
 
               <table class="table">
                 <thead>
@@ -115,62 +112,59 @@ require('head.php');
                 <tbody>
 
                   <?php
-                    if(!empty($bordData)){
-                      foreach($bordData as $key => $val){
-
-                      $dealUserIds[] = $val['buy_user'];
-                      $dealUserIds[] = $val['sale_user'];
-                      debug('購入者と販売者のID $dealUserIds：'.print_r($dealUserIds, true));
-                      // ログインユーザーが、sale_usr若しくはbuy_userと同じでは無いことを確認（）
-                      if(($key = array_search($_SESSION['user_id'], $dealUserIds)) !== false){
-                          debug('unset前の変数です：'. print_r($dealUserIds, true));
-                          unset($dealUserIds[$key]);
-                          debug('unsetしています：'. print_r($dealUserIds, true));
-                        }
-                      // 配列からユーザーIDを取り出す
-                      $partnerUserId = array_shift($dealUserIds);
-                      debug('取得した相手のユーザーID：' .$partnerUserId);
-                      $partnerUser = getUser($partnerUserId);
+                    if (!empty($bordData)) {
+                        foreach ($bordData as $key => $val) {
+                            $dealUserIds[] = $val['buy_user'];
+                            $dealUserIds[] = $val['sale_user'];
+                            debug('購入者と販売者のID $dealUserIds：'.print_r($dealUserIds, true));
+                            // ログインユーザーが、sale_usr若しくはbuy_userと同じでは無いことを確認（）
+                            if (($key = array_search($_SESSION['user_id'], $dealUserIds)) !== false) {
+                                debug('unset前の変数です：'. print_r($dealUserIds, true));
+                                unset($dealUserIds[$key]);
+                                debug('unsetしています：'. print_r($dealUserIds, true));
+                            }
+                            // 配列からユーザーIDを取り出す
+                            $partnerUserId = array_shift($dealUserIds);
+                            debug('取得した相手のユーザーID：' .$partnerUserId);
+                            $partnerUser = getUser($partnerUserId);
                      
-                        if(!empty($val['msg'])){
-                          $msg = array_shift($val['msg']);
-                          debug('分解後の$val mypage.php：'.print_r($val,true));
-                          // debug('ボードデータです mypage.php：'.print_r($msg,true));
-                  ?>
+                            if (!empty($val['msg'])) {
+                                $msg = array_shift($val['msg']);
+                                debug('分解後の$val mypage.php：'.print_r($val, true));
+                                // debug('ボードデータです mypage.php：'.print_r($msg,true)); ?>
 
                   <tr>
                       <td><?php echo sanitize(date('Y/m/d H:i', strtotime($msg['send_date']))); ?></td>
-                      <td><?php echo sanitize($partnerUser['username']);?></td>
-                      <td><a href="msg.php?m_id=<?php echo sanitize($val['id']); ?>"><?php echo mb_substr(sanitize($msg['msg']),0,40); ?></a></td>
+                      <td><?php echo sanitize($partnerUser['username']); ?></td>
+                      <td><a href="msg.php?m_id=<?php echo sanitize($val['id']); ?>"><?php echo mb_substr(sanitize($msg['msg']), 0, 40); ?></a></td>
                   </tr>
 
                   <?php
-                        }else{
-                  ?>
+                            } else {
+                                ?>
 
                   <tr>
                     <td>-- --</td>
-                    <td><?php echo sanitize($partnerUser['username']);?></td>
+                    <td><?php echo sanitize($partnerUser['username']); ?></td>
                     <td><a href="msg.php?m_id=<?php echo sanitize($val['id']); ?>">まだメッセージはありません</a></td>
 
                   <?php
-                      }
-                    }
-                  }
-                  ?>
+                            }
+                        }
+                    } ?>
 
                   </tr>
                  </tbody>
               </table>
 
               <?php
-              }else{
-              ?>
+              } else {
+                  ?>
 
           <p style="text-align:left;">メッセージはありません。</p>
 
           <?php
-          }
+              }
           ?>
             </section>
             <section class="list panel-list">
@@ -179,9 +173,9 @@ require('head.php');
               </h2>
 
               <?php
-                if(!empty($likeData)){
-                  foreach($likeData as $key => $val){
-              ?>
+                if (!empty($likeData)) {
+                    foreach ($likeData as $key => $val) {
+                        ?>
 
               <a href="productDetail.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id'] ?>" class="panel">
                 <div class="trim">
@@ -194,24 +188,24 @@ require('head.php');
                 </div>
 
               <?php
-                }
-              }else{
-              ?>
+                    }
+                } else {
+                    ?>
 
               <p style="text-align:left;">お気に入り登録はありません。</p>
         <?php
-          }
+                }
         ?>
             </section>
           </section>
       
       <!-- サイドバー -->
       <?php
-      require('sidebar_mypage.php');    
+      require('sidebar_mypage.php');
       ?>
     </div>
 
     <!-- footer -->
     <?php
-    require('footer.php');    
+    require('footer.php');
     ?>

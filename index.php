@@ -26,38 +26,42 @@ $sort = (!empty($_GET['sort'])) ? $_GET['sort'] : '';
 
 // ここでGETパラメータの型を確認しています
 debug('ここでGETパラメータの型を確認しています： ' .gettype($currentPageNum));
+debug('    ');
+debug('ここでGETパラメータの内容を確認しています： ' . print_r($_GET, true));
+debug('    ');
 
-// パラメータに不正な値が入っているかチェック
-// if(!preg_match("/^[0-9]+$/", $currentPageNum)){
-//   // パラメータが数字かチェックしている
-//   error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
-//   // 平仮名や英字といった数字以外だったらトップページへリダイレクト
-//   header("Location:index.php"); 
-//   exit();
-// }
+// // パラメータに不正な値が入っているかチェック
+if (!preg_match("/^[0-9]+$/", $currentPageNum)) {
+    // パラメータが数字かチェックしている
+    error_log('エラー発生:指定ページに不正な値が入りました： '.$currentPageNum);
+    // 平仮名や英字といった数字以外だったらトップページへリダイレクト
+    header("Location:index.php");
+    exit();
+}
 
-// //パラメータに不正な値が入っているかチェック
-// if(!is_int((int)$currentPageNum)){
-//   // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
-//   error_log('エラー発生:指定ページに不正な値が入りました:'.$currentPageNum);
-//   // トップページへ
-//   header("Location:index.php"); 
-//   exit();
-// }
+//パラメータに不正な値が入っているかチェック
+if (!is_int((int)$currentPageNum)) {
+    // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
+    error_log('エラー発生:指定ページに不正な値が入りました： '.$currentPageNum);
+    // トップページへ
+    header("Location:index.php");
+    exit();
+}
 
 // 表示件数
 $listSpan = 40;
 // 現在の表示レコード先頭を算出
 // 1ページ目なら(1-1)*20 = 0 、 2ページ目なら(2-1)*20 = 20
-$currentMinNum = (($currentPageNum-1)*$listSpan); 
+$currentMinNum = (($currentPageNum-1)*$listSpan);
 // DBから商品データを取得
-$dbProductData = getProductList($currentMinNum ,$category, $maker, $sort);
+$dbProductData = getProductList($currentMinNum, $category, $maker, $sort);
 // DBから商品データを取得できていないということは、商品数が0またはパラメータがおかしいと考えられるので
 // ページングした結果の画面ではなくトップページに遷移させる
-if(empty($dbProductData['data'])){
-  error_log('エラー発生:指定ページに不正な値が入りました:' .print_r($dbProductData, true));
-  header("Location:index.php");
-  exit();
+if (empty($dbProductData['data'])) {
+    error_log('エラー発生:指定ページに不正な値が入りました:' .print_r($dbProductData, true));
+    debug('    ');
+    header("Location:index.php");
+    exit();
 }
 
 
@@ -66,8 +70,11 @@ $dbCategoryData = getCategory();
 // DBからメーカーデータを取得
 $dbMakerData = getMaker();
 debug('現在のページ：'.$currentPageNum);
-//debug('フォーム用DBデータ：'.print_r($dbFormData,true));
-//debug('カテゴリデータ：'.print_r($dbCategoryData,true));
+debug('    ');
+// debug('フォーム用DBデータ：'.print_r($dbFormData,true));
+// debug('    ');
+// debug('カテゴリデータ：'.print_r($dbCategoryData,true));
+// debug('    ');
 
 ?>
 <?php
@@ -92,11 +99,15 @@ debug('現在のページ：'.$currentPageNum);
           <div class="selectbox">
             <span class="icn_select"></span>
             <select class="category-form u-under-margin" name="m_id">
-              <option value="0" <?php if(getFormData('m_id',true) == 0){ echo 'selected'; } ?>>選択してください</option>
+              <option value="0" <?php if (getFormData('m_id', true) == 0) {
+        echo 'selected';
+    } ?>>選択してください</option>
                 <?php
-                  foreach($dbMakerData as $key => $val){
-                ?>
-              <option value="<?php echo $val['id'] ?>" <?php if(getFormData('m_id',true) == $val['id'] ){ echo 'selected'; } ?> >
+                  foreach ($dbMakerData as $key => $val) {
+                      ?>
+              <option value="<?php echo $val['id'] ?>" <?php if (getFormData('m_id', true) == $val['id']) {
+                          echo 'selected';
+                      } ?> >
                 <?php echo $val['name']; ?>
               </option>
                 <?php
@@ -108,11 +119,15 @@ debug('現在のページ：'.$currentPageNum);
           <div class="selectbox">
             <span class="icn_select"></span>
             <select class="category-form u-under-margin" name="c_id">
-            <option value="0" <?php if(getFormData('m_id',true) == 0){ echo 'selected'; } ?>>選択してください</option>
+            <option value="0" <?php if (getFormData('m_id', true) == 0) {
+                    echo 'selected';
+                } ?>>選択してください</option>
                 <?php
-                  foreach($dbCategoryData as $key => $val){
-                ?>
-              <option value="<?php echo $val['id'] ?>" <?php if(getFormData('c_id',true) == $val['id'] ){ echo 'selected'; } ?> >
+                  foreach ($dbCategoryData as $key => $val) {
+                      ?>
+              <option value="<?php echo $val['id'] ?>" <?php if (getFormData('c_id', true) == $val['id']) {
+                          echo 'selected';
+                      } ?> >
                 <?php echo $val['name']; ?>
               </option>
                 <?php
@@ -124,9 +139,15 @@ debug('現在のページ：'.$currentPageNum);
           <div class="selectbox">
             <span class="icn_select"></span>
             <select class="category-form u-under-margin" name="sort">
-              <option value="0" <?php if(getFormData('sort',true) == 0 ){ echo 'selected'; } ?> >選択してください</option>
-              <option value="1" <?php if(getFormData('sort',true) == 1 ){ echo 'selected'; } ?> >金額が安い順</option>
-              <option value="2" <?php if(getFormData('sort',true) == 2 ){ echo 'selected'; } ?> >金額が高い順</option>
+              <option value="0" <?php if (getFormData('sort', true) == 0) {
+                    echo 'selected';
+                } ?> >選択してください</option>
+              <option value="1" <?php if (getFormData('sort', true) == 1) {
+                    echo 'selected';
+                } ?> >金額が安い順</option>
+              <option value="2" <?php if (getFormData('sort', true) == 2) {
+                    echo 'selected';
+                } ?> >金額が高い順</option>
             </select>
           </div>
           <input class="btn post-btn u-radius" type="submit" value="検索">
@@ -147,7 +168,7 @@ debug('現在のページ：'.$currentPageNum);
         </div>
         <div class="panel-list">
           <?php
-            foreach($dbProductData['data'] as $key => $val):
+            foreach ($dbProductData['data'] as $key => $val):
           ?>
             <a href="productDetail.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id']; ?>" class="panel">
               <div class="panel-head">
