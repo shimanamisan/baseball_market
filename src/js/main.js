@@ -1,3 +1,5 @@
+const $ = require("jquery");
+
 $(function () {
   "use strict"; //厳密なエラーチェック
 
@@ -18,10 +20,7 @@ $(function () {
   var $ftr = $("#footer");
   if (window.innerHeight > $ftr.offset().top + $ftr.outerHeight()) {
     $ftr.attr({
-      style:
-        "position:fixed; top:" +
-        (window.innerHeight - $ftr.outerHeight()) +
-        "px; width: 100%;"
+      style: "position:fixed; top:" + (window.innerHeight - $ftr.outerHeight()) + "px; width: 100%;",
     });
   }
 
@@ -144,10 +143,7 @@ $(function () {
   }
 
   // scrollHeightは要素のスクロールビューの高さを取得するもの
-  $("#js-scroll-bottom").animate(
-    { scrollTop: $("#js-scroll-bottom")[0].scrollHeight },
-    "fast"
-  );
+  $("#js-scroll-bottom").animate({ scrollTop: $("#js-scroll-bottom")[0].scrollHeight }, "fast");
 });
 
 // ここはネイティブJSの処理

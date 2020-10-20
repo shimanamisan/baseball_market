@@ -25,24 +25,24 @@ $maker = (!empty($_GET['m_id'])) ? $_GET['m_id'] : '';
 $sort = (!empty($_GET['sort'])) ? $_GET['sort'] : '';
 
 // ここでGETパラメータの型を確認しています
-debug('ここでGETパラメータの型を確認しています： ' .gettype($currentPageNum));
+debug('ここでGETパラメータの型を確認しています index.php： ' .gettype($currentPageNum));
 debug('    ');
-debug('ここでGETパラメータの内容を確認しています： ' . print_r($_GET, true));
+debug('ここでGETパラメータの内容を確認しています index.php： ' . print_r($_GET, true));
 debug('    ');
 
-// // パラメータに不正な値が入っているかチェック
+// パラメータに不正な値が入っているかチェック
 if (!preg_match("/^[0-9]+$/", $currentPageNum)) {
     // パラメータが数字かチェックしている
-    error_log('エラー発生:指定ページに不正な値が入りました： '.$currentPageNum);
+    error_log('エラー発生:指定ページに不正な値が入りました $currentPageNum  index.php： '.$currentPageNum);
     // 平仮名や英字といった数字以外だったらトップページへリダイレクト
     header("Location:index.php");
     exit();
 }
 
-//パラメータに不正な値が入っているかチェック
+// パラメータに不正な値が入っているかチェック
 if (!is_int((int)$currentPageNum)) {
     // int型でなければエラーが発生するよにしている。(int)が外れていた(2019-07-17 22:58:44)
-    error_log('エラー発生:指定ページに不正な値が入りました： '.$currentPageNum);
+    error_log('エラー発生:指定ページに不正な値が入りました is_int index.php： '.$currentPageNum);
     // トップページへ
     header("Location:index.php");
     exit();
@@ -55,15 +55,17 @@ $listSpan = 40;
 $currentMinNum = (($currentPageNum-1)*$listSpan);
 // DBから商品データを取得
 $dbProductData = getProductList($currentMinNum, $category, $maker, $sort);
+
 // DBから商品データを取得できていないということは、商品数が0またはパラメータがおかしいと考えられるので
 // ページングした結果の画面ではなくトップページに遷移させる
-if (empty($dbProductData['data'])) {
-    error_log('エラー発生:指定ページに不正な値が入りました:' .print_r($dbProductData, true));
-    debug('    ');
-    header("Location:index.php");
-    exit();
-}
+// if (empty($dbProductData['data'])) {
+//     error_log('エラー発生:指定ページに不正な値が入りました $dbProductData index.php:' .print_r($dbProductData, true));
+//     debug('    ');
+//     header("Location:index.php");
+//     exit();
+// }
 
+// 商品データが取得できなかった場合は、「商品がありませんでした。」と画面に表示させる。
 
 // DBからカテゴリデータを取得
 $dbCategoryData = getCategory();
@@ -168,7 +170,18 @@ debug('    ');
         </div>
         <div class="panel-list">
           <?php
-            foreach ($dbProductData['data'] as $key => $val):
+          //商品データが無かったときの表示
+          if (empty($dbProductData['data'])) {
+              ?>
+              
+          <div class="panel-list-text">
+            <p>商品データがありませんでした。</p>
+          </div>
+
+          <?php
+          } else {
+              // 商品データが有った場合はループさせる
+              foreach ($dbProductData['data'] as $key => $val):
           ?>
             <a href="productDetail.php<?php echo (!empty(appendGetParam())) ? appendGetParam().'&p_id='.$val['id'] : '?p_id='.$val['id']; ?>" class="panel">
               <div class="panel-head">
@@ -186,6 +199,7 @@ debug('    ');
 
           <?php
             endforeach;
+          }
           ?>
         </div>
 
