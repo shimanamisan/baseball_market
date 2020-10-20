@@ -333,7 +333,7 @@ function getUser($u_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生(getUser)：' . $e->getMessage());
+        error_log('エラー発生 (getUser)：' . $e->getMessage());
     }
 }
 
@@ -359,7 +359,7 @@ function getProduct($u_id, $p_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生:' . $e->getMessage());
+        error_log('エラー発生 getProduct関数:' . $e->getMessage());
     }
 }
 
@@ -455,7 +455,7 @@ function getProductList($currentMinNum = 1, $category, $maker, $sort, $span = 40
         // クエリ実行
         $stmt->execute();
         // データベースハンドラにおける直近の操作に関連する拡張エラー情報を取得する
-        // $stmt->errorInfo();
+        $stmt->errorInfo();
  
         if ($stmt) {
             // クエリ結果の全レコードを格納
@@ -528,7 +528,7 @@ function getMyProducts($u_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生：'.$e->getMessage());
+        error_log('エラー発生 getMyProducts関数：'.$e->getMessage());
     }
 }
 
@@ -558,7 +558,7 @@ function getMsgsAndBord($id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生：'.$e->getMessage());
+        error_log('エラー発生 getMsgsAndBord関数：'.$e->getMessage());
     }
 }
 
@@ -601,7 +601,7 @@ function getMyMsgsAndBord($u_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生：'.$e->getMessage());
+        error_log('エラー発生 getMyMsgsAndBord関数：'.$e->getMessage());
     }
 }
 
@@ -682,7 +682,7 @@ function isLike($u_id, $p_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生：'. $e->getMessage());
+        error_log('エラー発生 isLike関数：'. $e->getMessage());
     }
 }
 
@@ -707,7 +707,7 @@ function getMyLike($u_id)
             return false;
         }
     } catch (Exception $e) {
-        error_log('エラー発生：'.$e->getMessage());
+        error_log('エラー発生 getMyLike関数：'.$e->getMessage());
     }
 }
 
