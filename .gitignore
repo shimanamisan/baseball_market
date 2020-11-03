@@ -4,3 +4,5 @@ package-lock.json
 debug.log
 /dist/css
 /dist/js
+/dist/logs/
+/dist/env.php

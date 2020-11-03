@@ -168,12 +168,6 @@ debug(' **** 画面表示処理終了 **** login.php');
             </div>
             パスワードを忘れた方は<a href="passRemindSend.php">コチラ</a>
 
-            <hr class="u-line">
-            <p>
-            ゲストユーザー：test@mail.com <br>
-            パスワード：password
-            </p>
-
         </form>
        </div>
 
