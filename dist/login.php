@@ -134,7 +134,7 @@ debug(' **** 画面表示処理終了 **** login.php');
                  echo 'err';
              } ?>">
             <span class="form-label">メールアドレス</span>
-             <input type="text" name="email" value="<?php if (!empty($_POST['email'])) {
+             <input class="js-guest-email" type="text" name="email" value="<?php if (!empty($_POST['email'])) {
                  echo $_POST['email'];
              } ?>">
            </label>
@@ -149,7 +149,7 @@ debug(' **** 画面表示処理終了 **** login.php');
                  echo 'err';
              } ?>">
            <span class="form-label">パスワード</span>
-             <input type="password" name="pass" value="<?php if (!empty($_POST['pass'])) {
+             <input class="js-guest-password" type="password" name="pass" value="<?php if (!empty($_POST['pass'])) {
                  echo $_POST['pass'];
              } ?>">
            </label>
@@ -166,7 +166,8 @@ debug(' **** 画面表示処理終了 **** login.php');
             <div class="btn-container">
               <input type="submit" class="btn post-btn btn-mid" value="ログイン">
             </div>
-            パスワードを忘れた方は<a href="passRemindSend.php">コチラ</a>
+            <p class="post-passRemaind"><a href="passRemindSend.php">パスワードを忘れた方はコチラ</a></p>
+            <p class="post-guest"><a href="" class="js-guest-login">かんたんログイン</a></p>
 
         </form>
        </div>

@@ -1,362 +1,372 @@
 body {
-  margin: 0;
-  padding: 0;
-  color: #444;
-  line-height: 150%;
-  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #444;
+	line-height: 150%;
+	font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
-h1,h2,h3,h4,h5,h6,p{
-  margin: 0;
-  padding: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+	padding: 0;
 }
 /*========================================
   リンク
 ========================================*/
-a{
-  text-decoration: none;
-  color: #000;
-  cursor: pointer;
+a {
+	text-decoration: none;
+	color: #000;
+	cursor: pointer;
 }
 a:hover {
-  text-decoration: none;
-  opacity: 0.6;
-  transition: all 0.8s;
+	text-decoration: none;
+	opacity: 0.6;
+	transition: all 0.8s;
 }
 /*========================================
   フォント
 ========================================*/
 .num {
-  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
+	font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
 .price {
-  display: block;
-  font-weight: bold;
-  font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
+	display: block;
+	font-weight: bold;
+	font-family: "Roboto", "Noto Sans JP", Helvetica, Arial, sans-serif;
 }
 /*トップバナー*/
 #top-baner {
-  width: 100%;
+	width: 100%;
 }
 
 /*========================================
   ヘッダー
 ========================================*/
-#wrap{
-  width: 100%;
-  overflow: hidden;
-  box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
+#wrap {
+	width: 100%;
+	overflow: hidden;
+	box-shadow: 0 1px 0 0 rgba(32, 33, 36, 0.28);
 }
 
-.header{
-  height: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.05);
-  transition: all .4s ease;
+.header {
+	height: 100%;
+	padding-right: 20px;
+	padding-left: 20px;
+	z-index: 2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05);
+	transition: all 0.4s ease;
 }
-.header-icon{
-  margin-right: 8px;
+.header-icon {
+	margin-right: 8px;
 }
-.header-login{
-  margin-right: 15px;
+.header-login {
+	margin-right: 15px;
 }
-.hedaer-login a{
-  position: relative;
+.hedaer-login a {
+	position: relative;
 }
-.header-login a::after{
-  position: absolute;
-  content: '';
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #000;
-  transition: all 0.3s ease 0s;
-  z-index: 100;
+.header-login a::after {
+	position: absolute;
+	content: "";
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: #000;
+	transition: all 0.3s ease 0s;
+	z-index: 100;
 }
-.header-login a::after:hover{
-  width: 100%;
+.header-login a::after:hover {
+	width: 100%;
 }
-.nav-menu{
-display: flex;
-justify-content: space-between;
-align-items: center;
+.nav-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 header h1 {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 header h1 a {
-  color: #b6a489;
-  text-decoration: none;
+	color: #b6a489;
+	text-decoration: none;
 }
-.sub-title{
-  position: absolute;
-  top: 63px;
-  left: 9%;
+.sub-title {
+	position: absolute;
+	top: 63px;
+	left: 9%;
 }
-.sub-title span{
-  font-size: 10px;
+.sub-title span {
+	font-size: 10px;
 }
-.list-contact{
-  line-height: 1.5;
-  white-space: nowrap; /* ソース中の連続する半角スペース、タブ、改行を一つの半角スペースにまとめて表示。自動的な折り返しはしない */
-  font-size: 10px;
-  margin: 0 0 0 20px;
-  padding: 15px 10px 5px 10px;
-  height: 80px;
-  display: inline-block;
-  letter-spacing: 1px;
+.list-contact {
+	line-height: 1.5;
+	white-space: nowrap; /* ソース中の連続する半角スペース、タブ、改行を一つの半角スペースにまとめて表示。自動的な折り返しはしない */
+	font-size: 10px;
+	margin: 0 0 0 20px;
+	padding: 15px 10px 5px 10px;
+	height: 80px;
+	display: inline-block;
+	letter-spacing: 1px;
 }
-.list-contact-phone-icon{
-  font-size: 14px;
+.list-contact-phone-icon {
+	font-size: 14px;
 }
-.list-contact-phoneNumber{
-  font-size: 18px;
+.list-contact-phoneNumber {
+	font-size: 18px;
 }
-.list-contact-note{
-  padding-left: 15px;
+.list-contact-note {
+	padding-left: 15px;
 }
 
 /*========================================
   ナビゲーション
 ========================================*/
 #top-nav {
-  position: relative;
-  float: right;
-  width: 500px;
-  height: 90px;
+	position: relative;
+	float: right;
+	width: 500px;
+	height: 90px;
 }
 nav a {
-  padding: 10px 15px;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-  transition: all .8s;  
+	padding: 10px 15px;
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+	transition: all 0.8s;
 }
 #top-nav ul {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0;
-  width: 455px;
-  height: 80px;
-  list-style: none;
-  line-height: 80px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: 0;
+	width: 455px;
+	height: 80px;
+	list-style: none;
+	line-height: 80px;
 }
 #top-nav ul li {
-  float: right;
+	float: right;
 }
 /*========================================
   レイアウト
 ========================================*/
 .site-width {
-  margin: 0 auto;
-  width: 980px;
+	margin: 0 auto;
+	width: 980px;
 }
 #main {
-  float: left;
-  min-height: 600px;
+	float: left;
+	min-height: 600px;
 }
 .page-1colum #main {
-  width: 100%;
+	width: 100%;
 }
 .page-2colum #main {
-  width: 760px;
+	width: 760px;
 }
-.page-logined #main{
-  /* border: 5px solid #f1f1f1; */
-  box-sizing: border-box;
+.page-logined #main {
+	/* border: 5px solid #f1f1f1; */
+	box-sizing: border-box;
 }
 section h1.title {
-  text-align: center;
-  font-family: 'Montserrat', sans-serif;
+	text-align: center;
+	font-family: "Montserrat", sans-serif;
 }
 #contents {
-  overflow: hidden;
-  margin: 20px auto;
+	overflow: hidden;
+	margin: 20px auto;
 }
 /* ページタイトル */
 .page-title {
-  font-size: 36px;
-  padding-top: 30px;
-  margin-bottom: 50px;
-  text-align: center;
+	font-size: 36px;
+	padding-top: 30px;
+	margin-bottom: 50px;
+	text-align: center;
 }
-.panel-body{
-  display: inline-block;
-  width: 100%;
+.panel-body {
+	display: inline-block;
+	width: 100%;
 }
-.panel-title{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.panel-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-.list{
-  margin-bottom: 30px;
+.list {
+	margin-bottom: 30px;
+}
+.post-passRemaind {
+	display: inline-block;
+	margin-bottom: 24px;
 }
 /*========================================
   サイドバー
 ========================================*/
 #sidebar {
-  float: left;
-  box-sizing: border-box;
-  margin-right: 20px;
-  padding: 15px;
-  min-height: 600px;
-  width: 200px;
-  background: #f0efe9;
+	float: left;
+	box-sizing: border-box;
+	margin-right: 20px;
+	padding: 15px;
+	min-height: 600px;
+	width: 200px;
+	background: #f0efe9;
 }
 #sidebar .title {
-  text-align: left;
-  font-size: 14px;
+	text-align: left;
+	font-size: 14px;
 }
 .selectbox {
-  position: relative;
+	position: relative;
 }
 .icn_select:after {
-  position: absolute;
-  top: 15px;
-  right: 10px;
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 10px solid #333;
-  border-right: 7px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 7px solid transparent;
-  content: "";
+	position: absolute;
+	top: 15px;
+	right: 10px;
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 10px solid #333;
+	border-right: 7px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 7px solid transparent;
+	content: "";
 }
-.page-logined #sidebar > a{
-  display: block;
-  margin-bottom: 15px;
+.page-logined #sidebar > a {
+	display: block;
+	margin-bottom: 15px;
 }
 
 /*========================================
   フッター
 ========================================*/
 footer {
-  padding: 15px;
-  width: auto;
-  background: #333;
-  color: #f6f5f5;
-  text-align: center;
-  font-size: 12px;
+	padding: 15px;
+	width: auto;
+	background: #333;
+	color: #f6f5f5;
+	text-align: center;
+	font-size: 12px;
 }
 footer a {
-  color: #f6f5f5;
+	color: #f6f5f5;
 }
 /*contact*/
 
 #contact {
-  margin-bottom: 150px;
+	margin-bottom: 150px;
 }
 /*========================================
   ページネーション
 ========================================*/
 .pagination {
-  position: relative;
-  overflow: hidden;
+	position: relative;
+	overflow: hidden;
 }
 .pagination-list {
-  position: relative;
-  left: 50%;
-  float: left;
-  padding-left: 0;
-  list-style: none;
+	position: relative;
+	left: 50%;
+	float: left;
+	padding-left: 0;
+	list-style: none;
 }
 .pagination .list-item {
-  position: relative;
-  left: -50%;
-  float: left;
-  margin-right: 5px;
-  color: #000;
-  padding: 10px 10px;
-  background: none;
+	position: relative;
+	left: -50%;
+	float: left;
+	margin-right: 5px;
+	color: #000;
+	padding: 10px 10px;
+	background: none;
 }
 .pagination .list-item:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }
 .pagination .list-item a {
-  display: block;
-  padding: 5px 10px;
-  color: black;
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+	display: block;
+	padding: 5px 10px;
+	color: black;
+	text-decoration: none;
+	font-family: "Montserrat", sans-serif;
 }
 .pagination .list-item.active a {
-  background: #333;
-  color: white;
+	background: #333;
+	color: white;
 }
 .pagination .list-item a:hover {
-  background: #333;
-  color: white;
+	background: #333;
+	color: white;
 }
 /*========================================
   検索エリア
 ========================================*/
 .search-title {
-  overflow: hidden;
-  margin-bottom: 30px;
-  padding: 5px 10px;
-  height: 40px;
-  background: #f0efe9;
-  line-height: 40px;
+	overflow: hidden;
+	margin-bottom: 30px;
+	padding: 5px 10px;
+	height: 40px;
+	background: #f0efe9;
+	line-height: 40px;
 }
 .search-left {
-  float: left;
+	float: left;
 }
 .search-right {
-  float: right;
+	float: right;
 }
 .search-title .total-num {
-  padding-right: 5px;
-  font-weight: bold;
-  font-size: 18px;
-  font-family: 'Montserrat', sans-serif;
+	padding-right: 5px;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: "Montserrat", sans-serif;
 }
 /*========================================
   リスト
 ========================================*/
-.list{
-  margin-bottom: 20px;
+.list {
+	margin-bottom: 20px;
 }
 .list > .title {
-  padding-left: 10px;
-  margin-bottom: 15px;
-  border-left: 6px solid #000;
+	padding-left: 10px;
+	margin-bottom: 15px;
+	border-left: 6px solid #000;
 }
 .panel-list {
-  overflow: hidden;
+	overflow: hidden;
 }
 .panel-list > .panel {
-  float: left;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-  padding-right: 15px;
-  min-height: 185px;
-  width: 25%;
-  color: #333;
-  text-decoration: none;
-  line-height: 1.2em;
-  transition: all 0.8s;
+	float: left;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+	padding-right: 15px;
+	min-height: 185px;
+	width: 25%;
+	color: #333;
+	text-decoration: none;
+	line-height: 1.2em;
+	transition: all 0.8s;
 }
-.panel-head{
-  overflow: hidden;
+.panel-head {
+	overflow: hidden;
 }
 .panel-list > .panel img {
-  width: 100%;
+	width: 100%;
 }
 .panel-list > .panel .panel-title {
-  margin: 0;
+	margin: 0;
 }
 
 /*========================================
@@ -364,496 +374,496 @@ footer a {
 ========================================*/
 
 .list-table > table {
-  width: 100%;
-  border-spacing: 0 5px;
-  text-align: left;
+	width: 100%;
+	border-spacing: 0 5px;
+	text-align: left;
 }
 
 .list-table th,
 .list-table td {
-  padding: 5px;
+	padding: 5px;
 }
 
 .list-table > .table > tbody td {
-  border-right: none;
-  background: #f0efe9;
+	border-right: none;
+	background: #f0efe9;
 }
 /*========================================
   ボタン
 ========================================*/
-.btn{
-  font-size: 14px;
-  padding: 15px 20px;
-  text-decoration: none;
+.btn {
+	font-size: 14px;
+	padding: 15px 20px;
+	text-decoration: none;
 }
-.btn:hover{
-  text-decoration: none;
+.btn:hover {
+	text-decoration: none;
 }
-.btn.btn-primary{
-  background: #f0efe9;
-  color: #000;
-  transition: all .8s;
+.btn.btn-primary {
+	background: #f0efe9;
+	color: #000;
+	transition: all 0.8s;
 }
-.btn.btn-mid{
-  max-width: 150px;
+.btn.btn-mid {
+	max-width: 150px;
 }
-.submit-btn{
-  margin: 15px 0;
-  width: 100%;
-  color: #333;
-  border: 3px solid #333;
-  transition: all .3s ease;
-  background-color: transparent;
-  box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
+.submit-btn {
+	margin: 15px 0;
+	width: 100%;
+	color: #333;
+	border: 3px solid #333;
+	transition: all 0.3s ease;
+	background-color: transparent;
+	box-shadow: 0 1px 0 0 rgba(32, 33, 36, 0.28);
 }
-.submit-btn:hover{
-  cursor: pointer;
-  background: #333;
-  color: #fff;
-  border: 3px solid #333;
-  transition: all .3s ease;
-  box-shadow: 0 1px 0 0 rgba(32, 33, 36, .28);
+.submit-btn:hover {
+	cursor: pointer;
+	background: #333;
+	color: #fff;
+	border: 3px solid #333;
+	transition: all 0.3s ease;
+	box-shadow: 0 1px 0 0 rgba(32, 33, 36, 0.28);
 }
-.post-btn{
-  margin: 15px 0;
-  width: 100%;
-  color: #333;
-  border: 1px solid #333;
-  transition: all .3s ease;
-  background-color: transparent;
-  box-shadow: 3px 2px 2px rgba(32, 33, 36, .28);
+.post-btn {
+	margin: 15px 0;
+	width: 100%;
+	color: #333;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+	background-color: transparent;
+	box-shadow: 3px 2px 2px rgba(32, 33, 36, 0.28);
 }
-.post-btn:hover{
-  cursor: pointer;
-  background: #333;
-  color: #fff;
-  border: 1px solid #333;
-  transition: all .3s ease;
-  box-shadow: 3px 2px 2px rgba(32, 33, 36, .28);
+.post-btn:hover {
+	cursor: pointer;
+	background: #333;
+	color: #fff;
+	border: 1px solid #333;
+	transition: all 0.3s ease;
+	box-shadow: 3px 2px 2px rgba(32, 33, 36, 0.28);
 }
 /*========================================
   共通スタイル
 ========================================*/
-.u-radius{
-  border-radius: 8px;
+.u-radius {
+	border-radius: 8px;
 }
-.u-under-margin{
-  margin-bottom: 15px;
+.u-under-margin {
+	margin-bottom: 15px;
 }
-.scroll-top{
-  display: block;
-  color: #fff;
-  line-height: 50px;
-  width: 50px;
-  text-align: center;
-  position: fixed;
-  bottom: 20px;
-  z-index: 1000;
-  right: -60px;
-  transition: all .4s ease;
-  background-color: rgba(0,0,0,0.6);
+.scroll-top {
+	display: block;
+	color: #fff;
+	line-height: 50px;
+	width: 50px;
+	text-align: center;
+	position: fixed;
+	bottom: 20px;
+	z-index: 1000;
+	right: -60px;
+	transition: all 0.4s ease;
+	background-color: rgba(0, 0, 0, 0.6);
 }
-.scroll-top:hover{
-  cursor: pointer;
-  background-color: #444;
+.scroll-top:hover {
+	cursor: pointer;
+	background-color: #444;
 }
 /*========================================
   スクロールスタイル
 ========================================*/
-.js-scroll{
-  height: 50px;
-  box-shadow: 0 3px 0 rgba(0,0,0,0.05);
-  right:20px;
-  transition: all .4s ease;
+.js-scroll {
+	height: 50px;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, 0.05);
+	right: 20px;
+	transition: all 0.4s ease;
 }
 
 /*========================================
   フォーム
 ========================================*/
-label{
-  display: block;
+label {
+	display: block;
 }
 label.err input,
-label.err select{
-  background: #f7dcd9;
+label.err select {
+	background: #f7dcd9;
 }
-.textCount-Error{
-  margin-left: 10px;
-  color: #fe8a8b;
+.textCount-Error {
+	margin-left: 10px;
+	color: #fe8a8b;
 }
-.label-require{
-  margin-left: 5px;
-  background: #fe8a8b;
-  font-size: 14px;
-  padding: 3px 5px;
-  color: white;
-  vertical-align: bottom;
+.label-require {
+	margin-left: 5px;
+	background: #fe8a8b;
+	font-size: 14px;
+	padding: 3px 5px;
+	color: white;
+	vertical-align: bottom;
 }
 input[type="text"],
 input[type="number"],
 input[type="password"],
 .form select,
 textarea {
-  margin-bottom: 15px;
-  font-size: 18px;
-  box-sizing: border-box;
-  padding: 10px;
-  width: 100%;
-  height: 60px;
-  border: none;
-  display: block;
-  border-radius: 6px;
+	margin-bottom: 15px;
+	font-size: 18px;
+	box-sizing: border-box;
+	padding: 10px;
+	width: 100%;
+	height: 60px;
+	border: none;
+	display: block;
+	border-radius: 6px;
 }
-input[type="checkbox"]{
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-  /* background: #f6f5f5; */
+input[type="checkbox"] {
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+	/* background: #f6f5f5; */
 }
 input[type="number"] {
-  width: 100px;
-  text-align: left;
+	width: 100px;
+	text-align: left;
 }
-.category-form{
-  padding: 10px;
-  width: 100%;
-  border-color: #ccc;
-  border-radius: 0;
-  font-size: 14px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; /* プラットフォームにおける標準的なUIの外観を削除  */
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-  cursor: pointer;
+.category-form {
+	padding: 10px;
+	width: 100%;
+	border-color: #ccc;
+	border-radius: 0;
+	font-size: 14px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none; /* プラットフォームにおける標準的なUIの外観を削除  */
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	cursor: pointer;
 }
 .form-container {
-  margin-left: auto;
-  width: 80%;
+	margin-left: auto;
+	width: 80%;
 }
-.page-1colum .form-container{
-  margin: 80px auto;
+.page-1colum .form-container {
+	margin: 80px auto;
 }
-.form{
-  margin: 0 auto;
-  padding: 30px;
-  width: 400px;
-  /* border: 5px solid #f1f1f1; */
-  background: #f1f1f1;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-  border-radius: 6px;
+.form {
+	margin: 0 auto;
+	padding: 30px;
+	width: 400px;
+	/* border: 5px solid #f1f1f1; */
+	background: #f1f1f1;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
 }
-.prof-form-wrapp{
-  width: 80%;
+.prof-form-wrapp {
+	width: 80%;
 }
-.prof-form-width{
-  width: 60%;
+.prof-form-width {
+	width: 60%;
 }
-.page-logined .form{
-  border: none;
+.page-logined .form {
+	border: none;
 }
-.form .title{
-  margin-bottom: 40px;
-  text-align: center;
+.form .title {
+	margin-bottom: 40px;
+	text-align: center;
 }
-.form > .area-msg{
-  padding: 0 0 15px 0;
-  color: red;
+.form > .area-msg {
+	padding: 0 0 15px 0;
+	color: red;
 }
-.form .btn-container{
-  overflow: hidden;
-  text-align: center;
+.form .btn-container {
+	overflow: hidden;
+	text-align: center;
 }
-.form .btn{
-  float: right;
+.form .btn {
+	float: right;
 }
-.area-drop{
-  margin-bottom: 15px;
-  width: 100%;
-  height: 140px;
-  background: #f6f5f4;
-  color: #ccc;
-  text-align: center;
-  line-height: 150px;
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
+.area-drop {
+	margin-bottom: 15px;
+	width: 100%;
+	height: 140px;
+	background: #f6f5f4;
+	color: #ccc;
+	text-align: center;
+	line-height: 150px;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
 }
-.form .input-file{
-  opacity:0;
-  width:100%;
-  height:140px;
-  position:absolute;
-  top:0;
-  left:0;
-  z-index: 2; /* 必ずz-indexをつけないと登録画像を変更する際にドラッグ＆ドロップできなくなる*/
+.form .input-file {
+	opacity: 0;
+	width: 100%;
+	height: 140px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2; /* 必ずz-indexをつけないと登録画像を変更する際にドラッグ＆ドロップできなくなる*/
 }
-.form .prev-img{
-  width:100%;
-  height: inherit;
-  position:absolute;
-  top:0;
-  left:0;
+.form .prev-img {
+	width: 100%;
+	height: inherit;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
-.form .imgDrop-container{
-  width: 33.333%;
-  float: left;
-  padding: 5px;
-  box-sizing: border-box;
+.form .imgDrop-container {
+	width: 33.333%;
+	float: left;
+	padding: 5px;
+	box-sizing: border-box;
 }
-.form .counter-text{
-  text-align: right;
+.form .counter-text {
+	text-align: right;
 }
-.form-label{
-  display: inline-block;
-  margin-bottom: 10px;
+.form-label {
+	display: inline-block;
+	margin-bottom: 10px;
 }
-.gest-form{
-  margin-top: 20px;
-  background-color: #fff;
-  box-shadow: none;
+.gest-form {
+	margin-top: 20px;
+	background-color: #fff;
+	box-shadow: none;
 }
 
 /*================================
 /* フォームグループ
 =================================*/
-.form-group{
-  overflow: hidden;
-  position: relative;
+.form-group {
+	overflow: hidden;
+	position: relative;
 }
-.form-group > input{
-  float: left;
+.form-group > input {
+	float: left;
 }
-.form-group > .option{
-  float: left;
-  position: relative;
-  top: 40px;
-  display: block;
-  padding-left: 10px;
+.form-group > .option {
+	float: left;
+	position: relative;
+	top: 40px;
+	display: block;
+	padding-left: 10px;
 }
 /*========================================
   その他
 ========================================*/
 .msg-slide {
-  position: fixed;
-  display: block;
-  z-index: 2;
-  top: -100px;
-  width: 100%;
-  line-height:90px;
-  text-align: center;
-  font-size: 16px;
-  color: #fff;
-  transition: all .5s;
+	position: fixed;
+	display: block;
+	z-index: 2;
+	top: -100px;
+	width: 100%;
+	line-height: 90px;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	transition: all 0.5s;
 }
-.msg-success{
-  background: rgba(122,206,230);
+.msg-success {
+	background: rgba(122, 206, 230);
 }
-.msg-err{
-  background: #fe8a8b;
-  color: #fff;
-  font-weight: bold;
+.msg-err {
+	background: #fe8a8b;
+	color: #fff;
+	font-weight: bold;
 }
-.msg-slide-active{
-  transform: translateY(100px);
-  transition: all .5s;
-  z-index: 2;
+.msg-slide-active {
+	transform: translateY(100px);
+	transition: all 0.5s;
+	z-index: 2;
 }
 
 /*================================
 /* 連絡掲示板
 =================================*/
-.msg-info{
-  background: #f6f5f4;
-  padding: 15px;
-  overflow: hidden;
-  margin-bottom: 15px;
+.msg-info {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
+	margin-bottom: 15px;
 }
-.msg-info .avatar{
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
+.msg-info .avatar {
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
 }
-.msg-info .avatar-img{
-  text-align: center;
-  width: 100px;
-  float: left;
+.msg-info .avatar-img {
+	text-align: center;
+	width: 100px;
+	float: left;
 }
-.msg-info .avatar-info{
-  float: left;
-  padding-left: 15px;
-  width: 500px;
+.msg-info .avatar-info {
+	float: left;
+	padding-left: 15px;
+	width: 500px;
 }
-.msg-info .product-info{
-  float: left;
-  padding-left: 15px;
-  width: 315px;
+.msg-info .product-info {
+	float: left;
+	padding-left: 15px;
+	width: 315px;
 }
 .msg-info .product-info .left,
-.msg-info .product-info .right{
-  float: left;
+.msg-info .product-info .right {
+	float: left;
 }
-.msg-info .product-info .right{
-  padding-left: 15px;
+.msg-info .product-info .right {
+	padding-left: 15px;
 }
-.msg-info .product-info .price{
-  display: inline-block;
+.msg-info .product-info .price {
+	display: inline-block;
 }
-.area-bord{
-  height: 500px;
-  overflow-y: scroll;
-  background: #f6f5f4;
-  padding: 15px;
+.area-bord {
+	height: 500px;
+	overflow-y: scroll;
+	background: #f6f5f4;
+	padding: 15px;
 }
-.area-send-msg{
-  background: #f6f5f4;
-  padding: 15px;
-  overflow: hidden;
+.area-send-msg {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
 }
-.area-send-msg textarea{
-  width:100%;
-  background: white;
-  height: 100px;
-  padding: 15px;
+.area-send-msg textarea {
+	width: 100%;
+	background: white;
+	height: 100px;
+	padding: 15px;
 }
-.area-send-msg .btn-send{
-  width: 150px;
-  float: right;
-  margin-top: 0;
+.area-send-msg .btn-send {
+	width: 150px;
+	float: right;
+	margin-top: 0;
 }
-.area-bord .msg-cnt{
-  width: 80%;
-  overflow: hidden;
-  margin-bottom: 30px;
+.area-bord .msg-cnt {
+	width: 80%;
+	overflow: hidden;
+	margin-bottom: 30px;
 }
-.area-bord .msg-cnt .avatar{
-  width: 5%;
-  overflow: hidden;
-  float: left;
+.area-bord .msg-cnt .avatar {
+	width: 5%;
+	overflow: hidden;
+	float: left;
 }
-.area-bord .msg-cnt .avatar img{
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  float: left;
+.area-bord .msg-cnt .avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	float: left;
 }
-.area-bord .msg-cnt .msg-inrTxt{
-  width: 85%;
-  float: left;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 0 0 0 25px;
-  position: relative;
+.area-bord .msg-cnt .msg-inrTxt {
+	width: 85%;
+	float: left;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 0 0 25px;
+	position: relative;
 }
-.area-bord .msg-cnt.msg-left .msg-inrTxt{
-  background: #f6e2df;
+.area-bord .msg-cnt.msg-left .msg-inrTxt {
+	background: #f6e2df;
 }
-.area-bord .msg-cnt.msg-left .msg-inrTxt > .triangle{
-  position: absolute;
-  left: -20px;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-right: 15px solid #f6e2df;
-  border-left: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+.area-bord .msg-cnt.msg-left .msg-inrTxt > .triangle {
+	position: absolute;
+	left: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 15px solid #f6e2df;
+	border-left: 10px solid transparent;
+	border-bottom: 10px solid transparent;
 }
-.area-bord .msg-cnt.msg-right{
-  float: right;
+.area-bord .msg-cnt.msg-right {
+	float: right;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt{
-  background: #d2eaf0;
-  margin: 0 25px 0 0;
+.area-bord .msg-cnt.msg-right .msg-inrTxt {
+	background: #d2eaf0;
+	margin: 0 25px 0 0;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt > .triangle{
-  position: absolute;
-  right: -20px;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-left: 15px solid #d2eaf0;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+.area-bord .msg-cnt.msg-right .msg-inrTxt > .triangle {
+	position: absolute;
+	right: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-left: 15px solid #d2eaf0;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid transparent;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt{
-  float: right;
+.area-bord .msg-cnt.msg-right .msg-inrTxt {
+	float: right;
 }
-.area-bord .msg-cnt.msg-right .avatar{
-  float: right;
+.area-bord .msg-cnt.msg-right .avatar {
+	float: right;
 }
 
 /*========================================
   商品詳細画面用
 ========================================*/
-.badge{
-  padding: 5px 10px;
-  color: white;
-  background: #7acee6;
-  margin-right: 10px;
-  font-size: 16px;
-  vertical-align: middle;
-  position: relative;
-  top: -4px;
+.badge {
+	padding: 5px 10px;
+	color: white;
+	background: #7acee6;
+	margin-right: 10px;
+	font-size: 16px;
+	vertical-align: middle;
+	position: relative;
+	top: -4px;
 }
-.title{
-  font-size: 28px;
-  padding: 10px 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.title {
+	font-size: 28px;
+	padding: 10px 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-.product-img-container{
-  overflow: hidden;
+.product-img-container {
+	overflow: hidden;
 }
-.product-img-container img{
-  width: 100%;
+.product-img-container img {
+	width: 100%;
 }
-.product-img-container .img-main{
-  width: 400px;
-  padding-right: 40px;
-  box-sizing: border-box;
-  margin: 20px auto;
+.product-img-container .img-main {
+	width: 400px;
+	padding-right: 40px;
+	box-sizing: border-box;
+	margin: 20px auto;
 }
-.product-img-container .img-sub{
-  width: 100%;
-  background: #f6f5f4;
-  padding: 15px;
-  box-sizing: border-box;
-  overflow: hidden;
+.product-img-container .img-sub {
+	width: 100%;
+	background: #f6f5f4;
+	padding: 15px;
+	box-sizing: border-box;
+	overflow: hidden;
 }
-.product-img-trim{
-  padding: 5px;
-  margin-left: 10%;
+.product-img-trim {
+	padding: 5px;
+	margin-left: 10%;
 }
-.product-img-container .img-sub:hover{
-  cursor: pointer;
+.product-img-container .img-sub:hover {
+	cursor: pointer;
 }
-.product-img-container .img-sub img{
-  margin-bottom: 15px;
+.product-img-container .img-sub img {
+	margin-bottom: 15px;
 }
-.product-img-container .img-sub img:last-child{
-  margin-bottom: 0;
+.product-img-container .img-sub img:last-child {
+	margin-bottom: 0;
 }
-.product-detail{
-  background: #f6f5f4;
-  padding: 15px;
-  margin-top: 15px;
-  min-height: 150px;
+.product-detail {
+	background: #f6f5f4;
+	padding: 15px;
+	margin-top: 15px;
+	min-height: 150px;
 }
-.product-buy{
-  overflow: hidden;
-  margin-top: 15px;
-  margin-bottom: 50px;
-  line-height: 50px;
+.product-buy {
+	overflow: hidden;
+	margin-top: 15px;
+	margin-bottom: 50px;
+	line-height: 50px;
 }
-.product-buy .item-left{
-  float: left;
+.product-buy .item-left {
+	float: left;
 }
-.product-buy .item-right{
-  float: right;
+.product-buy .item-right {
+	float: right;
 }
-.product-buy .price{
-  font-size: 32px;
-  margin-right: 30px;
+.product-buy .price {
+	font-size: 32px;
+	margin-right: 30px;
 }
 /* .product-buy .btn{
   border: none;
@@ -872,239 +882,239 @@ input[type="number"] {
   transition: all .3s ease;
 } */
 /* お気に入りアイコン */
-.icn-like{
-  color: #ddd;
-  position: absolute;
-  top: 25%;
-  left: 66%;
-  font-size: 28px;
+.icn-like {
+	color: #ddd;
+	position: absolute;
+	top: 25%;
+	left: 66%;
+	font-size: 28px;
 }
-.icn-like:hover{
-  cursor: pointer;
+.icn-like:hover {
+	cursor: pointer;
 }
-.icn-like.active{
-  float: right;
-  color: #fe8a8b;
+.icn-like.active {
+	float: right;
+	color: #fe8a8b;
 }
 
 /*================================
 /* プロフィール
 =================================*/
-.profImg-wrapp{
-  width: 100%;
+.profImg-wrapp {
+	width: 100%;
 }
-.form .prof-input-file{
-  height: 200px;
+.form .prof-input-file {
+	height: 200px;
 }
-.prof-area-drop{
-  height: 200px;
-  line-height: 200px;
-  width: 200px;
+.prof-area-drop {
+	height: 200px;
+	line-height: 200px;
+	width: 200px;
 }
 
 /*========================================
   連絡掲示板
 ========================================*/
-.msg-info{
-background: #f6f5f4;
-padding: 15px;
-overflow: hidden;
-margin-bottom: 15px;
+.msg-info {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
+	margin-bottom: 15px;
 }
-.msg-info .avatar{
-width: 80px;
-height: 80px;
-border-radius: 40px;
+.msg-info .avatar {
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
 }
-.msg-info .avatar-img{
-text-align: center;
-width: 100px;
-float: left;
+.msg-info .avatar-img {
+	text-align: center;
+	width: 100px;
+	float: left;
 }
-.msg-info .avatar-info{
-  float: left;
-  padding-left: 15px;
-  width: 500px;
+.msg-info .avatar-info {
+	float: left;
+	padding-left: 15px;
+	width: 500px;
 }
-.msg-info .product-info{
-  float: left;
-  padding-left: 15px;
-  width: 315px;
+.msg-info .product-info {
+	float: left;
+	padding-left: 15px;
+	width: 315px;
 }
 .msg-info .product-info .left,
-.msg-info .product-info .right{
-  float: left;
+.msg-info .product-info .right {
+	float: left;
 }
-.msg-info .product-info .right{
-  padding-left: 15px;
+.msg-info .product-info .right {
+	padding-left: 15px;
 }
-.msg-info .product-info .price{
-  display: inline-block;
+.msg-info .product-info .price {
+	display: inline-block;
 }
-.area-bord{
-  height: 500px;
-  overflow-y: scroll;
-  background: #f6f5f4;
-  padding: 15px;
+.area-bord {
+	height: 500px;
+	overflow-y: scroll;
+	background: #f6f5f4;
+	padding: 15px;
 }
-.area-send-msg{
-  background: #f6f5f4;
-  padding: 15px;
-  overflow: hidden;
+.area-send-msg {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
 }
-.area-send-msg textarea{
-  width:100%;
-  background: white;
-  height: 100px;
-  padding: 15px;
+.area-send-msg textarea {
+	width: 100%;
+	background: white;
+	height: 100px;
+	padding: 15px;
 }
-.area-send-msg .btn-send{
-  width: 150px;
-  float: right;
-  margin-top: 0;
+.area-send-msg .btn-send {
+	width: 150px;
+	float: right;
+	margin-top: 0;
 }
-.area-bord .msg-cnt{
-  width: 80%;
-  overflow: hidden;
-  margin-bottom: 30px;
+.area-bord .msg-cnt {
+	width: 80%;
+	overflow: hidden;
+	margin-bottom: 30px;
 }
-.area-bord .msg-cnt .avatar{
-  width: 5.7%;
-  overflow: hidden;
-  float: left;
+.area-bord .msg-cnt .avatar {
+	width: 5.7%;
+	overflow: hidden;
+	float: left;
 }
-.area-bord .msg-cnt .avatar img{
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  float: left;
+.area-bord .msg-cnt .avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	float: left;
 }
-.area-bord .msg-cnt .msg-inrTxt{
-  width: 85%;
-  float: left;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 0 0 0 25px;
-  position: relative;
+.area-bord .msg-cnt .msg-inrTxt {
+	width: 85%;
+	float: left;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 0 0 25px;
+	position: relative;
 }
-.area-bord .msg-cnt.msg-left .msg-inrTxt{
-  background: #f6e2df;
+.area-bord .msg-cnt.msg-left .msg-inrTxt {
+	background: #f6e2df;
 }
-.area-bord .msg-cnt.msg-left .msg-inrTxt > .triangle{
-  position: absolute;
-  left: -20px;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-right: 15px solid #f6e2df;
-  border-left: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+.area-bord .msg-cnt.msg-left .msg-inrTxt > .triangle {
+	position: absolute;
+	left: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 15px solid #f6e2df;
+	border-left: 10px solid transparent;
+	border-bottom: 10px solid transparent;
 }
-.area-bord .msg-cnt.msg-right{
-  float: right;
+.area-bord .msg-cnt.msg-right {
+	float: right;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt{
-  background: #d2eaf0;
-  margin: 0 25px 0 0;
+.area-bord .msg-cnt.msg-right .msg-inrTxt {
+	background: #d2eaf0;
+	margin: 0 25px 0 0;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt > .triangle{
-  position: absolute;
-  right: -20px;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-left: 15px solid #d2eaf0;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+.area-bord .msg-cnt.msg-right .msg-inrTxt > .triangle {
+	position: absolute;
+	right: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-left: 15px solid #d2eaf0;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid transparent;
 }
-.area-bord .msg-cnt.msg-right .msg-inrTxt{
-  float: right;
+.area-bord .msg-cnt.msg-right .msg-inrTxt {
+	float: right;
 }
-.area-bord .msg-cnt.msg-right .avatar{
-  float: right;
+.area-bord .msg-cnt.msg-right .avatar {
+	float: right;
 }
-.empty-msg{
-  display: none;
+.empty-msg {
+	display: none;
 }
 
 /*================================
 /* マイページレイアウト
 =================================*/
-.title-header{
-  margin-right: 15px;
+.title-header {
+	margin-right: 15px;
 }
-.mypage-sidebar{
-  float: left;
-  box-sizing: border-box;
-  margin-left: 20px;
-  padding: 20px;
-  min-height: 600px;
-  width: 200px;
-  background: #f0efe9;
+.mypage-sidebar {
+	float: left;
+	box-sizing: border-box;
+	margin-left: 20px;
+	padding: 20px;
+	min-height: 600px;
+	width: 200px;
+	background: #f0efe9;
 }
-.sidebar-link{
-  display: block;
-  margin-bottom: 20px;
-  position: relative;
+.sidebar-link {
+	display: block;
+	margin-bottom: 20px;
+	position: relative;
 }
-.sidebar-link::after{
-  position: absolute;
-  content: '';
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 1px;
-  background: #333;
-  transition: all .3s ease;
+.sidebar-link::after {
+	position: absolute;
+	content: "";
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 1px;
+	background: #333;
+	transition: all 0.3s ease;
 }
-.sidebar-link:hover::after{
-  width: 100%;
+.sidebar-link:hover::after {
+	width: 100%;
 }
 .mypage-sidebar .title {
-  text-align: left;
-  font-size: 14px;
+	text-align: left;
+	font-size: 14px;
 }
 
 /*========================================
   フッター
 ========================================*/
-.sitemap{
-  list-style: none;
-  margin-bottom: 20px;
-  overflow: hidden;
-  text-align: center;
+.sitemap {
+	list-style: none;
+	margin-bottom: 20px;
+	overflow: hidden;
+	text-align: center;
 }
-.footer-item{
-  display: inline-block;
-  margin-left: 20px;
+.footer-item {
+	display: inline-block;
+	margin-left: 20px;
 }
 
 /*========================================
   画像の切り取り
 ========================================*/
-.trim{
-  overflow: hidden;
-  width: 180px;/* トリミングしたい枠の幅 */
-  height: 200px;/* トリミングしたい枠の高さ */
-  position: relative;
-  float: left;
+.trim {
+	overflow: hidden;
+	width: 180px; /* トリミングしたい枠の幅 */
+	height: 200px; /* トリミングしたい枠の高さ */
+	position: relative;
+	float: left;
 }
-.trim img{
-  position: absolute;
-  top: 50%;
-  left: 48%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: auto;
+.trim img {
+	position: absolute;
+	top: 50%;
+	left: 48%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: auto;
 }
 
 /*========================================
   その他パーツ
 ========================================*/
-.u-line{
-  margin-top: 25px;
-  margin-bottom: 20px;
-  border-top: 1px solid#707070;
+.u-line {
+	margin-top: 25px;
+	margin-bottom: 20px;
+	border-top: 1px solid#707070;
 }

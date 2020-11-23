@@ -1,6 +1,7 @@
-/node_modules
+node_modules/
 package-lock.json
 .vscode/
 debug.log
-/dist/logs/
+dist/logs/
+dist/uploads/
 /dist/env.php

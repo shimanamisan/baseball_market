@@ -144,7 +144,43 @@ $(function () {
 
   // scrollHeightは要素のスクロールビューの高さを取得するもの
   $("#js-scroll-bottom").animate({ scrollTop: $("#js-scroll-bottom")[0].scrollHeight }, "fast");
+
+  /****************************************
+  リンク内のスムーズスクロール
+  *****************************************/
+  // #で始まるhref属性のリンクをクリックした際に処理を実行
+  $('a[href^="#"]').on("click", function(){
+    // クリックした要素のhref属性を取得
+    let href = $(this).attr("href");
+
+    // 条件：上記で取得したhref属性が # かつ 空文字 であれば "html" と言う文字列を返す。そうでなければ取得してきたhtml属性を返す
+    // したがって、条件がtrueだったら "html" が返ってくるので $("html") と言うエレメントを入れていることになる
+    // 条件がfalseであれば $(this).attr("href") で取得したエレメントが入ってくる
+    let target = $(href == "#" || href === "" ? "html" : href);
+    // documentを起点として要素の座標を取得
+    let position = target.offset().top;
+    $("body, html").animate({
+      scrollTop: position // 移動先の要素の座標
+    }, 500);
+    return false; // aタグの画面遷移を止める
+  })
+
 });
+
+
+  /****************************************
+  かんたんログイン
+  *****************************************/
+  let $inputEmail = $(".js-guest-email");
+  let $inputPass = $(".js-guest-password");
+  let $guestLogin = $(".js-guest-login");
+
+  $guestLogin.on("click", function(e){
+    e.preventDefault();
+    $inputEmail.val("test01@mail.com");
+    $inputPass.val("opassword");
+  })
+
 
 // ここはネイティブJSの処理
 // 退会時の確認ダイアログ
