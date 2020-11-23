@@ -178,7 +178,7 @@ $(function () {
   $guestLogin.on("click", function(e){
     e.preventDefault();
     $inputEmail.val("test01@mail.com");
-    $inputPass.val("opassword");
+    $inputPass.val("password");
   })
 
 
