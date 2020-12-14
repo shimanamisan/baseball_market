@@ -947,7 +947,7 @@ function pagination($currentPageNum, $totalPageNum, $maker = '', $category = '',
 function showImg($path)
 {
     if (empty($path)) {
-        return 'img/sample-img.png';
+        return 'img/no_img.png';
     } else {
         return $path;
     }
